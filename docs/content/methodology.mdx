@@ -64,7 +64,15 @@ Usage costs come from API-reported figures. They are not reconciled billing or g
 
 Complexity buckets are authored estimates of the reasoning a case requires: local checks, transformations, or interactions between rules. They are registered against a frozen fixture before inspecting the scored outputs. These labels are descriptive, not executable ground truth. Task, reference length, and bucket membership can overlap, so bucket differences do not establish a causal effect of complexity.
 
-A presentation comparison repeats the same underlying cases with different reference formats. Compare the formats on matched cases; repeated views are not additional independent questions. Focused code removes unrelated declarations and TypeScript annotations, while English contracts state behavior in prose. These formats also differ in length and explicitness. Executable replay can verify code equivalence; prose fidelity requires review.
+A presentation comparison repeats the same underlying cases while changing the reference supplied to the model:
+
+- **Full source:** the entire frozen TypeScript module.
+- **Focused code:** the relevant function and required helpers, without unrelated declarations or TypeScript type annotations.
+- **Written rules:** an authored plain-English description of the function’s behavior, including relevant edge cases and errors, used in place of code.
+
+The written rules were reviewed against the frozen source and reused across each function’s cases. They were not the answer key: expected answers still came from executing the source. See the [report’s concrete example](doc:report.2026-10-30) and [full rule contracts](https://github.com/shoalrun/decision-bench/blob/main/analysis/presentation-rules-v1.json).
+
+Compare the formats on matched cases; repeated views are not additional independent questions. Formats differ in length and how explicitly they state runtime behavior, so a gain does not establish that English alone is better than code. Executable replay verifies full/focused equivalence on the cases; prose fidelity requires review.
 
 ## Verify the answers
 

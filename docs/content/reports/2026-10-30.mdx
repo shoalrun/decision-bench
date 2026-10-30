@@ -11,7 +11,7 @@ access: { policy: public }
 
 **30 October 2026**
 
-**This evaluation tests source-code behavior, not documentation search or question answering.** Models predict what eight supplied Shoalrun functions do with concrete inputs. We execute the frozen code to establish the correct answers. Models receive code or written rules directly; they have no repository or documentation-site access.
+**This evaluation tests source-code behavior, not documentation search or question answering.** Models predict what eight supplied Shoalrun functions do with concrete inputs. We execute the frozen code to establish the correct answers. Models receive code or written rules (plain-English descriptions of the code’s behavior) directly; they have no repository or documentation-site access.
 
 Mammoth led overall on these code-grounded decisions. Cheaper models showed useful task-specific results, especially with explicit written rules: Elephant matched Mammoth when splitting search queries into searchable units and resolving a page’s filter values, at lower measured cost. Joey was cheapest, but its yes/no decisions were weak at the fixed cutoff: a “yes” probability of at least 50% means “yes”; anything lower means “no”.
 
@@ -77,7 +77,19 @@ Complexity is not a universal difficulty ladder: several models scored higher on
 
 ## Reference format changes the result
 
-A matched comparison supplied each of the 400 synonym/reader cases in three formats: **full** source module, **focused** JavaScript containing only the relevant function and helpers, with the same executed outcomes, and reviewed **written rules**. Questions, inputs, choices, and known answers stayed fixed. Requests using the three formats were mixed in a fixed order within each run. The table shows the same 200 test cases per format (120 `noul`, 80 `choice`); these are repeated views, not 600 independent questions.
+A matched comparison supplied each of the 400 synonym/reader cases with one of three references. The reference is the material the model reads to determine how the function behaves:
+
+- **Full source:** the entire frozen TypeScript module, including unrelated functions and type declarations.
+- **Focused code:** only the relevant function and the helpers it needs, with TypeScript type annotations removed. Executing this JavaScript produced the same outcomes as the full source on all 400 cases.
+- **Written rules:** a plain-English description of the function’s behavior, including relevant edge cases and error conditions, supplied instead of code. These function-level descriptions were authored and reviewed against the frozen source and reused across the function’s cases.
+
+For example, part of the actual written contract for reader defaults says:
+
+> Explicit lists replace default lists for the same facet. Remove all entries whose list length is zero; do not restore a default after an empty explicit list removes it.
+
+Here, a facet is a filter category such as audience or product. The [full written contracts](https://github.com/shoalrun/decision-bench/blob/main/analysis/presentation-rules-v1.json) are available in the repository. **The correct answers still came from executing the frozen source. The written rules were input to the evaluated model, not an answer key or a judge.**
+
+Questions, inputs, choices, and known answers stayed fixed. Requests using the three formats were mixed in a fixed order within each run. The table shows the same 200 test cases per format (120 `noul`, 80 `choice`); these are repeated views, not 600 independent questions.
 
 | Model | Full source | Focused code | Written rules | Rules median | Rules cost per 1,000 calls |
 |---|---:|---:|---:|---:|---:|

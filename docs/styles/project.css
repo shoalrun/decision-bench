@@ -1,0 +1,11 @@
+/* Use the available reading column consistently for prose, tables, and code. */
+.layout:not(.has-examples) .content article {
+  max-width: none;
+}
+.content {
+  --prose-max-width: 100%;
+}
+/* Give the article more room while preserving navigation and the outline. */
+.layout:not(.has-examples) {
+  column-gap: clamp(1rem, 2vw, 2rem);
+}

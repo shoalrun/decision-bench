@@ -3,9 +3,10 @@ site:
   title: Decision Bench
   origin: https://shoalrun.github.io
   basePath: /decision-bench
+  customCss: ./styles/project.css
   header:
     links:
-      - { label: GitHub, href: "https://github.com/shoalrun/decision-bench" }
+      - { label: GitHub, href: "https://github.com/shoalrun/decision-bench", style: button }
 theme:
   preset: ledger
   palette: ink
