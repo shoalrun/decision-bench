@@ -1,0 +1,1547 @@
+{
+  "schema_version": 1,
+  "name": "schema-transport-test-v1",
+  "label_origin": "Authored schema and transport test labels; not executable known-answer evidence and not used in reported evaluations.",
+  "scope": "Answerability means supported by the supplied excerpts, not supported anywhere in Shoalrun.",
+  "split_policy": "Search and snippet groups are dev; metadata, hosting and retrieval are test. Paraphrases and task variants stay together.",
+  "passages": {
+    "p01": {
+      "text": "## Turn search off\n\nSet the provider to `none` to remove the browser search box and its page index:\n\n```yaml title=\"docs.config.yaml\"\noutputs:\n  html:\n    search:\n      provider: none\n```\n\nThis removes both the reader search box and its index, so the local search command has nothing to query. Markdown twins, `/llms.txt`, and `/documents.json` do not change with the provider. Agents can still discover and fetch pages, but `shoalrun search` cannot query a missing `search-index.json`. The passage index and semantic endpoint are independent of this browser setting. Changing it does not remove those artifacts or disable a deployed endpoint.\n",
+      "sha256": "75278882ae4e3b8d365f084dcfd568ead6e11850089bc9ce9c8242e76db6de21",
+      "source": {
+        "repository": "https://github.com/shoalrun/shoalrun",
+        "commit": "6f59004f4e9323ef1de171caa233e59a01fb982d",
+        "path": "framework/agent-docs/author/search.md",
+        "section": "Turn search off",
+        "file_sha256": "8156b45dd94f213d16fce7f9a253531e7be66eba5004111dabd6d832120dc031",
+        "license": "Apache-2.0"
+      }
+    },
+    "p02": {
+      "text": "## Write a custom provider\n\nA provider is one ES module. It must export `search`, and it can export `prepare`:\n\n```js title=\"search/hosted.js\"\nconst endpoint = 'https://search.example.com/query';\n\n// Optional. Runs when the reader first focuses the box.\nexport async function prepare({ language }) {\n  await fetch(`${endpoint}/warm?language=${language}`);\n}\n\nexport async function search(query, { language, limit, signal }) {\n  const params = new URLSearchParams({ q: query, language, limit: String(limit) });\n  const response = await fetch(`${endpoint}?${params}`, { signal });\n  if (!response.ok) throw new Error(`Search failed: ${response.status}`);\n  const { hits } = await response.json();\n  return hits.map(hit => ({ url: hit.path, title: hit.title, summary: hit.snippet }));\n}\n```\n\nRegister the module in the config:\n\n```yaml title=\"docs.config.yaml\"\noutputs:\n  html:\n    search:\n      provider: custom\n      module: ./search/hosted.js\n```\n\nThe `module` path resolves from the config file that declares it. The module is a build dependency, so a rebuild picks up changes.\n\n### Search context\n\nThe search box passes a context object to both functions.\n\n| Field             | Value                                                                                                                                                     |\n| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| `variant`         | The page's channel, version, and language, joined by `\\|`, such as `production\\|current\\|en`.                                                             |\n| `language`        | The page's `lang` value.                                                                                                                                  |\n| `indexUrl`        | The base-path-prefixed `/search-index.json` URL. The file exists only when the build writes an index.                                                     |\n| `limit`           | The maximum number of results the box shows.                                                                                                              |\n| `signal`          | An `AbortSignal`, passed to `search` only. It aborts when the reader types again.                                                                         |\n| `readerSelection` | The active reader view as facet IDs mapped to arrays of choice IDs. An empty object means show all. Custom providers must use it to filter their results. |\n\nPass `signal` to `fetch` so stale requests stop. The box ignores results from an aborted search.\n\n### Search results\n\n`search` returns an array, or a promise of one. Each result is an object:\n\n| Field     | Required | Value                                                                      |\n| --------- | -------- | -------------------------------------------------------------------------- |\n| `url`     | Yes      | A site-root path or `http(s)` URL. Add `#heading-id` to link to a section. |\n| `title`   | Yes      | The page title.                                                            |\n| `summary` | No       | One line of supporting text.                                               |\n| `section` | No       | A section title, shown after the page title.                               |\n\nThe box drops results without a valid `url` and `title`, and it keeps the first `limit` results. It escapes all text and highlights query terms itself. If `search` throws, the box shows \"Search is unavailable right now.\"\n\n### Module limits\n\nThe build copies one file. It does not copy files that the module imports with relative paths. Bundle the provider into one file, or import dependencies from absolute URLs.\n",
+      "sha256": "d9aaa3329464015a43131ad3f7abdfbb4d875e91037da74e68e38a4a49b19a4b",
+      "source": {
+        "repository": "https://github.com/shoalrun/shoalrun",
+        "commit": "6f59004f4e9323ef1de171caa233e59a01fb982d",
+        "path": "framework/agent-docs/author/search.md",
+        "section": "Write a custom provider",
+        "file_sha256": "8156b45dd94f213d16fce7f9a253531e7be66eba5004111dabd6d832120dc031",
+        "license": "Apache-2.0"
+      }
+    },
+    "p03": {
+      "text": "## See a variable resolve\n\nThe example project has a second snippet with two variables:\n\n```yaml filename=\"example/config/snippets.yaml\"\npayment.request-prep:\n  file: ../snippets/request-prep.mdx\n  variables:\n    product: { type: string, required: true }\n    header: { type: string, default: Idempotency-Key }\n```\n\nIts source file contains ordinary MDX prose:\n\n```mdx filename=\"example/snippets/request-prep.mdx\"\nFor <Var name=\"product\" /> requests, choose a unique\n<Var name=\"header\" /> and provide the amount in minor currency units.\n```\n\nThe guide supplies `product` and leaves `header` at its declared default:\n\n```mdx filename=\"example/content/create-payment-guide.mdx\"\n<Snippet id=\"payment.request-prep\" values={{ product: \"Payments\" }} />\n```\n\nReaders and agents get resolved text in their respective page formats:\n\n> For Payments requests, choose a unique Idempotency-Key and provide the amount in minor currency units.\n\nThe real snippet also includes a nested retry note. It inherits `product` from the outer snippet. See `example/snippets/request-prep.mdx` and `example/content/create-payment-guide.mdx` in the repository.\n\nThis page uses that snippet below, so the published HTML and Markdown exercise the same expansion.\n\n> **Check the result:** Run npm test after editing. Confirm the HTML page and Markdown twin contain the same resolved snippet text.\n\nValues can be strings, numbers, or booleans. A variable can also list allowed values with `enum`, such as `tier: { type: string, enum: [free, pro] }`; its `default` must be one of them.\n\nSnippet defaults, project variables, page variables, and invocation values apply in that order. Set project variables in the top-level `variables` mapping of `docs.config.yaml`, and page variables in a page's `variables` frontmatter:\n\n```yaml title=\"docs.config.yaml\"\nvariables:\n  product: Payments\n```\n\nUnknown names, missing required values, wrong types, and recursive includes stop the build. The document manifest lists snippet IDs used by each page.\n\nFor this slice, snippets use inline `<Var />` in prose. Code blocks are never changed by string replacement. Put headings in the page, and use absolute or `doc:` links inside snippets. These limits avoid ambiguous anchors and broken relative links until their adapters are built.\n",
+      "sha256": "01f87155f2851b9914e6b4b2ea2fb64d851b50ac4962bf712f2fdce290bfd1a7",
+      "source": {
+        "repository": "https://github.com/shoalrun/shoalrun",
+        "commit": "6f59004f4e9323ef1de171caa233e59a01fb982d",
+        "path": "framework/agent-docs/author/snippets.md",
+        "section": "See a variable resolve",
+        "file_sha256": "156e2660850d9bb9a45bef1c28c9deae7a646e5c07844fe81368dea4ca18278e",
+        "license": "Apache-2.0"
+      }
+    },
+    "p04": {
+      "text": "## HTML, Markdown, and agents\n\nThe build expands snippets and variables into the containing page before rendering HTML and Markdown. Agents read the resolved text, not a `Snippet` or `Var` instruction to execute. Components inside a snippet retain their own output behavior; for example, an interactive control can become ordinary text in Markdown. Verify the including page in both formats after changing shared content.\n",
+      "sha256": "6bb3d978e1081a5b3d41b3f62edf9c8e12fde37914036e4513427a368b1eace0",
+      "source": {
+        "repository": "https://github.com/shoalrun/shoalrun",
+        "commit": "6f59004f4e9323ef1de171caa233e59a01fb982d",
+        "path": "framework/agent-docs/author/snippets.md",
+        "section": "HTML, Markdown, and agents",
+        "file_sha256": "156e2660850d9bb9a45bef1c28c9deae7a646e5c07844fe81368dea4ca18278e",
+        "license": "Apache-2.0"
+      }
+    },
+    "p05": {
+      "text": "## Identify and route a page\n\nUse the page ID for links and cards that should survive a URL change. The slug supplies the page part of the URL; publication prefixes may be added around it. Summary is short preview text; description is a separate, optional fuller account. Project output rules choose which field supplies each surface.\n\n| Field         | Type   | Needed            | What it changes                                                                              |\n| ------------- | ------ | ----------------- | -------------------------------------------------------------------------------------------- |\n| `id`          | string | On each page      | Stable page identity used by document links and cards; keep it when the file or URL changes. |\n| `title`       | string | After inheritance | Page heading and default browser title.                                                      |\n| `summary`     | string | After inheritance | Short page preview, used by cards and other configured text surfaces.                        |\n| `description` | string | Optional          | Fuller description of what the page covers; kept distinct from the short summary.            |\n| `type`        | string | After inheritance | Document kind, such as guide or api-reference; can select a Markdown metadata profile.       |\n| `slug`        | string | On each page      | Page URL path before channel, version, and language prefixes.                                |\n",
+      "sha256": "d7a2390a4e24750939f1ded6e32c1120330fa1514a7aa12c3eb18045c838b1da",
+      "source": {
+        "repository": "https://github.com/shoalrun/shoalrun",
+        "commit": "6f59004f4e9323ef1de171caa233e59a01fb982d",
+        "path": "framework/agent-docs/author/frontmatter-reference.sections/identify-and-route-a-page.md",
+        "section": "Identify and route a page",
+        "file_sha256": "ef9c6961ce73fad5f1793c73bc93a30de14678680a7db1f4438c7a2199324d27",
+        "license": "Apache-2.0"
+      }
+    },
+    "p06": {
+      "text": "## Choose a publication and visibility\n\nThe project enables specific channel/version/language combinations. A page is built only for combinations matching its resolved values. `audiences` and `readerFilters` select reader views when the site config enables them; `access.policy` determines whether the page enters this public build. A draft page is excluded.\n\n| Field           | Type   | Needed      | What it changes                                                                                                                |\n| --------------- | ------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------ |\n| `channel`       | string | Public page | Publication environment, such as sandbox or production; selects an enabled publication and API source.                         |\n| `version`       | string | Public page | API or documentation edition, such as v1; selects an enabled publication and API source.                                       |\n| `language`      | string | Optional    | Content language; uses frontmatter defaults/enforced values, then publications.defaults.language, then en.                     |\n| `locale`        | string | Optional    | Formatting conventions used in the content; can inherit a project locale for the page language and can be overridden per page. |\n| `access`        | object | Public page | Controls whether the page enters a public build; this object is not exported to Markdown metadata.                             |\n| `access.policy` | string | With access | Use public to publish this page; draft pages are excluded from the built site.                                                 |\n| `audiences`     | array  | Optional    | Readers this page is intended for; does not control who can access it.                                                         |\n| `readerFilters` | object | Optional    | Configured reader filter choices for this page. Missing facets are shared.                                                     |\n\nLanguage is the content language and selects a publication. Locale describes formatting conventions in the content and does not select a publication. `frontmatter.locales` can set a project locale for each language; pages may override it.\n",
+      "sha256": "229149c979d096b5fa683b452abcfcbc11a57fc165a7f0d4de7db8348ac7a26c",
+      "source": {
+        "repository": "https://github.com/shoalrun/shoalrun",
+        "commit": "6f59004f4e9323ef1de171caa233e59a01fb982d",
+        "path": "framework/agent-docs/author/frontmatter-reference.sections/choose-a-publication-and-visibility.md",
+        "section": "Choose a publication and visibility",
+        "file_sha256": "738ac7b9d18ad426ac3ee2a5fe3acd3cd8562949a0cd81cdb2a42a8703c25afc",
+        "license": "Apache-2.0"
+      }
+    },
+    "p07": {
+      "text": "## What if the host cannot negotiate?\n\nGitHub Pages can publish Shoalrun's HTML, `.md` files, and `/llms.txt`. It serves static files and has no request handler for choosing a file from `Accept` or setting the page response headers described above. Agents can still read the `.md` URLs, but a request to the HTML URL cannot negotiate there. A programmable proxy or CDN can add that behavior. You can also publish the same built files on a host with request rules. Bare GitHub Pages cannot pass AFDocs' content-negotiation check.\n\n`site.basePath` also prefixes assets, API contracts, `/llms.txt`, and discovery files. For a GitHub Pages project site at `/<repository>/`, set `site.basePath: /<repository>` and publish the matching subtree from the build output as the project site's root. GitHub Pages still cannot provide Markdown content negotiation at an HTML URL.\n",
+      "sha256": "26c2cb9a0d675ee1fab466c7e371401601487427689de955e2fcaaaf451ad9b1",
+      "source": {
+        "repository": "https://github.com/shoalrun/shoalrun",
+        "commit": "6f59004f4e9323ef1de171caa233e59a01fb982d",
+        "path": "framework/agent-docs/publish/content-negotiation.sections/what-if-the-host-cannot-negotiate.md",
+        "section": "What if the host cannot negotiate?",
+        "file_sha256": "84cae01968586bb0f10549c0b2579dcbecc8afb76a3885fdd71e5258f88e8e84",
+        "license": "Apache-2.0"
+      }
+    },
+    "p08": {
+      "text": "## Configure retrieval\n\n`retrieval.embeddings` supplies embeddings for passage indexing, semantic queries, and hosted chat builds. Choose a provider and model when you need meaning-based retrieval.\n\n```yaml title=\"docs.config.yaml\"\nretrieval:\n  embeddings:\n    provider: voyage\n    model: voyage-4-large\n    dimension: 1024\n    queryModel: voyage-4-lite\n```\n\nTo use OpenAI's embeddings, or a server that copies its API, such as Ollama, vLLM, or a LiteLLM proxy, name the `openai` provider:\n\n```yaml title=\"docs.config.yaml\"\nretrieval:\n  embeddings:\n    provider: openai\n    model: text-embedding-3-small\n    keyEnv: OPENAI_API_KEY\n```\n\n| Key          | Meaning                                                                                                                                   |\n| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |\n| `provider`   | Required. `voyage` or `openai`.                                                                                                           |\n| `model`      | Required. The embedding model ID.                                                                                                         |\n| `dimension`  | The vector size. Voyage accepts 256, 512, 1024, or 2048. Other models need it unless Shoalrun knows the model's size.                     |\n| `queryModel` | The model that embeds queries. It must share an embedding space with `model`, as the Voyage 4 models do. Without it, queries use `model`. |\n| `baseUrl`    | `openai` only. An OpenAI-style server, such as `http://localhost:11434/v1` for Ollama.                                                    |\n| `keyEnv`     | The name of the environment variable that holds the key. It defaults to `VOYAGE_API_KEY` or `OPENAI_API_KEY`.                             |\n\nThe config never holds a key. A key setting fails validation, and `keyEnv` fails if its value isn't a variable name. Command-line flags on `shoalrun index` override these settings. See [Passage index](https://www.shoalrun.com/chat/passage-index.md) for the files that `--embed` writes.\n",
+      "sha256": "fdba0a76ebbf24bb66e042d3b6a8c19aa54fbb8abe2ddd49ba7e716b1d87c232",
+      "source": {
+        "repository": "https://github.com/shoalrun/shoalrun",
+        "commit": "6f59004f4e9323ef1de171caa233e59a01fb982d",
+        "path": "framework/agent-docs/chat/settings.sections/configure-retrieval.md",
+        "section": "Configure retrieval",
+        "file_sha256": "a1ca007a9dedecc4cfcf120e7eab4b6e65c80af691a4bfd124f3a9ba686b0a8d",
+        "license": "Apache-2.0"
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "search-off-1-present-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "How do I remove the browser search box and its index?",
+      "candidates": [
+        "p01",
+        "p08",
+        "p06",
+        "p03"
+      ],
+      "expected": "p01",
+      "rationale": "The frozen Turn search off section directly addresses this question."
+    },
+    {
+      "id": "search-off-1-present-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "How do I remove the browser search box and its index?",
+      "candidates": [
+        "p01",
+        "p08",
+        "p06",
+        "p03"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Turn search off section directly addresses this question."
+    },
+    {
+      "id": "search-off-1-absent-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "How do I remove the browser search box and its index?",
+      "candidates": [
+        "p03",
+        "p06",
+        "p08",
+        "p04"
+      ],
+      "expected": "none",
+      "rationale": "The Turn search off section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "search-off-1-absent-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "How do I remove the browser search box and its index?",
+      "candidates": [
+        "p03",
+        "p06",
+        "p08",
+        "p04"
+      ],
+      "expected": "no",
+      "rationale": "The Turn search off section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "search-off-2-present-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "If I set the browser search provider to none, can agents still fetch Markdown pages?",
+      "candidates": [
+        "p03",
+        "p05",
+        "p04",
+        "p01"
+      ],
+      "expected": "p01",
+      "rationale": "The frozen Turn search off section directly addresses this question."
+    },
+    {
+      "id": "search-off-2-present-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "If I set the browser search provider to none, can agents still fetch Markdown pages?",
+      "candidates": [
+        "p03",
+        "p05",
+        "p04",
+        "p01"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Turn search off section directly addresses this question."
+    },
+    {
+      "id": "search-off-2-absent-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "If I set the browser search provider to none, can agents still fetch Markdown pages?",
+      "candidates": [
+        "p04",
+        "p05",
+        "p03",
+        "p08"
+      ],
+      "expected": "none",
+      "rationale": "The Turn search off section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "search-off-2-absent-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "If I set the browser search provider to none, can agents still fetch Markdown pages?",
+      "candidates": [
+        "p04",
+        "p05",
+        "p03",
+        "p08"
+      ],
+      "expected": "no",
+      "rationale": "The Turn search off section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "search-off-3-present-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "Does turning browser search off also disable the deployed semantic endpoint?",
+      "candidates": [
+        "p01",
+        "p07",
+        "p08",
+        "p03"
+      ],
+      "expected": "p01",
+      "rationale": "The frozen Turn search off section directly addresses this question."
+    },
+    {
+      "id": "search-off-3-present-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "Does turning browser search off also disable the deployed semantic endpoint?",
+      "candidates": [
+        "p01",
+        "p07",
+        "p08",
+        "p03"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Turn search off section directly addresses this question."
+    },
+    {
+      "id": "search-off-3-absent-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "Does turning browser search off also disable the deployed semantic endpoint?",
+      "candidates": [
+        "p08",
+        "p03",
+        "p04",
+        "p07"
+      ],
+      "expected": "none",
+      "rationale": "The Turn search off section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "search-off-3-absent-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "Does turning browser search off also disable the deployed semantic endpoint?",
+      "candidates": [
+        "p08",
+        "p03",
+        "p04",
+        "p07"
+      ],
+      "expected": "no",
+      "rationale": "The Turn search off section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "custom-provider-1-present-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "How do I register my own browser search module?",
+      "candidates": [
+        "p02",
+        "p04",
+        "p06",
+        "p07"
+      ],
+      "expected": "p02",
+      "rationale": "The frozen Write a custom provider section directly addresses this question."
+    },
+    {
+      "id": "custom-provider-1-present-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "How do I register my own browser search module?",
+      "candidates": [
+        "p02",
+        "p04",
+        "p06",
+        "p07"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Write a custom provider section directly addresses this question."
+    },
+    {
+      "id": "custom-provider-1-absent-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "How do I register my own browser search module?",
+      "candidates": [
+        "p06",
+        "p04",
+        "p07",
+        "p03"
+      ],
+      "expected": "none",
+      "rationale": "The Write a custom provider section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "custom-provider-1-absent-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "How do I register my own browser search module?",
+      "candidates": [
+        "p06",
+        "p04",
+        "p07",
+        "p03"
+      ],
+      "expected": "no",
+      "rationale": "The Write a custom provider section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "custom-provider-2-present-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "What functions does a custom search provider export?",
+      "candidates": [
+        "p07",
+        "p05",
+        "p04",
+        "p02"
+      ],
+      "expected": "p02",
+      "rationale": "The frozen Write a custom provider section directly addresses this question."
+    },
+    {
+      "id": "custom-provider-2-present-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "What functions does a custom search provider export?",
+      "candidates": [
+        "p07",
+        "p05",
+        "p04",
+        "p02"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Write a custom provider section directly addresses this question."
+    },
+    {
+      "id": "custom-provider-2-absent-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "What functions does a custom search provider export?",
+      "candidates": [
+        "p07",
+        "p05",
+        "p08",
+        "p04"
+      ],
+      "expected": "none",
+      "rationale": "The Write a custom provider section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "custom-provider-2-absent-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "What functions does a custom search provider export?",
+      "candidates": [
+        "p07",
+        "p05",
+        "p08",
+        "p04"
+      ],
+      "expected": "no",
+      "rationale": "The Write a custom provider section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "custom-provider-3-present-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "Does Shoalrun copy relative imports used by a custom search provider module?",
+      "candidates": [
+        "p02",
+        "p07",
+        "p05",
+        "p04"
+      ],
+      "expected": "p02",
+      "rationale": "The frozen Write a custom provider section directly addresses this question."
+    },
+    {
+      "id": "custom-provider-3-present-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "Does Shoalrun copy relative imports used by a custom search provider module?",
+      "candidates": [
+        "p02",
+        "p07",
+        "p05",
+        "p04"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Write a custom provider section directly addresses this question."
+    },
+    {
+      "id": "custom-provider-3-absent-evidence",
+      "task": "evidence",
+      "group": "search",
+      "split": "dev",
+      "query": "Does Shoalrun copy relative imports used by a custom search provider module?",
+      "candidates": [
+        "p07",
+        "p04",
+        "p05",
+        "p03"
+      ],
+      "expected": "none",
+      "rationale": "The Write a custom provider section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "custom-provider-3-absent-answerability",
+      "task": "answerability",
+      "group": "search",
+      "split": "dev",
+      "query": "Does Shoalrun copy relative imports used by a custom search provider module?",
+      "candidates": [
+        "p07",
+        "p04",
+        "p05",
+        "p03"
+      ],
+      "expected": "no",
+      "rationale": "The Write a custom provider section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-variables-1-present-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "In what order do snippet defaults, project, page, and invocation variables apply?",
+      "candidates": [
+        "p08",
+        "p01",
+        "p03",
+        "p02"
+      ],
+      "expected": "p03",
+      "rationale": "The frozen See a variable resolve section directly addresses this question."
+    },
+    {
+      "id": "snippet-variables-1-present-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "In what order do snippet defaults, project, page, and invocation variables apply?",
+      "candidates": [
+        "p08",
+        "p01",
+        "p03",
+        "p02"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen See a variable resolve section directly addresses this question."
+    },
+    {
+      "id": "snippet-variables-1-absent-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "In what order do snippet defaults, project, page, and invocation variables apply?",
+      "candidates": [
+        "p06",
+        "p01",
+        "p08",
+        "p02"
+      ],
+      "expected": "none",
+      "rationale": "The See a variable resolve section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-variables-1-absent-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "In what order do snippet defaults, project, page, and invocation variables apply?",
+      "candidates": [
+        "p06",
+        "p01",
+        "p08",
+        "p02"
+      ],
+      "expected": "no",
+      "rationale": "The See a variable resolve section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-variables-2-present-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "What happens if a snippet receives the wrong variable type?",
+      "candidates": [
+        "p03",
+        "p06",
+        "p01",
+        "p05"
+      ],
+      "expected": "p03",
+      "rationale": "The frozen See a variable resolve section directly addresses this question."
+    },
+    {
+      "id": "snippet-variables-2-present-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "What happens if a snippet receives the wrong variable type?",
+      "candidates": [
+        "p03",
+        "p06",
+        "p01",
+        "p05"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen See a variable resolve section directly addresses this question."
+    },
+    {
+      "id": "snippet-variables-2-absent-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "What happens if a snippet receives the wrong variable type?",
+      "candidates": [
+        "p01",
+        "p08",
+        "p05",
+        "p06"
+      ],
+      "expected": "none",
+      "rationale": "The See a variable resolve section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-variables-2-absent-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "What happens if a snippet receives the wrong variable type?",
+      "candidates": [
+        "p01",
+        "p08",
+        "p05",
+        "p06"
+      ],
+      "expected": "no",
+      "rationale": "The See a variable resolve section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-variables-3-present-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "How do I declare an allowed set of snippet variable values?",
+      "candidates": [
+        "p03",
+        "p07",
+        "p08",
+        "p06"
+      ],
+      "expected": "p03",
+      "rationale": "The frozen See a variable resolve section directly addresses this question."
+    },
+    {
+      "id": "snippet-variables-3-present-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "How do I declare an allowed set of snippet variable values?",
+      "candidates": [
+        "p03",
+        "p07",
+        "p08",
+        "p06"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen See a variable resolve section directly addresses this question."
+    },
+    {
+      "id": "snippet-variables-3-absent-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "How do I declare an allowed set of snippet variable values?",
+      "candidates": [
+        "p01",
+        "p07",
+        "p08",
+        "p06"
+      ],
+      "expected": "none",
+      "rationale": "The See a variable resolve section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-variables-3-absent-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "How do I declare an allowed set of snippet variable values?",
+      "candidates": [
+        "p01",
+        "p07",
+        "p08",
+        "p06"
+      ],
+      "expected": "no",
+      "rationale": "The See a variable resolve section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-output-1-present-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "Do agents execute Snippet and Var tags in published pages?",
+      "candidates": [
+        "p04",
+        "p05",
+        "p07",
+        "p08"
+      ],
+      "expected": "p04",
+      "rationale": "The frozen HTML, Markdown, and agents section directly addresses this question."
+    },
+    {
+      "id": "snippet-output-1-present-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "Do agents execute Snippet and Var tags in published pages?",
+      "candidates": [
+        "p04",
+        "p05",
+        "p07",
+        "p08"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen HTML, Markdown, and agents section directly addresses this question."
+    },
+    {
+      "id": "snippet-output-1-absent-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "Do agents execute Snippet and Var tags in published pages?",
+      "candidates": [
+        "p01",
+        "p08",
+        "p07",
+        "p05"
+      ],
+      "expected": "none",
+      "rationale": "The HTML, Markdown, and agents section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-output-1-absent-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "Do agents execute Snippet and Var tags in published pages?",
+      "candidates": [
+        "p01",
+        "p08",
+        "p07",
+        "p05"
+      ],
+      "expected": "no",
+      "rationale": "The HTML, Markdown, and agents section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-output-2-present-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "At what stage does Shoalrun expand snippets for HTML and Markdown?",
+      "candidates": [
+        "p04",
+        "p07",
+        "p08",
+        "p06"
+      ],
+      "expected": "p04",
+      "rationale": "The frozen HTML, Markdown, and agents section directly addresses this question."
+    },
+    {
+      "id": "snippet-output-2-present-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "At what stage does Shoalrun expand snippets for HTML and Markdown?",
+      "candidates": [
+        "p04",
+        "p07",
+        "p08",
+        "p06"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen HTML, Markdown, and agents section directly addresses this question."
+    },
+    {
+      "id": "snippet-output-2-absent-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "At what stage does Shoalrun expand snippets for HTML and Markdown?",
+      "candidates": [
+        "p08",
+        "p07",
+        "p05",
+        "p06"
+      ],
+      "expected": "none",
+      "rationale": "The HTML, Markdown, and agents section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-output-2-absent-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "At what stage does Shoalrun expand snippets for HTML and Markdown?",
+      "candidates": [
+        "p08",
+        "p07",
+        "p05",
+        "p06"
+      ],
+      "expected": "no",
+      "rationale": "The HTML, Markdown, and agents section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-output-3-present-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "What form can an interactive control inside a snippet take in published Markdown?",
+      "candidates": [
+        "p08",
+        "p06",
+        "p04",
+        "p07"
+      ],
+      "expected": "p04",
+      "rationale": "The frozen HTML, Markdown, and agents section directly addresses this question."
+    },
+    {
+      "id": "snippet-output-3-present-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "What form can an interactive control inside a snippet take in published Markdown?",
+      "candidates": [
+        "p08",
+        "p06",
+        "p04",
+        "p07"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen HTML, Markdown, and agents section directly addresses this question."
+    },
+    {
+      "id": "snippet-output-3-absent-evidence",
+      "task": "evidence",
+      "group": "snippets",
+      "split": "dev",
+      "query": "What form can an interactive control inside a snippet take in published Markdown?",
+      "candidates": [
+        "p06",
+        "p08",
+        "p07",
+        "p02"
+      ],
+      "expected": "none",
+      "rationale": "The HTML, Markdown, and agents section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "snippet-output-3-absent-answerability",
+      "task": "answerability",
+      "group": "snippets",
+      "split": "dev",
+      "query": "What form can an interactive control inside a snippet take in published Markdown?",
+      "candidates": [
+        "p06",
+        "p08",
+        "p07",
+        "p02"
+      ],
+      "expected": "no",
+      "rationale": "The HTML, Markdown, and agents section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-identity-1-present-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Which page field should stay stable when its URL changes?",
+      "candidates": [
+        "p05",
+        "p07",
+        "p03",
+        "p08"
+      ],
+      "expected": "p05",
+      "rationale": "The frozen Identify and route a page section directly addresses this question."
+    },
+    {
+      "id": "page-identity-1-present-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Which page field should stay stable when its URL changes?",
+      "candidates": [
+        "p05",
+        "p07",
+        "p03",
+        "p08"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Identify and route a page section directly addresses this question."
+    },
+    {
+      "id": "page-identity-1-absent-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Which page field should stay stable when its URL changes?",
+      "candidates": [
+        "p03",
+        "p07",
+        "p08",
+        "p01"
+      ],
+      "expected": "none",
+      "rationale": "The Identify and route a page section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-identity-1-absent-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Which page field should stay stable when its URL changes?",
+      "candidates": [
+        "p03",
+        "p07",
+        "p08",
+        "p01"
+      ],
+      "expected": "no",
+      "rationale": "The Identify and route a page section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-identity-2-present-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Which field supplies the page URL path before publication prefixes?",
+      "candidates": [
+        "p05",
+        "p01",
+        "p04",
+        "p08"
+      ],
+      "expected": "p05",
+      "rationale": "The frozen Identify and route a page section directly addresses this question."
+    },
+    {
+      "id": "page-identity-2-present-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Which field supplies the page URL path before publication prefixes?",
+      "candidates": [
+        "p05",
+        "p01",
+        "p04",
+        "p08"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Identify and route a page section directly addresses this question."
+    },
+    {
+      "id": "page-identity-2-absent-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Which field supplies the page URL path before publication prefixes?",
+      "candidates": [
+        "p04",
+        "p08",
+        "p02",
+        "p01"
+      ],
+      "expected": "none",
+      "rationale": "The Identify and route a page section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-identity-2-absent-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Which field supplies the page URL path before publication prefixes?",
+      "candidates": [
+        "p04",
+        "p08",
+        "p02",
+        "p01"
+      ],
+      "expected": "no",
+      "rationale": "The Identify and route a page section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-identity-3-present-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "How do the summary and description fields differ?",
+      "candidates": [
+        "p05",
+        "p04",
+        "p08",
+        "p01"
+      ],
+      "expected": "p05",
+      "rationale": "The frozen Identify and route a page section directly addresses this question."
+    },
+    {
+      "id": "page-identity-3-present-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "How do the summary and description fields differ?",
+      "candidates": [
+        "p05",
+        "p04",
+        "p08",
+        "p01"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Identify and route a page section directly addresses this question."
+    },
+    {
+      "id": "page-identity-3-absent-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "How do the summary and description fields differ?",
+      "candidates": [
+        "p04",
+        "p01",
+        "p08",
+        "p02"
+      ],
+      "expected": "none",
+      "rationale": "The Identify and route a page section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-identity-3-absent-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "How do the summary and description fields differ?",
+      "candidates": [
+        "p04",
+        "p01",
+        "p08",
+        "p02"
+      ],
+      "expected": "no",
+      "rationale": "The Identify and route a page section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-visibility-1-present-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Do audiences restrict access to published pages?",
+      "candidates": [
+        "p04",
+        "p07",
+        "p06",
+        "p08"
+      ],
+      "expected": "p06",
+      "rationale": "The frozen Choose a publication and visibility section directly addresses this question."
+    },
+    {
+      "id": "page-visibility-1-present-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Do audiences restrict access to published pages?",
+      "candidates": [
+        "p04",
+        "p07",
+        "p06",
+        "p08"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Choose a publication and visibility section directly addresses this question."
+    },
+    {
+      "id": "page-visibility-1-absent-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Do audiences restrict access to published pages?",
+      "candidates": [
+        "p07",
+        "p04",
+        "p02",
+        "p08"
+      ],
+      "expected": "none",
+      "rationale": "The Choose a publication and visibility section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-visibility-1-absent-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Do audiences restrict access to published pages?",
+      "candidates": [
+        "p07",
+        "p04",
+        "p02",
+        "p08"
+      ],
+      "expected": "no",
+      "rationale": "The Choose a publication and visibility section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-visibility-2-present-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Will a page with access.policy set to draft enter the public build?",
+      "candidates": [
+        "p06",
+        "p07",
+        "p08",
+        "p03"
+      ],
+      "expected": "p06",
+      "rationale": "The frozen Choose a publication and visibility section directly addresses this question."
+    },
+    {
+      "id": "page-visibility-2-present-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Will a page with access.policy set to draft enter the public build?",
+      "candidates": [
+        "p06",
+        "p07",
+        "p08",
+        "p03"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Choose a publication and visibility section directly addresses this question."
+    },
+    {
+      "id": "page-visibility-2-absent-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Will a page with access.policy set to draft enter the public build?",
+      "candidates": [
+        "p08",
+        "p01",
+        "p07",
+        "p03"
+      ],
+      "expected": "none",
+      "rationale": "The Choose a publication and visibility section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-visibility-2-absent-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Will a page with access.policy set to draft enter the public build?",
+      "candidates": [
+        "p08",
+        "p01",
+        "p07",
+        "p03"
+      ],
+      "expected": "no",
+      "rationale": "The Choose a publication and visibility section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-visibility-3-present-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Does locale select a publication or describe formatting conventions?",
+      "candidates": [
+        "p07",
+        "p06",
+        "p02",
+        "p03"
+      ],
+      "expected": "p06",
+      "rationale": "The frozen Choose a publication and visibility section directly addresses this question."
+    },
+    {
+      "id": "page-visibility-3-present-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Does locale select a publication or describe formatting conventions?",
+      "candidates": [
+        "p07",
+        "p06",
+        "p02",
+        "p03"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Choose a publication and visibility section directly addresses this question."
+    },
+    {
+      "id": "page-visibility-3-absent-evidence",
+      "task": "evidence",
+      "group": "metadata",
+      "split": "test",
+      "query": "Does locale select a publication or describe formatting conventions?",
+      "candidates": [
+        "p03",
+        "p07",
+        "p02",
+        "p08"
+      ],
+      "expected": "none",
+      "rationale": "The Choose a publication and visibility section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "page-visibility-3-absent-answerability",
+      "task": "answerability",
+      "group": "metadata",
+      "split": "test",
+      "query": "Does locale select a publication or describe formatting conventions?",
+      "candidates": [
+        "p03",
+        "p07",
+        "p02",
+        "p08"
+      ],
+      "expected": "no",
+      "rationale": "The Choose a publication and visibility section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "static-host-1-present-evidence",
+      "task": "evidence",
+      "group": "hosting",
+      "split": "test",
+      "query": "Can bare GitHub Pages select Markdown at an HTML URL using the Accept header?",
+      "candidates": [
+        "p04",
+        "p08",
+        "p03",
+        "p07"
+      ],
+      "expected": "p07",
+      "rationale": "The frozen What if the host cannot negotiate? section directly addresses this question."
+    },
+    {
+      "id": "static-host-1-present-answerability",
+      "task": "answerability",
+      "group": "hosting",
+      "split": "test",
+      "query": "Can bare GitHub Pages select Markdown at an HTML URL using the Accept header?",
+      "candidates": [
+        "p04",
+        "p08",
+        "p03",
+        "p07"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen What if the host cannot negotiate? section directly addresses this question."
+    },
+    {
+      "id": "static-host-1-absent-evidence",
+      "task": "evidence",
+      "group": "hosting",
+      "split": "test",
+      "query": "Can bare GitHub Pages select Markdown at an HTML URL using the Accept header?",
+      "candidates": [
+        "p04",
+        "p03",
+        "p08",
+        "p02"
+      ],
+      "expected": "none",
+      "rationale": "The What if the host cannot negotiate? section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "static-host-1-absent-answerability",
+      "task": "answerability",
+      "group": "hosting",
+      "split": "test",
+      "query": "Can bare GitHub Pages select Markdown at an HTML URL using the Accept header?",
+      "candidates": [
+        "p04",
+        "p03",
+        "p08",
+        "p02"
+      ],
+      "expected": "no",
+      "rationale": "The What if the host cannot negotiate? section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "static-host-2-present-evidence",
+      "task": "evidence",
+      "group": "hosting",
+      "split": "test",
+      "query": "Can agents fetch .md URLs when the static host cannot negotiate?",
+      "candidates": [
+        "p05",
+        "p06",
+        "p02",
+        "p07"
+      ],
+      "expected": "p07",
+      "rationale": "The frozen What if the host cannot negotiate? section directly addresses this question."
+    },
+    {
+      "id": "static-host-2-present-answerability",
+      "task": "answerability",
+      "group": "hosting",
+      "split": "test",
+      "query": "Can agents fetch .md URLs when the static host cannot negotiate?",
+      "candidates": [
+        "p05",
+        "p06",
+        "p02",
+        "p07"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen What if the host cannot negotiate? section directly addresses this question."
+    },
+    {
+      "id": "static-host-2-absent-evidence",
+      "task": "evidence",
+      "group": "hosting",
+      "split": "test",
+      "query": "Can agents fetch .md URLs when the static host cannot negotiate?",
+      "candidates": [
+        "p06",
+        "p05",
+        "p02",
+        "p03"
+      ],
+      "expected": "none",
+      "rationale": "The What if the host cannot negotiate? section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "static-host-2-absent-answerability",
+      "task": "answerability",
+      "group": "hosting",
+      "split": "test",
+      "query": "Can agents fetch .md URLs when the static host cannot negotiate?",
+      "candidates": [
+        "p06",
+        "p05",
+        "p02",
+        "p03"
+      ],
+      "expected": "no",
+      "rationale": "The What if the host cannot negotiate? section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "static-host-3-present-evidence",
+      "task": "evidence",
+      "group": "hosting",
+      "split": "test",
+      "query": "What basePath should I set for a GitHub Pages project site at /manual/?",
+      "candidates": [
+        "p07",
+        "p04",
+        "p02",
+        "p03"
+      ],
+      "expected": "p07",
+      "rationale": "The frozen What if the host cannot negotiate? section directly addresses this question."
+    },
+    {
+      "id": "static-host-3-present-answerability",
+      "task": "answerability",
+      "group": "hosting",
+      "split": "test",
+      "query": "What basePath should I set for a GitHub Pages project site at /manual/?",
+      "candidates": [
+        "p07",
+        "p04",
+        "p02",
+        "p03"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen What if the host cannot negotiate? section directly addresses this question."
+    },
+    {
+      "id": "static-host-3-absent-evidence",
+      "task": "evidence",
+      "group": "hosting",
+      "split": "test",
+      "query": "What basePath should I set for a GitHub Pages project site at /manual/?",
+      "candidates": [
+        "p02",
+        "p03",
+        "p04",
+        "p05"
+      ],
+      "expected": "none",
+      "rationale": "The What if the host cannot negotiate? section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "static-host-3-absent-answerability",
+      "task": "answerability",
+      "group": "hosting",
+      "split": "test",
+      "query": "What basePath should I set for a GitHub Pages project site at /manual/?",
+      "candidates": [
+        "p02",
+        "p03",
+        "p04",
+        "p05"
+      ],
+      "expected": "no",
+      "rationale": "The What if the host cannot negotiate? section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "embedding-config-1-present-evidence",
+      "task": "evidence",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Where do I name the environment variable holding the embedding provider key?",
+      "candidates": [
+        "p02",
+        "p04",
+        "p08",
+        "p07"
+      ],
+      "expected": "p08",
+      "rationale": "The frozen Configure retrieval section directly addresses this question."
+    },
+    {
+      "id": "embedding-config-1-present-answerability",
+      "task": "answerability",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Where do I name the environment variable holding the embedding provider key?",
+      "candidates": [
+        "p02",
+        "p04",
+        "p08",
+        "p07"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Configure retrieval section directly addresses this question."
+    },
+    {
+      "id": "embedding-config-1-absent-evidence",
+      "task": "evidence",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Where do I name the environment variable holding the embedding provider key?",
+      "candidates": [
+        "p04",
+        "p06",
+        "p02",
+        "p07"
+      ],
+      "expected": "none",
+      "rationale": "The Configure retrieval section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "embedding-config-1-absent-answerability",
+      "task": "answerability",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Where do I name the environment variable holding the embedding provider key?",
+      "candidates": [
+        "p04",
+        "p06",
+        "p02",
+        "p07"
+      ],
+      "expected": "no",
+      "rationale": "The Configure retrieval section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "embedding-config-2-present-evidence",
+      "task": "evidence",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Can queryModel use an unrelated embedding space from the passage model?",
+      "candidates": [
+        "p06",
+        "p04",
+        "p03",
+        "p08"
+      ],
+      "expected": "p08",
+      "rationale": "The frozen Configure retrieval section directly addresses this question."
+    },
+    {
+      "id": "embedding-config-2-present-answerability",
+      "task": "answerability",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Can queryModel use an unrelated embedding space from the passage model?",
+      "candidates": [
+        "p06",
+        "p04",
+        "p03",
+        "p08"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Configure retrieval section directly addresses this question."
+    },
+    {
+      "id": "embedding-config-2-absent-evidence",
+      "task": "evidence",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Can queryModel use an unrelated embedding space from the passage model?",
+      "candidates": [
+        "p04",
+        "p06",
+        "p01",
+        "p03"
+      ],
+      "expected": "none",
+      "rationale": "The Configure retrieval section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "embedding-config-2-absent-answerability",
+      "task": "answerability",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Can queryModel use an unrelated embedding space from the passage model?",
+      "candidates": [
+        "p04",
+        "p06",
+        "p01",
+        "p03"
+      ],
+      "expected": "no",
+      "rationale": "The Configure retrieval section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "embedding-config-3-present-evidence",
+      "task": "evidence",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Which value should retrieval.embeddings.provider use for an OpenAI-compatible local embedding server?",
+      "candidates": [
+        "p02",
+        "p07",
+        "p08",
+        "p01"
+      ],
+      "expected": "p08",
+      "rationale": "The frozen Configure retrieval section directly addresses this question."
+    },
+    {
+      "id": "embedding-config-3-present-answerability",
+      "task": "answerability",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Which value should retrieval.embeddings.provider use for an OpenAI-compatible local embedding server?",
+      "candidates": [
+        "p02",
+        "p07",
+        "p08",
+        "p01"
+      ],
+      "expected": "yes",
+      "rationale": "The frozen Configure retrieval section directly addresses this question."
+    },
+    {
+      "id": "embedding-config-3-absent-evidence",
+      "task": "evidence",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Which value should retrieval.embeddings.provider use for an OpenAI-compatible local embedding server?",
+      "candidates": [
+        "p07",
+        "p01",
+        "p02",
+        "p06"
+      ],
+      "expected": "none",
+      "rationale": "The Configure retrieval section is absent. The supplied unrelated sections do not answer this question."
+    },
+    {
+      "id": "embedding-config-3-absent-answerability",
+      "task": "answerability",
+      "group": "retrieval",
+      "split": "test",
+      "query": "Which value should retrieval.embeddings.provider use for an OpenAI-compatible local embedding server?",
+      "candidates": [
+        "p07",
+        "p01",
+        "p02",
+        "p06"
+      ],
+      "expected": "no",
+      "rationale": "The Configure retrieval section is absent. The supplied unrelated sections do not answer this question."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+---
+id: reference.reports
+title: Evaluation reports
+summary: Read dated model comparisons with their methods, questions, and results.
+slug: /reports
+type: reference
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Each report records a comparison against fixed questions with known answers. Reports retain the exact model versions, dataset, settings, and results so comparisons remain understandable as the model catalog grows.
+
+Development cases check the evaluation’s prompts and runner settings; held-out test cases measure performance after those choices are fixed. Neither set trains the models.
+
+| Evaluation date | Models | Case coverage | Report |
+|---|---|---:|---|
+| 30 October 2026 | Mammoth 1, Jev 1.14, Elephant 1, Joey 1 | 496 unique cases; three formats on 400 | [Executable known-answer tasks](doc:report.2026-10-30) |
+
+See [methodology](doc:guide.methodology) for how the runner obtains known answers, or [add an evaluation report](doc:guide.add-report) to record another comparison.

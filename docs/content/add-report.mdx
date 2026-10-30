@@ -1,0 +1,58 @@
+---
+id: guide.add-report
+title: Add an evaluation report
+summary: Record another model comparison with reproducible methods and known answers.
+slug: /reports/add
+type: how-to
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Create a dated report for each evaluation. Once a report is published, add a new dated comparison for new models, prompts, or question sets. An unpublished report can be revised while preserving its underlying measurements; correct factual errors in published reports transparently.
+
+## Select the models and questions
+
+Configure the selected endpoint and model IDs in a local configuration file, following [the run guide](doc:guide.run). The runner supports typed decision endpoints and JSON-mode chat-completions endpoints. Prefer a fixed model release over a moving latest alias, and retain the model ID returned by the provider.
+
+For OpenRouter, optional catalog discovery can generate model entries without inference calls:
+
+```sh
+mkdir -p runs/discovery
+python3 -m decision_bench catalog \
+  --out runs/discovery/catalog.json --config-out runs/discovery/models.json
+```
+
+Use a fresh output directory if the discovery files already exist; catalog files cannot be overwritten. Select generated model names with `--config runs/discovery/models.json`.
+
+Use a new fixture version when changing cases or the source implementation. Every expected answer must come from replayable code execution. Development cases check the evaluation’s prompts and runner settings; held-out test cases measure performance after those choices are fixed. Neither set trains the models. Reserve fresh test cases when tuning based on published results.
+
+## Run and retain the evidence
+
+[Run the benchmark](doc:guide.run) against the selected models. Keep model configuration, fixture hash, code hash, returned model IDs, and run settings with the results. Store raw responses and local run files under ignored `runs/` directories. Provider credentials belong in the process environment, never the report or repository.
+
+Report the number of attempted and valid responses, errors, exact correct counts, per-task results, and measured client latency. Label provider-reported costs as usage estimates rather than reconciled billing. Count repeat measurements separately from new cases.
+
+## Write the dated report
+
+Create a page from the explanation template, using the evaluation date in its filename and stable ID:
+
+```sh
+npx --no-install shoalrun scaffold explanation \
+  -n docs/content/reports/YYYY-MM-DD.mdx \
+  --id report.YYYY-MM-DD \
+  --title "Decision model evaluation on DATASET" \
+  --config docs/docs.config.yaml
+```
+
+Replace `YYYY-MM-DD` with the actual date. Resolve the scaffold prompts and set a matching `/reports/YYYY-MM-DD` slug. Keep the page in draft while reviewing it.
+
+A concise report needs the purpose and main finding, the settings specific to that evaluation, exact question templates with a full case catalog, results, limitations, and a short next step. Link to the shared methodology instead of repeating it, and describe any deviations in the dated report. Define evaluation terms on first use. Describe the evaluation as a standalone study; omit drafting history and conversations about creating it.
+
+Copying the runner's `report.md` is a useful starting point, but verify each number against the retained summaries. Make it clear which dataset, tasks, versions, and measurements the conclusion covers. Preserve licenses and source attribution for copied implementations or excerpts.
+
+## Add the report to the docs
+
+Add a row to the [reports index](doc:reference.reports) and a navigation entry under Reports in `docs.config.yaml`. Update the overview if it should feature the new comparison. Link the exact question catalog used by that evaluation. Keep each dated report's results and methods intact.
+
+Use Shoalrun's authoring baseline and snapshot-validation workflow to check the draft. Review both HTML and Markdown, including tables, question inputs, expected answers, and links. Set approved pages to public only after review, then use the manual GitHub Pages publishing workflow.

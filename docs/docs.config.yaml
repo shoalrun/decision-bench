@@ -1,0 +1,60 @@
+schemaVersion: 1
+site:
+  title: Decision Bench
+  origin: https://shoalrun.github.io
+  basePath: /decision-bench
+  header:
+    links:
+      - { label: GitHub, href: "https://github.com/shoalrun/decision-bench" }
+theme:
+  preset: ledger
+  palette: ink
+  fonts: system
+  mode: system
+publications:
+  defaults: { channel: production, version: current, language: en }
+  channels:
+    production: { pathPrefix: "" }
+  versions:
+    current: { pathPrefix: "" }
+  enabled:
+    - { channel: production, version: current }
+frontmatter:
+  defaults:
+    type: explanation
+    channel: production
+    version: current
+    access: { policy: draft }
+navigation:
+  - { id: overview, doc: guide.welcome }
+  - { id: run, doc: guide.run }
+  - { id: methodology, doc: guide.methodology }
+  - id: reports
+    label: Reports
+    items:
+      - { id: report-index, label: All reports, doc: reference.reports }
+      - { id: report-2026-10-30, label: 30 October 2026, doc: report.2026-10-30 }
+      - { id: add-report, doc: guide.add-report }
+  - id: questions
+    label: Questions
+    items:
+      - id: retrieval-questions
+        label: Retrieval configuration
+        items:
+          - { id: development, label: Development cases, doc: reference.questions-dev }
+          - { id: test, label: Test cases, doc: reference.questions-test }
+      - id: expanded-questions
+        label: Search and reader filters
+        items:
+          - { id: expanded-overview, label: Overview — 400 cases, doc: reference.expanded-cases }
+          - id: expanded-noul
+            label: noul — yes/no
+            items:
+              - { id: synonym-validation, label: Synonym validation, doc: reference.expanded-synonym-validation }
+              - { id: phrase-matching, label: Phrase matching, doc: reference.expanded-phrase-matching }
+              - { id: reader-selection, label: Reader selection, doc: reference.expanded-reader-selection }
+          - id: expanded-choice
+            label: choice — four options
+            items:
+              - { id: query-decomposition, label: Query decomposition, doc: reference.expanded-query-decomposition }
+              - { id: reader-defaults, label: Reader defaults, doc: reference.expanded-reader-defaults }

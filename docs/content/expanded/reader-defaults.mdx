@@ -1,0 +1,7847 @@
+---
+id: reference.expanded-reader-defaults
+title: Reader defaults questions
+summary: Inspect 80 executable cases for pageReaderFilters.
+slug: /questions/expanded/reader-defaults
+type: reference
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Reader defaults means resolving a page’s final filter values by combining defaults for its page type with explicit page settings and removing empty selections.
+
+A reader filter is a page attribute, such as audience or product, used to narrow the documentation shown to a reader.
+
+These 80 cases test `pageReaderFilters`: 40 development cases used to check the evaluation’s prompts and runner settings, and 40 test cases reserved until those choices were fixed. Neither set trains the models. The supplied source code is the rule; expected answers come from executing it.
+
+**Question type: `choice` (four options).** The model selects the exact returned result or error, with a probability for each option.
+
+**Exact question:** Which exact result or exception does pageReaderFilters produce for these arguments?
+
+[Source at the recorded revision](https://github.com/shoalrun/shoalrun/blob/1f2ed786f11d3510182c10184693c23f04a2ae35/framework/src/reader-filters.ts). See [methodology](doc:guide.methodology), [the case-set overview](doc:reference.expanded-cases), and [results](doc:report.2026-10-30).
+
+## Development — choice (40 cases)
+
+### pageReaderFilters dev type defaults 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-52302a": "Author",
+          "reader-52302a": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-52302a": "API",
+          "web-52302a": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-52302a": "Guide",
+          "reference-52302a": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-52302a": "Start",
+          "advanced-52302a": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-52302a"
+        ],
+        "product": [
+          "api-52302a"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-52302a"
+      ],
+      "product": [
+        "api-52302a"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {}
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"audience": ["author-52302a"], "product": ["api-52302a"]}}`
+
+### pageReaderFilters dev type defaults 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "reference"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-57d616": "Author",
+          "reader-57d616": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-57d616": "API",
+          "web-57d616": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-57d616": "Guide",
+          "reference-57d616": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-57d616": "Start",
+          "advanced-57d616": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-57d616"
+        ],
+        "product": [
+          "api-57d616"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {}
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters dev type defaults 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-e88e65": "Author",
+          "reader-e88e65": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-e88e65": "API",
+          "web-e88e65": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-e88e65": "Guide",
+          "reference-e88e65": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-e88e65": "Start",
+          "advanced-e88e65": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-e88e65"
+        ],
+        "product": [
+          "api-e88e65"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-e88e65"
+      ],
+      "product": [
+        "api-e88e65"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {}
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"audience": ["author-e88e65"], "product": ["api-e88e65"]}}`
+
+### pageReaderFilters dev type defaults 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "reference"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-5f2fc0": "Author",
+          "reader-5f2fc0": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-5f2fc0": "API",
+          "web-5f2fc0": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-5f2fc0": "Guide",
+          "reference-5f2fc0": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-5f2fc0": "Start",
+          "advanced-5f2fc0": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-5f2fc0"
+        ],
+        "product": [
+          "api-5f2fc0"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters dev type defaults 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-21ac43": "Author",
+          "reader-21ac43": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-21ac43": "API",
+          "web-21ac43": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-21ac43": "Guide",
+          "reference-21ac43": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-21ac43": "Start",
+          "advanced-21ac43": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-21ac43"
+        ],
+        "product": [
+          "api-21ac43"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-21ac43"
+      ],
+      "product": [
+        "api-21ac43"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"audience": ["author-21ac43"], "product": ["api-21ac43"]}}`
+
+### pageReaderFilters dev type defaults 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "reference"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-25b804": "Author",
+          "reader-25b804": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-25b804": "API",
+          "web-25b804": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-25b804": "Guide",
+          "reference-25b804": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-25b804": "Start",
+          "advanced-25b804": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-25b804"
+        ],
+        "product": [
+          "api-25b804"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters dev type defaults 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-3af882": "Author",
+          "reader-3af882": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-3af882": "API",
+          "web-3af882": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-3af882": "Guide",
+          "reference-3af882": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-3af882": "Start",
+          "advanced-3af882": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-3af882"
+        ],
+        "product": [
+          "api-3af882"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-3af882"
+      ],
+      "product": [
+        "api-3af882"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"audience": ["author-3af882"], "product": ["api-3af882"]}}`
+
+### pageReaderFilters dev type defaults 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "reference"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-681267": "Author",
+          "reader-681267": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-681267": "API",
+          "web-681267": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-681267": "Guide",
+          "reference-681267": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-681267": "Start",
+          "advanced-681267": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-681267"
+        ],
+        "product": [
+          "api-681267"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters dev explicit overrides 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [
+        "reader-9b35e0"
+      ],
+      "product": [
+        "api-9b35e0"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9b35e0": "Author",
+          "reader-9b35e0": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9b35e0": "API",
+          "web-9b35e0": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9b35e0": "Guide",
+          "reference-9b35e0": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9b35e0": "Start",
+          "advanced-9b35e0": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9b35e0"
+        ],
+        "product": [
+          "api-9b35e0"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-9b35e0"
+      ],
+      "product": [
+        "api-9b35e0"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-9b35e0"
+      ],
+      "product": [
+        "api-9b35e0"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"audience": ["reader-9b35e0"], "product": ["api-9b35e0"]}}`
+
+### pageReaderFilters dev explicit overrides 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "product": [
+        "web-afae28"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-afae28": "Author",
+          "reader-afae28": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-afae28": "API",
+          "web-afae28": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-afae28": "Guide",
+          "reference-afae28": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-afae28": "Start",
+          "advanced-afae28": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-afae28"
+        ],
+        "product": [
+          "api-afae28"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "product": [
+        "web-afae28"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-afae28"
+      ],
+      "product": [
+        "api-afae28"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"product": ["web-afae28"]}}`
+
+### pageReaderFilters dev explicit overrides 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [
+        "reader-7c1b24"
+      ],
+      "product": [
+        "api-7c1b24"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-7c1b24": "Author",
+          "reader-7c1b24": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-7c1b24": "API",
+          "web-7c1b24": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-7c1b24": "Guide",
+          "reference-7c1b24": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-7c1b24": "Start",
+          "advanced-7c1b24": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-7c1b24"
+        ],
+        "product": [
+          "api-7c1b24"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-7c1b24"
+      ],
+      "product": [
+        "api-7c1b24"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-7c1b24"
+      ],
+      "product": [
+        "api-7c1b24"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"audience": ["reader-7c1b24"], "product": ["api-7c1b24"]}}`
+
+### pageReaderFilters dev explicit overrides 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "product": [
+        "web-4b795a"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-4b795a": "Author",
+          "reader-4b795a": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-4b795a": "API",
+          "web-4b795a": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-4b795a": "Guide",
+          "reference-4b795a": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-4b795a": "Start",
+          "advanced-4b795a": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-4b795a"
+        ],
+        "product": [
+          "api-4b795a"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "product": [
+        "web-4b795a"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-4b795a"
+      ],
+      "product": [
+        "api-4b795a"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"product": ["web-4b795a"]}}`
+
+### pageReaderFilters dev explicit overrides 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [
+        "reader-464956"
+      ],
+      "product": [
+        "api-464956"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-464956": "Author",
+          "reader-464956": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-464956": "API",
+          "web-464956": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-464956": "Guide",
+          "reference-464956": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-464956": "Start",
+          "advanced-464956": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-464956"
+        ],
+        "product": [
+          "api-464956"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-464956"
+      ],
+      "product": [
+        "api-464956"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-464956"
+      ],
+      "product": [
+        "api-464956"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"audience": ["reader-464956"], "product": ["api-464956"]}}`
+
+### pageReaderFilters dev explicit overrides 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "product": [
+        "web-a1bca6"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-a1bca6": "Author",
+          "reader-a1bca6": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-a1bca6": "API",
+          "web-a1bca6": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-a1bca6": "Guide",
+          "reference-a1bca6": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-a1bca6": "Start",
+          "advanced-a1bca6": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-a1bca6"
+        ],
+        "product": [
+          "api-a1bca6"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "product": [
+        "web-a1bca6"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-a1bca6"
+      ],
+      "product": [
+        "api-a1bca6"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"product": ["web-a1bca6"]}}`
+
+### pageReaderFilters dev explicit overrides 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [
+        "reader-54ce19"
+      ],
+      "product": [
+        "api-54ce19"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-54ce19": "Author",
+          "reader-54ce19": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-54ce19": "API",
+          "web-54ce19": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-54ce19": "Guide",
+          "reference-54ce19": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-54ce19": "Start",
+          "advanced-54ce19": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-54ce19"
+        ],
+        "product": [
+          "api-54ce19"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-54ce19"
+      ],
+      "product": [
+        "api-54ce19"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-54ce19"
+      ],
+      "product": [
+        "api-54ce19"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"audience": ["reader-54ce19"], "product": ["api-54ce19"]}}`
+
+### pageReaderFilters dev explicit overrides 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "product": [
+        "web-42a7de"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-42a7de": "Author",
+          "reader-42a7de": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-42a7de": "API",
+          "web-42a7de": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-42a7de": "Guide",
+          "reference-42a7de": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-42a7de": "Start",
+          "advanced-42a7de": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-42a7de"
+        ],
+        "product": [
+          "api-42a7de"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "product": [
+        "web-42a7de"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-42a7de"
+      ],
+      "product": [
+        "api-42a7de"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"product": ["web-42a7de"]}}`
+
+### pageReaderFilters dev audiences 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "reader-d72173"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-d72173": "Author",
+          "reader-d72173": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d72173": "API",
+          "web-d72173": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d72173": "Guide",
+          "reference-d72173": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d72173": "Start",
+          "advanced-d72173": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-d72173"
+        ],
+        "product": [
+          "api-d72173"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-d72173"
+      ],
+      "product": [
+        "api-d72173"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-d72173"
+      ],
+      "product": [
+        "api-d72173"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"audience": ["reader-d72173"], "product": ["api-d72173"]}}`
+
+### pageReaderFilters dev audiences 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-3b954c",
+      "reader-3b954c"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-3b954c": "Author",
+          "reader-3b954c": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-3b954c": "API",
+          "web-3b954c": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-3b954c": "Guide",
+          "reference-3b954c": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-3b954c": "Start",
+          "advanced-3b954c": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-3b954c"
+        ],
+        "product": [
+          "api-3b954c"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-3b954c",
+        "reader-3b954c"
+      ],
+      "product": [
+        "api-3b954c"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-3b954c"
+      ],
+      "product": [
+        "api-3b954c"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"audience": ["author-3b954c", "reader-3b954c"], "product": ["api-3b954c"]}}`
+
+### pageReaderFilters dev audiences 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "reader-fc1f99"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-fc1f99": "Author",
+          "reader-fc1f99": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-fc1f99": "API",
+          "web-fc1f99": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-fc1f99": "Guide",
+          "reference-fc1f99": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-fc1f99": "Start",
+          "advanced-fc1f99": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-fc1f99"
+        ],
+        "product": [
+          "api-fc1f99"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-fc1f99"
+      ],
+      "product": [
+        "api-fc1f99"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-fc1f99"
+      ],
+      "product": [
+        "api-fc1f99"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"audience": ["reader-fc1f99"], "product": ["api-fc1f99"]}}`
+
+### pageReaderFilters dev audiences 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-9acbde",
+      "reader-9acbde"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9acbde": "Author",
+          "reader-9acbde": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9acbde": "API",
+          "web-9acbde": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9acbde": "Guide",
+          "reference-9acbde": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9acbde": "Start",
+          "advanced-9acbde": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9acbde"
+        ],
+        "product": [
+          "api-9acbde"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-9acbde",
+        "reader-9acbde"
+      ],
+      "product": [
+        "api-9acbde"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-9acbde"
+      ],
+      "product": [
+        "api-9acbde"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"audience": ["author-9acbde", "reader-9acbde"], "product": ["api-9acbde"]}}`
+
+### pageReaderFilters dev audiences 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "reader-92f4c7"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-92f4c7": "Author",
+          "reader-92f4c7": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-92f4c7": "API",
+          "web-92f4c7": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-92f4c7": "Guide",
+          "reference-92f4c7": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-92f4c7": "Start",
+          "advanced-92f4c7": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-92f4c7"
+        ],
+        "product": [
+          "api-92f4c7"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-92f4c7"
+      ],
+      "product": [
+        "api-92f4c7"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-92f4c7"
+      ],
+      "product": [
+        "api-92f4c7"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"audience": ["reader-92f4c7"], "product": ["api-92f4c7"]}}`
+
+### pageReaderFilters dev audiences 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-207358",
+      "reader-207358"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-207358": "Author",
+          "reader-207358": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-207358": "API",
+          "web-207358": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-207358": "Guide",
+          "reference-207358": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-207358": "Start",
+          "advanced-207358": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-207358"
+        ],
+        "product": [
+          "api-207358"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-207358"
+      ],
+      "product": [
+        "api-207358"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-207358",
+        "reader-207358"
+      ],
+      "product": [
+        "api-207358"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {"audience": ["author-207358", "reader-207358"], "product": ["api-207358"]}}`
+
+### pageReaderFilters dev audiences 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "reader-da64df"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-da64df": "Author",
+          "reader-da64df": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-da64df": "API",
+          "web-da64df": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-da64df": "Guide",
+          "reference-da64df": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-da64df": "Start",
+          "advanced-da64df": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-da64df"
+        ],
+        "product": [
+          "api-da64df"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-da64df"
+      ],
+      "product": [
+        "api-da64df"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-da64df"
+      ],
+      "product": [
+        "api-da64df"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"audience": ["reader-da64df"], "product": ["api-da64df"]}}`
+
+### pageReaderFilters dev audiences 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-122c20",
+      "reader-122c20"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-122c20": "Author",
+          "reader-122c20": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-122c20": "API",
+          "web-122c20": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-122c20": "Guide",
+          "reference-122c20": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-122c20": "Start",
+          "advanced-122c20": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-122c20"
+        ],
+        "product": [
+          "api-122c20"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-122c20",
+        "reader-122c20"
+      ],
+      "product": [
+        "api-122c20"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-122c20"
+      ],
+      "product": [
+        "api-122c20"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"audience": ["author-122c20", "reader-122c20"], "product": ["api-122c20"]}}`
+
+### pageReaderFilters dev explicit facets 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "area": [
+        "guide-81a8c1"
+      ],
+      "subarea": [
+        "start-81a8c1"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-81a8c1": "Author",
+          "reader-81a8c1": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-81a8c1": "API",
+          "web-81a8c1": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-81a8c1": "Guide",
+          "reference-81a8c1": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-81a8c1": "Start",
+          "advanced-81a8c1": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-81a8c1"
+        ],
+        "product": [
+          "api-81a8c1"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-81a8c1"
+      ],
+      "product": [
+        "api-81a8c1"
+      ],
+      "area": [
+        "guide-81a8c1"
+      ],
+      "subarea": [
+        "start-81a8c1"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-81a8c1"
+      ],
+      "product": [
+        "api-81a8c1"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"area": ["guide-81a8c1"], "audience": ["author-81a8c1"], "product": ["api-81a8c1"], "subarea": ["start-81a8c1"]}}`
+
+### pageReaderFilters dev explicit facets 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "area": [
+        "reference-20ad45"
+      ],
+      "subarea": [
+        "start-20ad45"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-20ad45": "Author",
+          "reader-20ad45": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-20ad45": "API",
+          "web-20ad45": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-20ad45": "Guide",
+          "reference-20ad45": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-20ad45": "Start",
+          "advanced-20ad45": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-20ad45"
+        ],
+        "product": [
+          "api-20ad45"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-20ad45"
+      ],
+      "product": [
+        "api-20ad45"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-20ad45"
+      ],
+      "product": [
+        "api-20ad45"
+      ],
+      "area": [
+        "reference-20ad45"
+      ],
+      "subarea": [
+        "start-20ad45"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {"area": ["reference-20ad45"], "audience": ["author-20ad45"], "product": ["api-20ad45"], "subarea": ["start-20ad45"]}}`
+
+### pageReaderFilters dev explicit facets 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "area": [
+        "guide-ed8a25"
+      ],
+      "subarea": [
+        "advanced-ed8a25"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-ed8a25": "Author",
+          "reader-ed8a25": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ed8a25": "API",
+          "web-ed8a25": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ed8a25": "Guide",
+          "reference-ed8a25": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ed8a25": "Start",
+          "advanced-ed8a25": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-ed8a25"
+        ],
+        "product": [
+          "api-ed8a25"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-ed8a25"
+      ],
+      "product": [
+        "api-ed8a25"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-ed8a25"
+      ],
+      "product": [
+        "api-ed8a25"
+      ],
+      "area": [
+        "guide-ed8a25"
+      ],
+      "subarea": [
+        "advanced-ed8a25"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {"area": ["guide-ed8a25"], "audience": ["author-ed8a25"], "product": ["api-ed8a25"], "subarea": ["advanced-ed8a25"]}}`
+
+### pageReaderFilters dev explicit facets 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "area": [
+        "reference-3ff05e"
+      ],
+      "subarea": [
+        "advanced-3ff05e"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-3ff05e": "Author",
+          "reader-3ff05e": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-3ff05e": "API",
+          "web-3ff05e": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-3ff05e": "Guide",
+          "reference-3ff05e": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-3ff05e": "Start",
+          "advanced-3ff05e": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-3ff05e"
+        ],
+        "product": [
+          "api-3ff05e"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-3ff05e"
+      ],
+      "product": [
+        "api-3ff05e"
+      ],
+      "area": [
+        "reference-3ff05e"
+      ],
+      "subarea": [
+        "advanced-3ff05e"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-3ff05e"
+      ],
+      "product": [
+        "api-3ff05e"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"area": ["reference-3ff05e"], "audience": ["author-3ff05e"], "product": ["api-3ff05e"], "subarea": ["advanced-3ff05e"]}}`
+
+### pageReaderFilters dev explicit facets 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "area": [
+        "guide-10fc8f"
+      ],
+      "subarea": [
+        "start-10fc8f"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-10fc8f": "Author",
+          "reader-10fc8f": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-10fc8f": "API",
+          "web-10fc8f": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-10fc8f": "Guide",
+          "reference-10fc8f": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-10fc8f": "Start",
+          "advanced-10fc8f": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-10fc8f"
+        ],
+        "product": [
+          "api-10fc8f"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-10fc8f"
+      ],
+      "product": [
+        "api-10fc8f"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-10fc8f"
+      ],
+      "product": [
+        "api-10fc8f"
+      ],
+      "area": [
+        "guide-10fc8f"
+      ],
+      "subarea": [
+        "start-10fc8f"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {"area": ["guide-10fc8f"], "audience": ["author-10fc8f"], "product": ["api-10fc8f"], "subarea": ["start-10fc8f"]}}`
+
+### pageReaderFilters dev explicit facets 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "area": [
+        "reference-928439"
+      ],
+      "subarea": [
+        "start-928439"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-928439": "Author",
+          "reader-928439": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-928439": "API",
+          "web-928439": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-928439": "Guide",
+          "reference-928439": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-928439": "Start",
+          "advanced-928439": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-928439"
+        ],
+        "product": [
+          "api-928439"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-928439"
+      ],
+      "product": [
+        "api-928439"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-928439"
+      ],
+      "product": [
+        "api-928439"
+      ],
+      "area": [
+        "reference-928439"
+      ],
+      "subarea": [
+        "start-928439"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"area": ["reference-928439"], "audience": ["author-928439"], "product": ["api-928439"], "subarea": ["start-928439"]}}`
+
+### pageReaderFilters dev explicit facets 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "area": [
+        "guide-eacbd1"
+      ],
+      "subarea": [
+        "advanced-eacbd1"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-eacbd1": "Author",
+          "reader-eacbd1": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-eacbd1": "API",
+          "web-eacbd1": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-eacbd1": "Guide",
+          "reference-eacbd1": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-eacbd1": "Start",
+          "advanced-eacbd1": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-eacbd1"
+        ],
+        "product": [
+          "api-eacbd1"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-eacbd1"
+      ],
+      "product": [
+        "api-eacbd1"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-eacbd1"
+      ],
+      "product": [
+        "api-eacbd1"
+      ],
+      "area": [
+        "guide-eacbd1"
+      ],
+      "subarea": [
+        "advanced-eacbd1"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"area": ["guide-eacbd1"], "audience": ["author-eacbd1"], "product": ["api-eacbd1"], "subarea": ["advanced-eacbd1"]}}`
+
+### pageReaderFilters dev explicit facets 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "area": [
+        "reference-75e3f5"
+      ],
+      "subarea": [
+        "advanced-75e3f5"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-75e3f5": "Author",
+          "reader-75e3f5": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-75e3f5": "API",
+          "web-75e3f5": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-75e3f5": "Guide",
+          "reference-75e3f5": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-75e3f5": "Start",
+          "advanced-75e3f5": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-75e3f5"
+        ],
+        "product": [
+          "api-75e3f5"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-75e3f5"
+      ],
+      "product": [
+        "api-75e3f5"
+      ],
+      "area": [
+        "reference-75e3f5"
+      ],
+      "subarea": [
+        "advanced-75e3f5"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-75e3f5"
+      ],
+      "product": [
+        "api-75e3f5"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"area": ["reference-75e3f5"], "audience": ["author-75e3f5"], "product": ["api-75e3f5"], "subarea": ["advanced-75e3f5"]}}`
+
+### pageReaderFilters dev no config 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "ignored0"
+    ]
+  },
+  null,
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters dev no config 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "ignored1"
+    ]
+  },
+  null,
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {}
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters dev no config 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "ignored2"
+    ]
+  },
+  null,
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {}
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters dev no config 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "ignored3"
+    ]
+  },
+  null,
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {}
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters dev no config 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {}
+  },
+  null,
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {}
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters needs readerFilters.facets in the site config"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"error": {"message": "example.mdx: readerFilters needs readerFilters.facets in the site config", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters dev no config 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": null
+  },
+  null,
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {}
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters needs readerFilters.facets in the site config"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: readerFilters needs readerFilters.facets in the site config", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters dev no config 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": []
+  },
+  null,
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters needs readerFilters.facets in the site config"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {}
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"error": {"message": "example.mdx: readerFilters needs readerFilters.facets in the site config", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters dev no config 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": false
+  },
+  null,
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters needs readerFilters.facets in the site config"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {}
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"error": {"message": "example.mdx: readerFilters needs readerFilters.facets in the site config", "name": "Error"}, "ok": false}`
+
+## Test — choice (40 cases)
+
+### pageReaderFilters test category shorthand 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "product": "api-247d80"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-247d80": "Author",
+          "reader-247d80": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-247d80": "API",
+          "web-247d80": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-247d80": "Guide",
+          "reference-247d80": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-247d80": "Start",
+          "advanced-247d80": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-247d80"
+        ],
+        "product": [
+          "api-247d80"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {}
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-247d80"
+      ],
+      "product": [
+        "api-247d80"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {"audience": ["author-247d80"], "product": ["api-247d80"]}}`
+
+### pageReaderFilters test category shorthand 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "area": [
+      "guide-14bb23",
+      "reference-14bb23"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-14bb23": "Author",
+          "reader-14bb23": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-14bb23": "API",
+          "web-14bb23": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-14bb23": "Guide",
+          "reference-14bb23": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-14bb23": "Start",
+          "advanced-14bb23": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-14bb23"
+        ],
+        "product": [
+          "api-14bb23"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-14bb23"
+      ],
+      "product": [
+        "api-14bb23"
+      ],
+      "area": [
+        "guide-14bb23",
+        "reference-14bb23"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-14bb23"
+      ],
+      "product": [
+        "api-14bb23"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"area": ["guide-14bb23", "reference-14bb23"], "audience": ["author-14bb23"], "product": ["api-14bb23"]}}`
+
+### pageReaderFilters test category shorthand 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "subarea": "start-aa1cd0"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-aa1cd0": "Author",
+          "reader-aa1cd0": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-aa1cd0": "API",
+          "web-aa1cd0": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-aa1cd0": "Guide",
+          "reference-aa1cd0": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-aa1cd0": "Start",
+          "advanced-aa1cd0": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-aa1cd0"
+        ],
+        "product": [
+          "api-aa1cd0"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-aa1cd0"
+      ],
+      "product": [
+        "api-aa1cd0"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-aa1cd0"
+      ],
+      "product": [
+        "api-aa1cd0"
+      ],
+      "subarea": [
+        "start-aa1cd0"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {"audience": ["author-aa1cd0"], "product": ["api-aa1cd0"], "subarea": ["start-aa1cd0"]}}`
+
+### pageReaderFilters test category shorthand 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "product": [
+      "api-c84e59",
+      "web-c84e59"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-c84e59": "Author",
+          "reader-c84e59": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-c84e59": "API",
+          "web-c84e59": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-c84e59": "Guide",
+          "reference-c84e59": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-c84e59": "Start",
+          "advanced-c84e59": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-c84e59"
+        ],
+        "product": [
+          "api-c84e59"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-c84e59"
+      ],
+      "product": [
+        "api-c84e59",
+        "web-c84e59"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-c84e59"
+      ],
+      "product": [
+        "api-c84e59"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"audience": ["author-c84e59"], "product": ["api-c84e59", "web-c84e59"]}}`
+
+### pageReaderFilters test category shorthand 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "area": "guide-b78451"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-b78451": "Author",
+          "reader-b78451": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-b78451": "API",
+          "web-b78451": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-b78451": "Guide",
+          "reference-b78451": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-b78451": "Start",
+          "advanced-b78451": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-b78451"
+        ],
+        "product": [
+          "api-b78451"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-b78451"
+      ],
+      "product": [
+        "api-b78451"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-b78451"
+      ],
+      "product": [
+        "api-b78451"
+      ],
+      "area": [
+        "guide-b78451"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {"area": ["guide-b78451"], "audience": ["author-b78451"], "product": ["api-b78451"]}}`
+
+### pageReaderFilters test category shorthand 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "subarea": [
+      "start-9da7a3",
+      "advanced-9da7a3"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9da7a3": "Author",
+          "reader-9da7a3": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9da7a3": "API",
+          "web-9da7a3": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9da7a3": "Guide",
+          "reference-9da7a3": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9da7a3": "Start",
+          "advanced-9da7a3": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9da7a3"
+        ],
+        "product": [
+          "api-9da7a3"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-9da7a3"
+      ],
+      "product": [
+        "api-9da7a3"
+      ],
+      "subarea": [
+        "start-9da7a3",
+        "advanced-9da7a3"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-9da7a3"
+      ],
+      "product": [
+        "api-9da7a3"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"audience": ["author-9da7a3"], "product": ["api-9da7a3"], "subarea": ["start-9da7a3", "advanced-9da7a3"]}}`
+
+### pageReaderFilters test category shorthand 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "product": "api-0e7ad2"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-0e7ad2": "Author",
+          "reader-0e7ad2": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-0e7ad2": "API",
+          "web-0e7ad2": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-0e7ad2": "Guide",
+          "reference-0e7ad2": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-0e7ad2": "Start",
+          "advanced-0e7ad2": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-0e7ad2"
+        ],
+        "product": [
+          "api-0e7ad2"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-0e7ad2"
+      ],
+      "product": [
+        "api-0e7ad2"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"audience": ["author-0e7ad2"], "product": ["api-0e7ad2"]}}`
+
+### pageReaderFilters test category shorthand 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "area": [
+      "guide-1c0765",
+      "reference-1c0765"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-1c0765": "Author",
+          "reader-1c0765": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-1c0765": "API",
+          "web-1c0765": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-1c0765": "Guide",
+          "reference-1c0765": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-1c0765": "Start",
+          "advanced-1c0765": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-1c0765"
+        ],
+        "product": [
+          "api-1c0765"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-1c0765"
+      ],
+      "product": [
+        "api-1c0765"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-1c0765"
+      ],
+      "product": [
+        "api-1c0765"
+      ],
+      "area": [
+        "guide-1c0765",
+        "reference-1c0765"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"area": ["guide-1c0765", "reference-1c0765"], "audience": ["author-1c0765"], "product": ["api-1c0765"]}}`
+
+### pageReaderFilters test shorthand conflict 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-9ba60d"
+    ],
+    "readerFilters": {
+      "audience": [
+        "reader-9ba60d"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9ba60d": "Author",
+          "reader-9ba60d": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9ba60d": "API",
+          "web-9ba60d": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9ba60d": "Guide",
+          "reference-9ba60d": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9ba60d": "Start",
+          "advanced-9ba60d": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9ba60d"
+        ],
+        "product": [
+          "api-9ba60d"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-9ba60d"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-9ba60d"
+      ],
+      "product": [
+        "api-9ba60d"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"error": {"message": "example.mdx: use audiences or readerFilters.audience, not both", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test shorthand conflict 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "product": "api-37c081",
+    "readerFilters": {
+      "product": [
+        "web-37c081"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-37c081": "Author",
+          "reader-37c081": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-37c081": "API",
+          "web-37c081": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-37c081": "Guide",
+          "reference-37c081": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-37c081": "Start",
+          "advanced-37c081": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-37c081"
+        ],
+        "product": [
+          "api-37c081"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-37c081"
+      ],
+      "product": [
+        "api-37c081"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "product": [
+        "web-37c081"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"error": {"message": "example.mdx: use product or readerFilters.product, not both", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test shorthand conflict 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "area": "guide-6d9c31",
+    "readerFilters": {
+      "area": [
+        "reference-6d9c31"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-6d9c31": "Author",
+          "reader-6d9c31": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-6d9c31": "API",
+          "web-6d9c31": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-6d9c31": "Guide",
+          "reference-6d9c31": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-6d9c31": "Start",
+          "advanced-6d9c31": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-6d9c31"
+        ],
+        "product": [
+          "api-6d9c31"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "area": [
+        "reference-6d9c31"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use area or readerFilters.area, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-6d9c31"
+      ],
+      "product": [
+        "api-6d9c31"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"error": {"message": "example.mdx: use area or readerFilters.area, not both", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test shorthand conflict 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "subarea": "start-91ab17",
+    "readerFilters": {
+      "subarea": [
+        "advanced-91ab17"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-91ab17": "Author",
+          "reader-91ab17": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-91ab17": "API",
+          "web-91ab17": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-91ab17": "Guide",
+          "reference-91ab17": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-91ab17": "Start",
+          "advanced-91ab17": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-91ab17"
+        ],
+        "product": [
+          "api-91ab17"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-91ab17"
+      ],
+      "product": [
+        "api-91ab17"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "subarea": [
+        "advanced-91ab17"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use subarea or readerFilters.subarea, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: use subarea or readerFilters.subarea, not both", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test shorthand conflict 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-903474"
+    ],
+    "readerFilters": {
+      "audience": [
+        "reader-903474"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-903474": "Author",
+          "reader-903474": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-903474": "API",
+          "web-903474": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-903474": "Guide",
+          "reference-903474": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-903474": "Start",
+          "advanced-903474": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-903474"
+        ],
+        "product": [
+          "api-903474"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "reader-903474"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-903474"
+      ],
+      "product": [
+        "api-903474"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: use audiences or readerFilters.audience, not both", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test shorthand conflict 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "product": "api-286a6f",
+    "readerFilters": {
+      "product": [
+        "web-286a6f"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-286a6f": "Author",
+          "reader-286a6f": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-286a6f": "API",
+          "web-286a6f": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-286a6f": "Guide",
+          "reference-286a6f": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-286a6f": "Start",
+          "advanced-286a6f": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-286a6f"
+        ],
+        "product": [
+          "api-286a6f"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "product": [
+        "web-286a6f"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-286a6f"
+      ],
+      "product": [
+        "api-286a6f"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"error": {"message": "example.mdx: use product or readerFilters.product, not both", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test shorthand conflict 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "area": "guide-d4860f",
+    "readerFilters": {
+      "area": [
+        "reference-d4860f"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-d4860f": "Author",
+          "reader-d4860f": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d4860f": "API",
+          "web-d4860f": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d4860f": "Guide",
+          "reference-d4860f": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d4860f": "Start",
+          "advanced-d4860f": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-d4860f"
+        ],
+        "product": [
+          "api-d4860f"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "area": [
+        "reference-d4860f"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-d4860f"
+      ],
+      "product": [
+        "api-d4860f"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use area or readerFilters.area, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: use area or readerFilters.area, not both", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test shorthand conflict 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "subarea": "start-de0686",
+    "readerFilters": {
+      "subarea": [
+        "advanced-de0686"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-de0686": "Author",
+          "reader-de0686": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-de0686": "API",
+          "web-de0686": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-de0686": "Guide",
+          "reference-de0686": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-de0686": "Start",
+          "advanced-de0686": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-de0686"
+        ],
+        "product": [
+          "api-de0686"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-de0686"
+      ],
+      "product": [
+        "api-de0686"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "subarea": [
+        "advanced-de0686"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use subarea or readerFilters.subarea, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: use subarea or readerFilters.subarea, not both", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test empty overrides 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "area": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-6b6c24": "Author",
+          "reader-6b6c24": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-6b6c24": "API",
+          "web-6b6c24": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-6b6c24": "Guide",
+          "reference-6b6c24": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-6b6c24": "Start",
+          "advanced-6b6c24": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-6b6c24"
+        ],
+        "product": [
+          "api-6b6c24"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "product": [
+        "api-6b6c24"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-6b6c24"
+      ],
+      "product": [
+        "api-6b6c24"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"product": ["api-6b6c24"]}}`
+
+### pageReaderFilters test empty overrides 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "product": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-fbbce5": "Author",
+          "reader-fbbce5": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-fbbce5": "API",
+          "web-fbbce5": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-fbbce5": "Guide",
+          "reference-fbbce5": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-fbbce5": "Start",
+          "advanced-fbbce5": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-fbbce5"
+        ],
+        "product": [
+          "api-fbbce5"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-fbbce5"
+      ],
+      "product": [
+        "api-fbbce5"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {}
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters test empty overrides 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "area": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-a9cd04": "Author",
+          "reader-a9cd04": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-a9cd04": "API",
+          "web-a9cd04": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-a9cd04": "Guide",
+          "reference-a9cd04": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-a9cd04": "Start",
+          "advanced-a9cd04": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-a9cd04"
+        ],
+        "product": [
+          "api-a9cd04"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "product": [
+        "api-a9cd04"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-a9cd04"
+      ],
+      "product": [
+        "api-a9cd04"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {"product": ["api-a9cd04"]}}`
+
+### pageReaderFilters test empty overrides 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "product": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-24e845": "Author",
+          "reader-24e845": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-24e845": "API",
+          "web-24e845": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-24e845": "Guide",
+          "reference-24e845": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-24e845": "Start",
+          "advanced-24e845": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-24e845"
+        ],
+        "product": [
+          "api-24e845"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-24e845"
+      ],
+      "product": [
+        "api-24e845"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {}
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters test empty overrides 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "area": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-c4aca2": "Author",
+          "reader-c4aca2": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-c4aca2": "API",
+          "web-c4aca2": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-c4aca2": "Guide",
+          "reference-c4aca2": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-c4aca2": "Start",
+          "advanced-c4aca2": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-c4aca2"
+        ],
+        "product": [
+          "api-c4aca2"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "product": [
+        "api-c4aca2"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-c4aca2"
+      ],
+      "product": [
+        "api-c4aca2"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"product": ["api-c4aca2"]}}`
+
+### pageReaderFilters test empty overrides 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "product": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-eaabd9": "Author",
+          "reader-eaabd9": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-eaabd9": "API",
+          "web-eaabd9": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-eaabd9": "Guide",
+          "reference-eaabd9": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-eaabd9": "Start",
+          "advanced-eaabd9": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-eaabd9"
+        ],
+        "product": [
+          "api-eaabd9"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {}
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-eaabd9"
+      ],
+      "product": [
+        "api-eaabd9"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters test empty overrides 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "area": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-7daf97": "Author",
+          "reader-7daf97": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-7daf97": "API",
+          "web-7daf97": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-7daf97": "Guide",
+          "reference-7daf97": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-7daf97": "Start",
+          "advanced-7daf97": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-7daf97"
+        ],
+        "product": [
+          "api-7daf97"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "product": [
+        "api-7daf97"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-7daf97"
+      ],
+      "product": [
+        "api-7daf97"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"product": ["api-7daf97"]}}`
+
+### pageReaderFilters test empty overrides 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [],
+      "product": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-574568": "Author",
+          "reader-574568": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-574568": "API",
+          "web-574568": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-574568": "Guide",
+          "reference-574568": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-574568": "Start",
+          "advanced-574568": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-574568"
+        ],
+        "product": [
+          "api-574568"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-574568"
+      ],
+      "product": [
+        "api-574568"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters test invalid selection 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [
+        "unknown"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-dfb68c": "Author",
+          "reader-dfb68c": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-dfb68c": "API",
+          "web-dfb68c": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-dfb68c": "Guide",
+          "reference-dfb68c": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-dfb68c": "Start",
+          "advanced-dfb68c": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-dfb68c"
+        ],
+        "product": [
+          "api-dfb68c"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "unknown"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-dfb68c"
+      ],
+      "product": [
+        "api-dfb68c"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters.audience must be a unique list of configured choices"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: readerFilters.audience must be a unique list of configured choices", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test invalid selection 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "missing": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-f922f4": "Author",
+          "reader-f922f4": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-f922f4": "API",
+          "web-f922f4": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-f922f4": "Guide",
+          "reference-f922f4": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-f922f4": "Start",
+          "advanced-f922f4": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-f922f4"
+        ],
+        "product": [
+          "api-f922f4"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-f922f4"
+      ],
+      "product": [
+        "api-f922f4"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "missing": []
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters.missing is not a configured reader filter"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: readerFilters.missing is not a configured reader filter", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test invalid selection 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [
+        null
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-d07e99": "Author",
+          "reader-d07e99": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d07e99": "API",
+          "web-d07e99": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d07e99": "Guide",
+          "reference-d07e99": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d07e99": "Start",
+          "advanced-d07e99": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-d07e99"
+        ],
+        "product": [
+          "api-d07e99"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-d07e99"
+      ],
+      "product": [
+        "api-d07e99"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        null
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters.audience must be a unique list of configured choices"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: readerFilters.audience must be a unique list of configured choices", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test invalid selection 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "missing": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-dfc0ee": "Author",
+          "reader-dfc0ee": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-dfc0ee": "API",
+          "web-dfc0ee": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-dfc0ee": "Guide",
+          "reference-dfc0ee": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-dfc0ee": "Start",
+          "advanced-dfc0ee": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-dfc0ee"
+        ],
+        "product": [
+          "api-dfc0ee"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters.missing is not a configured reader filter"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "missing": []
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-dfc0ee"
+      ],
+      "product": [
+        "api-dfc0ee"
+      ]
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"error": {"message": "example.mdx: readerFilters.missing is not a configured reader filter", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test invalid selection 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [
+        "unknown"
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-441265": "Author",
+          "reader-441265": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-441265": "API",
+          "web-441265": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-441265": "Guide",
+          "reference-441265": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-441265": "Start",
+          "advanced-441265": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-441265"
+        ],
+        "product": [
+          "api-441265"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "unknown"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-441265"
+      ],
+      "product": [
+        "api-441265"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters.audience must be a unique list of configured choices"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: readerFilters.audience must be a unique list of configured choices", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test invalid selection 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "missing": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-ca87ab": "Author",
+          "reader-ca87ab": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ca87ab": "API",
+          "web-ca87ab": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ca87ab": "Guide",
+          "reference-ca87ab": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ca87ab": "Start",
+          "advanced-ca87ab": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-ca87ab"
+        ],
+        "product": [
+          "api-ca87ab"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-ca87ab"
+      ],
+      "product": [
+        "api-ca87ab"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "missing": []
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters.missing is not a configured reader filter"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: readerFilters.missing is not a configured reader filter", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test invalid selection 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "audience": [
+        null
+      ]
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-424e83": "Author",
+          "reader-424e83": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-424e83": "API",
+          "web-424e83": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-424e83": "Guide",
+          "reference-424e83": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-424e83": "Start",
+          "advanced-424e83": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-424e83"
+        ],
+        "product": [
+          "api-424e83"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-424e83"
+      ],
+      "product": [
+        "api-424e83"
+      ]
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        null
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters.audience must be a unique list of configured choices"
+    }
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"error": {"message": "example.mdx: readerFilters.audience must be a unique list of configured choices", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test invalid selection 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "readerFilters": {
+      "missing": []
+    }
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-71acef": "Author",
+          "reader-71acef": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-71acef": "API",
+          "web-71acef": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-71acef": "Guide",
+          "reference-71acef": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-71acef": "Start",
+          "advanced-71acef": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-71acef"
+        ],
+        "product": [
+          "api-71acef"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: readerFilters.missing is not a configured reader filter"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "missing": []
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "audience": [
+        "author-71acef"
+      ],
+      "product": [
+        "api-71acef"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"error": {"message": "example.mdx: readerFilters.missing is not a configured reader filter", "name": "Error"}, "ok": false}`
+
+### pageReaderFilters test missing facet 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "reference",
+    "audiences": [
+      "author-e2d76f"
+    ]
+  },
+  {
+    "facets": {
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-e2d76f": "API",
+          "web-e2d76f": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-e2d76f": "Guide",
+          "reference-e2d76f": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-e2d76f": "Start",
+          "advanced-e2d76f": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "product": [
+          "api-e2d76f"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {}
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters test missing facet 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-525bc0"
+    ]
+  },
+  {
+    "facets": {
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-525bc0": "API",
+          "web-525bc0": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-525bc0": "Guide",
+          "reference-525bc0": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-525bc0": "Start",
+          "advanced-525bc0": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "product": [
+          "api-525bc0"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "product": [
+        "api-525bc0"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"product": ["api-525bc0"]}}`
+
+### pageReaderFilters test missing facet 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "reference",
+    "audiences": [
+      "author-4ccfca"
+    ]
+  },
+  {
+    "facets": {
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-4ccfca": "API",
+          "web-4ccfca": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-4ccfca": "Guide",
+          "reference-4ccfca": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-4ccfca": "Start",
+          "advanced-4ccfca": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "product": [
+          "api-4ccfca"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {}
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters test missing facet 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-ac2dc0"
+    ]
+  },
+  {
+    "facets": {
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ac2dc0": "API",
+          "web-ac2dc0": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ac2dc0": "Guide",
+          "reference-ac2dc0": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ac2dc0": "Start",
+          "advanced-ac2dc0": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "product": [
+          "api-ac2dc0"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_c": {
+    "ok": true,
+    "result": {
+      "product": [
+        "api-ac2dc0"
+      ]
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": {"product": ["api-ac2dc0"]}}`
+
+### pageReaderFilters test missing facet 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "reference",
+    "audiences": [
+      "author-2bf9c7"
+    ]
+  },
+  {
+    "facets": {
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-2bf9c7": "API",
+          "web-2bf9c7": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-2bf9c7": "Guide",
+          "reference-2bf9c7": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-2bf9c7": "Start",
+          "advanced-2bf9c7": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "product": [
+          "api-2bf9c7"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {}
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters test missing facet 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-963a9f"
+    ]
+  },
+  {
+    "facets": {
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-963a9f": "API",
+          "web-963a9f": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-963a9f": "Guide",
+          "reference-963a9f": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-963a9f": "Start",
+          "advanced-963a9f": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "product": [
+          "api-963a9f"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": {}
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "product": [
+        "api-963a9f"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"product": ["api-963a9f"]}}`
+
+### pageReaderFilters test missing facet 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "reference",
+    "audiences": [
+      "author-d7be67"
+    ]
+  },
+  {
+    "facets": {
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d7be67": "API",
+          "web-d7be67": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d7be67": "Guide",
+          "reference-d7be67": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d7be67": "Start",
+          "advanced-d7be67": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "product": [
+          "api-d7be67"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {}
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {
+      "audience": []
+    }
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {}}`
+
+### pageReaderFilters test missing facet 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "type": "guide",
+    "audiences": [
+      "author-868951"
+    ]
+  },
+  {
+    "facets": {
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-868951": "API",
+          "web-868951": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-868951": "Guide",
+          "reference-868951": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-868951": "Start",
+          "advanced-868951": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "product": [
+          "api-868951"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "example.mdx"
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use audiences or readerFilters.audience, not both"
+    }
+  },
+  "option_b": {
+    "ok": true,
+    "result": {
+      "product": [
+        "api-868951"
+      ]
+    }
+  },
+  "option_c": {
+    "ok": false,
+    "error": {
+      "name": "Error",
+      "message": "example.mdx: use product or readerFilters.product, not both"
+    }
+  },
+  "option_d": {
+    "ok": true,
+    "result": {}
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": {"product": ["api-868951"]}}`

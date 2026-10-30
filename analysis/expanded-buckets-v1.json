@@ -1,0 +1,4228 @@
+{
+  "schema_version": 1,
+  "fixture": "data/shoalrun-expanded-v1.json",
+  "fixture_hash": "b19cd0fa599abf3fdb8678d296203757b5f8cc655c16a17e68fe76ecdab2e21e",
+  "registered_at": "2026-10-30T13:51:38.131980+00:00",
+  "registration_basis": "Assigned from source functions and input-family structure before inspecting any expanded model outputs. No model results were read to assign these tags.",
+  "complexity_definitions": {
+    "low": "A local shape, type, membership, literal-match, or early-guard decision.",
+    "medium": "A normalization, boundary, uniqueness, lookup, or transformation rule without a substantial combination of defaults or precedence.",
+    "high": "Multiple interacting fields, precedence/default merging, structured sequence/order decisions, or specialized runtime lookup semantics."
+  },
+  "limitations": [
+    "Complexity is an authored structural estimate, not an executable ground-truth label or a measured property of a model.",
+    "Related cases share templates; sample counts are not independent observation counts.",
+    "Task type, source module length, and complexity are correlated. Use within-function/task comparisons before attributing differences to complexity.",
+    "Source rules are supplied intentionally; the analysis does not establish broad real-world task difficulty."
+  ],
+  "case_tags": {
+    "validateSearchSynonyms-dev-spacing-1": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-spacing",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "normalization"
+      ],
+      "basis": "Trim, lowercase, and normalize phrase whitespace before validation."
+    },
+    "phraseMatches-dev-word-1": {
+      "function": "phraseMatches",
+      "family": "dev-word",
+      "ask_type": "boolean-result",
+      "complexity": "low",
+      "edges": [
+        "ordinary"
+      ],
+      "basis": "Check one literal whole-word match."
+    },
+    "queryUnits-dev-single-1": {
+      "function": "queryUnits",
+      "family": "dev-single",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "synonyms"
+      ],
+      "basis": "Select a synonym group and exclude the matched spelling."
+    },
+    "validateReaderSelection-dev-combinations-1": {
+      "function": "validateReaderSelection",
+      "family": "dev-combinations",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "empty"
+      ],
+      "basis": "Validate combinations of facet choices and empty lists."
+    },
+    "pageReaderFilters-dev-type-defaults-1": {
+      "function": "pageReaderFilters",
+      "family": "dev-type-defaults",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "defaults"
+      ],
+      "basis": "Resolve the defaults for a page type."
+    },
+    "validateSearchSynonyms-dev-spacing-2": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-spacing",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "normalization"
+      ],
+      "basis": "Trim, lowercase, and normalize phrase whitespace before validation."
+    },
+    "phraseMatches-dev-word-2": {
+      "function": "phraseMatches",
+      "family": "dev-word",
+      "ask_type": "boolean-result",
+      "complexity": "low",
+      "edges": [
+        "ordinary"
+      ],
+      "basis": "Check one literal whole-word match."
+    },
+    "queryUnits-dev-single-2": {
+      "function": "queryUnits",
+      "family": "dev-single",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "synonyms"
+      ],
+      "basis": "Select a synonym group and exclude the matched spelling."
+    },
+    "validateReaderSelection-dev-combinations-2": {
+      "function": "validateReaderSelection",
+      "family": "dev-combinations",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "empty"
+      ],
+      "basis": "Validate combinations of facet choices and empty lists."
+    },
+    "pageReaderFilters-dev-type-defaults-2": {
+      "function": "pageReaderFilters",
+      "family": "dev-type-defaults",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "defaults"
+      ],
+      "basis": "Resolve the defaults for a page type."
+    },
+    "validateSearchSynonyms-dev-spacing-3": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-spacing",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "normalization"
+      ],
+      "basis": "Trim, lowercase, and normalize phrase whitespace before validation."
+    },
+    "phraseMatches-dev-word-3": {
+      "function": "phraseMatches",
+      "family": "dev-word",
+      "ask_type": "boolean-result",
+      "complexity": "low",
+      "edges": [
+        "ordinary"
+      ],
+      "basis": "Check one literal whole-word match."
+    },
+    "queryUnits-dev-single-3": {
+      "function": "queryUnits",
+      "family": "dev-single",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "synonyms"
+      ],
+      "basis": "Select a synonym group and exclude the matched spelling."
+    },
+    "validateReaderSelection-dev-combinations-3": {
+      "function": "validateReaderSelection",
+      "family": "dev-combinations",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "empty"
+      ],
+      "basis": "Validate combinations of facet choices and empty lists."
+    },
+    "pageReaderFilters-dev-type-defaults-3": {
+      "function": "pageReaderFilters",
+      "family": "dev-type-defaults",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "defaults"
+      ],
+      "basis": "Resolve the defaults for a page type."
+    },
+    "validateSearchSynonyms-dev-spacing-4": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-spacing",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "normalization"
+      ],
+      "basis": "Trim, lowercase, and normalize phrase whitespace before validation."
+    },
+    "phraseMatches-dev-word-4": {
+      "function": "phraseMatches",
+      "family": "dev-word",
+      "ask_type": "boolean-result",
+      "complexity": "low",
+      "edges": [
+        "ordinary"
+      ],
+      "basis": "Check one literal whole-word match."
+    },
+    "queryUnits-dev-single-4": {
+      "function": "queryUnits",
+      "family": "dev-single",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "synonyms"
+      ],
+      "basis": "Select a synonym group and exclude the matched spelling."
+    },
+    "validateReaderSelection-dev-combinations-4": {
+      "function": "validateReaderSelection",
+      "family": "dev-combinations",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "empty"
+      ],
+      "basis": "Validate combinations of facet choices and empty lists."
+    },
+    "pageReaderFilters-dev-type-defaults-4": {
+      "function": "pageReaderFilters",
+      "family": "dev-type-defaults",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "defaults"
+      ],
+      "basis": "Resolve the defaults for a page type."
+    },
+    "validateSearchSynonyms-dev-spacing-5": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-spacing",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "normalization"
+      ],
+      "basis": "Trim, lowercase, and normalize phrase whitespace before validation."
+    },
+    "phraseMatches-dev-word-5": {
+      "function": "phraseMatches",
+      "family": "dev-word",
+      "ask_type": "boolean-result",
+      "complexity": "low",
+      "edges": [
+        "ordinary"
+      ],
+      "basis": "Check one literal whole-word match."
+    },
+    "queryUnits-dev-single-5": {
+      "function": "queryUnits",
+      "family": "dev-single",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "synonyms"
+      ],
+      "basis": "Select a synonym group and exclude the matched spelling."
+    },
+    "validateReaderSelection-dev-combinations-5": {
+      "function": "validateReaderSelection",
+      "family": "dev-combinations",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "empty"
+      ],
+      "basis": "Validate combinations of facet choices and empty lists."
+    },
+    "pageReaderFilters-dev-type-defaults-5": {
+      "function": "pageReaderFilters",
+      "family": "dev-type-defaults",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "defaults"
+      ],
+      "basis": "Resolve the defaults for a page type."
+    },
+    "validateSearchSynonyms-dev-spacing-6": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-spacing",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "normalization"
+      ],
+      "basis": "Trim, lowercase, and normalize phrase whitespace before validation."
+    },
+    "phraseMatches-dev-word-6": {
+      "function": "phraseMatches",
+      "family": "dev-word",
+      "ask_type": "boolean-result",
+      "complexity": "low",
+      "edges": [
+        "ordinary"
+      ],
+      "basis": "Check one literal whole-word match."
+    },
+    "queryUnits-dev-single-6": {
+      "function": "queryUnits",
+      "family": "dev-single",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "synonyms"
+      ],
+      "basis": "Select a synonym group and exclude the matched spelling."
+    },
+    "validateReaderSelection-dev-combinations-6": {
+      "function": "validateReaderSelection",
+      "family": "dev-combinations",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "empty"
+      ],
+      "basis": "Validate combinations of facet choices and empty lists."
+    },
+    "pageReaderFilters-dev-type-defaults-6": {
+      "function": "pageReaderFilters",
+      "family": "dev-type-defaults",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "defaults"
+      ],
+      "basis": "Resolve the defaults for a page type."
+    },
+    "validateSearchSynonyms-dev-spacing-7": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-spacing",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "normalization"
+      ],
+      "basis": "Trim, lowercase, and normalize phrase whitespace before validation."
+    },
+    "phraseMatches-dev-word-7": {
+      "function": "phraseMatches",
+      "family": "dev-word",
+      "ask_type": "boolean-result",
+      "complexity": "low",
+      "edges": [
+        "ordinary"
+      ],
+      "basis": "Check one literal whole-word match."
+    },
+    "queryUnits-dev-single-7": {
+      "function": "queryUnits",
+      "family": "dev-single",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "synonyms"
+      ],
+      "basis": "Select a synonym group and exclude the matched spelling."
+    },
+    "validateReaderSelection-dev-combinations-7": {
+      "function": "validateReaderSelection",
+      "family": "dev-combinations",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "empty"
+      ],
+      "basis": "Validate combinations of facet choices and empty lists."
+    },
+    "pageReaderFilters-dev-type-defaults-7": {
+      "function": "pageReaderFilters",
+      "family": "dev-type-defaults",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "defaults"
+      ],
+      "basis": "Resolve the defaults for a page type."
+    },
+    "validateSearchSynonyms-dev-spacing-8": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-spacing",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "normalization"
+      ],
+      "basis": "Trim, lowercase, and normalize phrase whitespace before validation."
+    },
+    "phraseMatches-dev-word-8": {
+      "function": "phraseMatches",
+      "family": "dev-word",
+      "ask_type": "boolean-result",
+      "complexity": "low",
+      "edges": [
+        "ordinary"
+      ],
+      "basis": "Check one literal whole-word match."
+    },
+    "queryUnits-dev-single-8": {
+      "function": "queryUnits",
+      "family": "dev-single",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "synonyms"
+      ],
+      "basis": "Select a synonym group and exclude the matched spelling."
+    },
+    "validateReaderSelection-dev-combinations-8": {
+      "function": "validateReaderSelection",
+      "family": "dev-combinations",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "empty"
+      ],
+      "basis": "Validate combinations of facet choices and empty lists."
+    },
+    "pageReaderFilters-dev-type-defaults-8": {
+      "function": "pageReaderFilters",
+      "family": "dev-type-defaults",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "defaults"
+      ],
+      "basis": "Resolve the defaults for a page type."
+    },
+    "validateSearchSynonyms-dev-root-shape-1": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Distinguish the accepted outer list shape from scalar or mapping inputs."
+    },
+    "phraseMatches-dev-plural-1": {
+      "function": "phraseMatches",
+      "family": "dev-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural"
+      ],
+      "basis": "Apply the optional final plural suffix."
+    },
+    "queryUnits-dev-longest-phrase-1": {
+      "function": "queryUnits",
+      "family": "dev-longest-phrase",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Prefer the longest matching phrase and advance the scan accordingly."
+    },
+    "validateReaderSelection-dev-list-types-1": {
+      "function": "validateReaderSelection",
+      "family": "dev-list-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Check that selected choices have the required list shape."
+    },
+    "pageReaderFilters-dev-explicit-overrides-1": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "empty"
+      ],
+      "basis": "Merge explicit values over defaults, then remove empty selections."
+    },
+    "validateSearchSynonyms-dev-root-shape-2": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Distinguish the accepted outer list shape from scalar or mapping inputs."
+    },
+    "phraseMatches-dev-plural-2": {
+      "function": "phraseMatches",
+      "family": "dev-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural"
+      ],
+      "basis": "Apply the optional final plural suffix."
+    },
+    "queryUnits-dev-longest-phrase-2": {
+      "function": "queryUnits",
+      "family": "dev-longest-phrase",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Prefer the longest matching phrase and advance the scan accordingly."
+    },
+    "validateReaderSelection-dev-list-types-2": {
+      "function": "validateReaderSelection",
+      "family": "dev-list-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Check that selected choices have the required list shape."
+    },
+    "pageReaderFilters-dev-explicit-overrides-2": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "empty"
+      ],
+      "basis": "Merge explicit values over defaults, then remove empty selections."
+    },
+    "validateSearchSynonyms-dev-root-shape-3": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Distinguish the accepted outer list shape from scalar or mapping inputs."
+    },
+    "phraseMatches-dev-plural-3": {
+      "function": "phraseMatches",
+      "family": "dev-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural"
+      ],
+      "basis": "Apply the optional final plural suffix."
+    },
+    "queryUnits-dev-longest-phrase-3": {
+      "function": "queryUnits",
+      "family": "dev-longest-phrase",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Prefer the longest matching phrase and advance the scan accordingly."
+    },
+    "validateReaderSelection-dev-list-types-3": {
+      "function": "validateReaderSelection",
+      "family": "dev-list-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Check that selected choices have the required list shape."
+    },
+    "pageReaderFilters-dev-explicit-overrides-3": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "empty"
+      ],
+      "basis": "Merge explicit values over defaults, then remove empty selections."
+    },
+    "validateSearchSynonyms-dev-root-shape-4": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Distinguish the accepted outer list shape from scalar or mapping inputs."
+    },
+    "phraseMatches-dev-plural-4": {
+      "function": "phraseMatches",
+      "family": "dev-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural"
+      ],
+      "basis": "Apply the optional final plural suffix."
+    },
+    "queryUnits-dev-longest-phrase-4": {
+      "function": "queryUnits",
+      "family": "dev-longest-phrase",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Prefer the longest matching phrase and advance the scan accordingly."
+    },
+    "validateReaderSelection-dev-list-types-4": {
+      "function": "validateReaderSelection",
+      "family": "dev-list-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Check that selected choices have the required list shape."
+    },
+    "pageReaderFilters-dev-explicit-overrides-4": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "empty"
+      ],
+      "basis": "Merge explicit values over defaults, then remove empty selections."
+    },
+    "validateSearchSynonyms-dev-root-shape-5": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Distinguish the accepted outer list shape from scalar or mapping inputs."
+    },
+    "phraseMatches-dev-plural-5": {
+      "function": "phraseMatches",
+      "family": "dev-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural"
+      ],
+      "basis": "Apply the optional final plural suffix."
+    },
+    "queryUnits-dev-longest-phrase-5": {
+      "function": "queryUnits",
+      "family": "dev-longest-phrase",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Prefer the longest matching phrase and advance the scan accordingly."
+    },
+    "validateReaderSelection-dev-list-types-5": {
+      "function": "validateReaderSelection",
+      "family": "dev-list-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Check that selected choices have the required list shape."
+    },
+    "pageReaderFilters-dev-explicit-overrides-5": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "empty"
+      ],
+      "basis": "Merge explicit values over defaults, then remove empty selections."
+    },
+    "validateSearchSynonyms-dev-root-shape-6": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Distinguish the accepted outer list shape from scalar or mapping inputs."
+    },
+    "phraseMatches-dev-plural-6": {
+      "function": "phraseMatches",
+      "family": "dev-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural"
+      ],
+      "basis": "Apply the optional final plural suffix."
+    },
+    "queryUnits-dev-longest-phrase-6": {
+      "function": "queryUnits",
+      "family": "dev-longest-phrase",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Prefer the longest matching phrase and advance the scan accordingly."
+    },
+    "validateReaderSelection-dev-list-types-6": {
+      "function": "validateReaderSelection",
+      "family": "dev-list-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Check that selected choices have the required list shape."
+    },
+    "pageReaderFilters-dev-explicit-overrides-6": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "empty"
+      ],
+      "basis": "Merge explicit values over defaults, then remove empty selections."
+    },
+    "validateSearchSynonyms-dev-root-shape-7": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Distinguish the accepted outer list shape from scalar or mapping inputs."
+    },
+    "phraseMatches-dev-plural-7": {
+      "function": "phraseMatches",
+      "family": "dev-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural"
+      ],
+      "basis": "Apply the optional final plural suffix."
+    },
+    "queryUnits-dev-longest-phrase-7": {
+      "function": "queryUnits",
+      "family": "dev-longest-phrase",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Prefer the longest matching phrase and advance the scan accordingly."
+    },
+    "validateReaderSelection-dev-list-types-7": {
+      "function": "validateReaderSelection",
+      "family": "dev-list-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Check that selected choices have the required list shape."
+    },
+    "pageReaderFilters-dev-explicit-overrides-7": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "empty"
+      ],
+      "basis": "Merge explicit values over defaults, then remove empty selections."
+    },
+    "validateSearchSynonyms-dev-root-shape-8": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Distinguish the accepted outer list shape from scalar or mapping inputs."
+    },
+    "phraseMatches-dev-plural-8": {
+      "function": "phraseMatches",
+      "family": "dev-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural"
+      ],
+      "basis": "Apply the optional final plural suffix."
+    },
+    "queryUnits-dev-longest-phrase-8": {
+      "function": "queryUnits",
+      "family": "dev-longest-phrase",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Prefer the longest matching phrase and advance the scan accordingly."
+    },
+    "validateReaderSelection-dev-list-types-8": {
+      "function": "validateReaderSelection",
+      "family": "dev-list-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Check that selected choices have the required list shape."
+    },
+    "pageReaderFilters-dev-explicit-overrides-8": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "empty"
+      ],
+      "basis": "Merge explicit values over defaults, then remove empty selections."
+    },
+    "validateSearchSynonyms-dev-duplicates-1": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-duplicates",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Check global term uniqueness after normalization."
+    },
+    "phraseMatches-dev-start-boundary-1": {
+      "function": "phraseMatches",
+      "family": "dev-start-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the leading word boundary."
+    },
+    "queryUnits-dev-edge-punctuation-1": {
+      "function": "queryUnits",
+      "family": "dev-edge-punctuation",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "punctuation",
+        "normalization"
+      ],
+      "basis": "Strip edge punctuation before synonym lookup."
+    },
+    "validateReaderSelection-dev-facet-membership-1": {
+      "function": "validateReaderSelection",
+      "family": "dev-facet-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check whether a facet is configured."
+    },
+    "pageReaderFilters-dev-audiences-1": {
+      "function": "pageReaderFilters",
+      "family": "dev-audiences",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "precedence"
+      ],
+      "basis": "Translate audience shorthand and merge with defaults."
+    },
+    "validateSearchSynonyms-dev-duplicates-2": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-duplicates",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Check global term uniqueness after normalization."
+    },
+    "phraseMatches-dev-start-boundary-2": {
+      "function": "phraseMatches",
+      "family": "dev-start-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the leading word boundary."
+    },
+    "queryUnits-dev-edge-punctuation-2": {
+      "function": "queryUnits",
+      "family": "dev-edge-punctuation",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "punctuation",
+        "normalization"
+      ],
+      "basis": "Strip edge punctuation before synonym lookup."
+    },
+    "validateReaderSelection-dev-facet-membership-2": {
+      "function": "validateReaderSelection",
+      "family": "dev-facet-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check whether a facet is configured."
+    },
+    "pageReaderFilters-dev-audiences-2": {
+      "function": "pageReaderFilters",
+      "family": "dev-audiences",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "precedence"
+      ],
+      "basis": "Translate audience shorthand and merge with defaults."
+    },
+    "validateSearchSynonyms-dev-duplicates-3": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-duplicates",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Check global term uniqueness after normalization."
+    },
+    "phraseMatches-dev-start-boundary-3": {
+      "function": "phraseMatches",
+      "family": "dev-start-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the leading word boundary."
+    },
+    "queryUnits-dev-edge-punctuation-3": {
+      "function": "queryUnits",
+      "family": "dev-edge-punctuation",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "punctuation",
+        "normalization"
+      ],
+      "basis": "Strip edge punctuation before synonym lookup."
+    },
+    "validateReaderSelection-dev-facet-membership-3": {
+      "function": "validateReaderSelection",
+      "family": "dev-facet-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check whether a facet is configured."
+    },
+    "pageReaderFilters-dev-audiences-3": {
+      "function": "pageReaderFilters",
+      "family": "dev-audiences",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "precedence"
+      ],
+      "basis": "Translate audience shorthand and merge with defaults."
+    },
+    "validateSearchSynonyms-dev-duplicates-4": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-duplicates",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Check global term uniqueness after normalization."
+    },
+    "phraseMatches-dev-start-boundary-4": {
+      "function": "phraseMatches",
+      "family": "dev-start-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the leading word boundary."
+    },
+    "queryUnits-dev-edge-punctuation-4": {
+      "function": "queryUnits",
+      "family": "dev-edge-punctuation",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "punctuation",
+        "normalization"
+      ],
+      "basis": "Strip edge punctuation before synonym lookup."
+    },
+    "validateReaderSelection-dev-facet-membership-4": {
+      "function": "validateReaderSelection",
+      "family": "dev-facet-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check whether a facet is configured."
+    },
+    "pageReaderFilters-dev-audiences-4": {
+      "function": "pageReaderFilters",
+      "family": "dev-audiences",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "precedence"
+      ],
+      "basis": "Translate audience shorthand and merge with defaults."
+    },
+    "validateSearchSynonyms-dev-duplicates-5": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-duplicates",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Check global term uniqueness after normalization."
+    },
+    "phraseMatches-dev-start-boundary-5": {
+      "function": "phraseMatches",
+      "family": "dev-start-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the leading word boundary."
+    },
+    "queryUnits-dev-edge-punctuation-5": {
+      "function": "queryUnits",
+      "family": "dev-edge-punctuation",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "punctuation",
+        "normalization"
+      ],
+      "basis": "Strip edge punctuation before synonym lookup."
+    },
+    "validateReaderSelection-dev-facet-membership-5": {
+      "function": "validateReaderSelection",
+      "family": "dev-facet-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check whether a facet is configured."
+    },
+    "pageReaderFilters-dev-audiences-5": {
+      "function": "pageReaderFilters",
+      "family": "dev-audiences",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "precedence"
+      ],
+      "basis": "Translate audience shorthand and merge with defaults."
+    },
+    "validateSearchSynonyms-dev-duplicates-6": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-duplicates",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Check global term uniqueness after normalization."
+    },
+    "phraseMatches-dev-start-boundary-6": {
+      "function": "phraseMatches",
+      "family": "dev-start-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the leading word boundary."
+    },
+    "queryUnits-dev-edge-punctuation-6": {
+      "function": "queryUnits",
+      "family": "dev-edge-punctuation",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "punctuation",
+        "normalization"
+      ],
+      "basis": "Strip edge punctuation before synonym lookup."
+    },
+    "validateReaderSelection-dev-facet-membership-6": {
+      "function": "validateReaderSelection",
+      "family": "dev-facet-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check whether a facet is configured."
+    },
+    "pageReaderFilters-dev-audiences-6": {
+      "function": "pageReaderFilters",
+      "family": "dev-audiences",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "precedence"
+      ],
+      "basis": "Translate audience shorthand and merge with defaults."
+    },
+    "validateSearchSynonyms-dev-duplicates-7": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-duplicates",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Check global term uniqueness after normalization."
+    },
+    "phraseMatches-dev-start-boundary-7": {
+      "function": "phraseMatches",
+      "family": "dev-start-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the leading word boundary."
+    },
+    "queryUnits-dev-edge-punctuation-7": {
+      "function": "queryUnits",
+      "family": "dev-edge-punctuation",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "punctuation",
+        "normalization"
+      ],
+      "basis": "Strip edge punctuation before synonym lookup."
+    },
+    "validateReaderSelection-dev-facet-membership-7": {
+      "function": "validateReaderSelection",
+      "family": "dev-facet-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check whether a facet is configured."
+    },
+    "pageReaderFilters-dev-audiences-7": {
+      "function": "pageReaderFilters",
+      "family": "dev-audiences",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "precedence"
+      ],
+      "basis": "Translate audience shorthand and merge with defaults."
+    },
+    "validateSearchSynonyms-dev-duplicates-8": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-duplicates",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Check global term uniqueness after normalization."
+    },
+    "phraseMatches-dev-start-boundary-8": {
+      "function": "phraseMatches",
+      "family": "dev-start-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the leading word boundary."
+    },
+    "queryUnits-dev-edge-punctuation-8": {
+      "function": "queryUnits",
+      "family": "dev-edge-punctuation",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "punctuation",
+        "normalization"
+      ],
+      "basis": "Strip edge punctuation before synonym lookup."
+    },
+    "validateReaderSelection-dev-facet-membership-8": {
+      "function": "validateReaderSelection",
+      "family": "dev-facet-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check whether a facet is configured."
+    },
+    "pageReaderFilters-dev-audiences-8": {
+      "function": "pageReaderFilters",
+      "family": "dev-audiences",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "precedence"
+      ],
+      "basis": "Translate audience shorthand and merge with defaults."
+    },
+    "validateSearchSynonyms-dev-phrases-1": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-phrases",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "phrases",
+        "normalization"
+      ],
+      "basis": "Validate and normalize word sequences across groups."
+    },
+    "phraseMatches-dev-end-boundary-1": {
+      "function": "phraseMatches",
+      "family": "dev-end-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the trailing word boundary."
+    },
+    "queryUnits-dev-plural-1": {
+      "function": "queryUnits",
+      "family": "dev-plural",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "synonyms"
+      ],
+      "basis": "Match a plural term while retaining the query spelling in output."
+    },
+    "validateReaderSelection-dev-duplicate-choices-1": {
+      "function": "validateReaderSelection",
+      "family": "dev-duplicate-choices",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates"
+      ],
+      "basis": "Check membership and uniqueness in a selected list."
+    },
+    "pageReaderFilters-dev-explicit-facets-1": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-facets",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "precedence"
+      ],
+      "basis": "Merge several explicit facets with page-type defaults."
+    },
+    "validateSearchSynonyms-dev-phrases-2": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-phrases",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "phrases",
+        "normalization"
+      ],
+      "basis": "Validate and normalize word sequences across groups."
+    },
+    "phraseMatches-dev-end-boundary-2": {
+      "function": "phraseMatches",
+      "family": "dev-end-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the trailing word boundary."
+    },
+    "queryUnits-dev-plural-2": {
+      "function": "queryUnits",
+      "family": "dev-plural",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "synonyms"
+      ],
+      "basis": "Match a plural term while retaining the query spelling in output."
+    },
+    "validateReaderSelection-dev-duplicate-choices-2": {
+      "function": "validateReaderSelection",
+      "family": "dev-duplicate-choices",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates"
+      ],
+      "basis": "Check membership and uniqueness in a selected list."
+    },
+    "pageReaderFilters-dev-explicit-facets-2": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-facets",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "precedence"
+      ],
+      "basis": "Merge several explicit facets with page-type defaults."
+    },
+    "validateSearchSynonyms-dev-phrases-3": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-phrases",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "phrases",
+        "normalization"
+      ],
+      "basis": "Validate and normalize word sequences across groups."
+    },
+    "phraseMatches-dev-end-boundary-3": {
+      "function": "phraseMatches",
+      "family": "dev-end-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the trailing word boundary."
+    },
+    "queryUnits-dev-plural-3": {
+      "function": "queryUnits",
+      "family": "dev-plural",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "synonyms"
+      ],
+      "basis": "Match a plural term while retaining the query spelling in output."
+    },
+    "validateReaderSelection-dev-duplicate-choices-3": {
+      "function": "validateReaderSelection",
+      "family": "dev-duplicate-choices",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates"
+      ],
+      "basis": "Check membership and uniqueness in a selected list."
+    },
+    "pageReaderFilters-dev-explicit-facets-3": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-facets",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "precedence"
+      ],
+      "basis": "Merge several explicit facets with page-type defaults."
+    },
+    "validateSearchSynonyms-dev-phrases-4": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-phrases",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "phrases",
+        "normalization"
+      ],
+      "basis": "Validate and normalize word sequences across groups."
+    },
+    "phraseMatches-dev-end-boundary-4": {
+      "function": "phraseMatches",
+      "family": "dev-end-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the trailing word boundary."
+    },
+    "queryUnits-dev-plural-4": {
+      "function": "queryUnits",
+      "family": "dev-plural",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "synonyms"
+      ],
+      "basis": "Match a plural term while retaining the query spelling in output."
+    },
+    "validateReaderSelection-dev-duplicate-choices-4": {
+      "function": "validateReaderSelection",
+      "family": "dev-duplicate-choices",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates"
+      ],
+      "basis": "Check membership and uniqueness in a selected list."
+    },
+    "pageReaderFilters-dev-explicit-facets-4": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-facets",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "precedence"
+      ],
+      "basis": "Merge several explicit facets with page-type defaults."
+    },
+    "validateSearchSynonyms-dev-phrases-5": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-phrases",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "phrases",
+        "normalization"
+      ],
+      "basis": "Validate and normalize word sequences across groups."
+    },
+    "phraseMatches-dev-end-boundary-5": {
+      "function": "phraseMatches",
+      "family": "dev-end-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the trailing word boundary."
+    },
+    "queryUnits-dev-plural-5": {
+      "function": "queryUnits",
+      "family": "dev-plural",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "synonyms"
+      ],
+      "basis": "Match a plural term while retaining the query spelling in output."
+    },
+    "validateReaderSelection-dev-duplicate-choices-5": {
+      "function": "validateReaderSelection",
+      "family": "dev-duplicate-choices",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates"
+      ],
+      "basis": "Check membership and uniqueness in a selected list."
+    },
+    "pageReaderFilters-dev-explicit-facets-5": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-facets",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "precedence"
+      ],
+      "basis": "Merge several explicit facets with page-type defaults."
+    },
+    "validateSearchSynonyms-dev-phrases-6": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-phrases",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "phrases",
+        "normalization"
+      ],
+      "basis": "Validate and normalize word sequences across groups."
+    },
+    "phraseMatches-dev-end-boundary-6": {
+      "function": "phraseMatches",
+      "family": "dev-end-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the trailing word boundary."
+    },
+    "queryUnits-dev-plural-6": {
+      "function": "queryUnits",
+      "family": "dev-plural",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "synonyms"
+      ],
+      "basis": "Match a plural term while retaining the query spelling in output."
+    },
+    "validateReaderSelection-dev-duplicate-choices-6": {
+      "function": "validateReaderSelection",
+      "family": "dev-duplicate-choices",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates"
+      ],
+      "basis": "Check membership and uniqueness in a selected list."
+    },
+    "pageReaderFilters-dev-explicit-facets-6": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-facets",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "precedence"
+      ],
+      "basis": "Merge several explicit facets with page-type defaults."
+    },
+    "validateSearchSynonyms-dev-phrases-7": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-phrases",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "phrases",
+        "normalization"
+      ],
+      "basis": "Validate and normalize word sequences across groups."
+    },
+    "phraseMatches-dev-end-boundary-7": {
+      "function": "phraseMatches",
+      "family": "dev-end-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the trailing word boundary."
+    },
+    "queryUnits-dev-plural-7": {
+      "function": "queryUnits",
+      "family": "dev-plural",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "synonyms"
+      ],
+      "basis": "Match a plural term while retaining the query spelling in output."
+    },
+    "validateReaderSelection-dev-duplicate-choices-7": {
+      "function": "validateReaderSelection",
+      "family": "dev-duplicate-choices",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates"
+      ],
+      "basis": "Check membership and uniqueness in a selected list."
+    },
+    "pageReaderFilters-dev-explicit-facets-7": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-facets",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "precedence"
+      ],
+      "basis": "Merge several explicit facets with page-type defaults."
+    },
+    "validateSearchSynonyms-dev-phrases-8": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-phrases",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "phrases",
+        "normalization"
+      ],
+      "basis": "Validate and normalize word sequences across groups."
+    },
+    "phraseMatches-dev-end-boundary-8": {
+      "function": "phraseMatches",
+      "family": "dev-end-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "word-boundary"
+      ],
+      "basis": "Check the trailing word boundary."
+    },
+    "queryUnits-dev-plural-8": {
+      "function": "queryUnits",
+      "family": "dev-plural",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "synonyms"
+      ],
+      "basis": "Match a plural term while retaining the query spelling in output."
+    },
+    "validateReaderSelection-dev-duplicate-choices-8": {
+      "function": "validateReaderSelection",
+      "family": "dev-duplicate-choices",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates"
+      ],
+      "basis": "Check membership and uniqueness in a selected list."
+    },
+    "pageReaderFilters-dev-explicit-facets-8": {
+      "function": "pageReaderFilters",
+      "family": "dev-explicit-facets",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields",
+        "precedence"
+      ],
+      "basis": "Merge several explicit facets with page-type defaults."
+    },
+    "validateSearchSynonyms-dev-term-types-1": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-term-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Reject unsupported term value types."
+    },
+    "phraseMatches-dev-phrase-space-1": {
+      "function": "phraseMatches",
+      "family": "dev-phrase-space",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Apply whitespace matching within a phrase."
+    },
+    "queryUnits-dev-repeated-1": {
+      "function": "queryUnits",
+      "family": "dev-repeated",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "sequence"
+      ],
+      "basis": "Produce repeated units in sequence without deduplicating them."
+    },
+    "validateReaderSelection-dev-choice-membership-1": {
+      "function": "validateReaderSelection",
+      "family": "dev-choice-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check one choice against configured options."
+    },
+    "pageReaderFilters-dev-no-config-1": {
+      "function": "pageReaderFilters",
+      "family": "dev-no-config",
+      "ask_type": "function-outcome",
+      "complexity": "low",
+      "edges": [
+        "absence"
+      ],
+      "basis": "Apply the early no-config branch and its explicit-marking guard."
+    },
+    "validateSearchSynonyms-dev-term-types-2": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-term-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Reject unsupported term value types."
+    },
+    "phraseMatches-dev-phrase-space-2": {
+      "function": "phraseMatches",
+      "family": "dev-phrase-space",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Apply whitespace matching within a phrase."
+    },
+    "queryUnits-dev-repeated-2": {
+      "function": "queryUnits",
+      "family": "dev-repeated",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "sequence"
+      ],
+      "basis": "Produce repeated units in sequence without deduplicating them."
+    },
+    "validateReaderSelection-dev-choice-membership-2": {
+      "function": "validateReaderSelection",
+      "family": "dev-choice-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check one choice against configured options."
+    },
+    "pageReaderFilters-dev-no-config-2": {
+      "function": "pageReaderFilters",
+      "family": "dev-no-config",
+      "ask_type": "function-outcome",
+      "complexity": "low",
+      "edges": [
+        "absence"
+      ],
+      "basis": "Apply the early no-config branch and its explicit-marking guard."
+    },
+    "validateSearchSynonyms-dev-term-types-3": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-term-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Reject unsupported term value types."
+    },
+    "phraseMatches-dev-phrase-space-3": {
+      "function": "phraseMatches",
+      "family": "dev-phrase-space",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Apply whitespace matching within a phrase."
+    },
+    "queryUnits-dev-repeated-3": {
+      "function": "queryUnits",
+      "family": "dev-repeated",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "sequence"
+      ],
+      "basis": "Produce repeated units in sequence without deduplicating them."
+    },
+    "validateReaderSelection-dev-choice-membership-3": {
+      "function": "validateReaderSelection",
+      "family": "dev-choice-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check one choice against configured options."
+    },
+    "pageReaderFilters-dev-no-config-3": {
+      "function": "pageReaderFilters",
+      "family": "dev-no-config",
+      "ask_type": "function-outcome",
+      "complexity": "low",
+      "edges": [
+        "absence"
+      ],
+      "basis": "Apply the early no-config branch and its explicit-marking guard."
+    },
+    "validateSearchSynonyms-dev-term-types-4": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-term-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Reject unsupported term value types."
+    },
+    "phraseMatches-dev-phrase-space-4": {
+      "function": "phraseMatches",
+      "family": "dev-phrase-space",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Apply whitespace matching within a phrase."
+    },
+    "queryUnits-dev-repeated-4": {
+      "function": "queryUnits",
+      "family": "dev-repeated",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "sequence"
+      ],
+      "basis": "Produce repeated units in sequence without deduplicating them."
+    },
+    "validateReaderSelection-dev-choice-membership-4": {
+      "function": "validateReaderSelection",
+      "family": "dev-choice-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check one choice against configured options."
+    },
+    "pageReaderFilters-dev-no-config-4": {
+      "function": "pageReaderFilters",
+      "family": "dev-no-config",
+      "ask_type": "function-outcome",
+      "complexity": "low",
+      "edges": [
+        "absence"
+      ],
+      "basis": "Apply the early no-config branch and its explicit-marking guard."
+    },
+    "validateSearchSynonyms-dev-term-types-5": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-term-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Reject unsupported term value types."
+    },
+    "phraseMatches-dev-phrase-space-5": {
+      "function": "phraseMatches",
+      "family": "dev-phrase-space",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Apply whitespace matching within a phrase."
+    },
+    "queryUnits-dev-repeated-5": {
+      "function": "queryUnits",
+      "family": "dev-repeated",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "sequence"
+      ],
+      "basis": "Produce repeated units in sequence without deduplicating them."
+    },
+    "validateReaderSelection-dev-choice-membership-5": {
+      "function": "validateReaderSelection",
+      "family": "dev-choice-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check one choice against configured options."
+    },
+    "pageReaderFilters-dev-no-config-5": {
+      "function": "pageReaderFilters",
+      "family": "dev-no-config",
+      "ask_type": "function-outcome",
+      "complexity": "low",
+      "edges": [
+        "absence"
+      ],
+      "basis": "Apply the early no-config branch and its explicit-marking guard."
+    },
+    "validateSearchSynonyms-dev-term-types-6": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-term-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Reject unsupported term value types."
+    },
+    "phraseMatches-dev-phrase-space-6": {
+      "function": "phraseMatches",
+      "family": "dev-phrase-space",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Apply whitespace matching within a phrase."
+    },
+    "queryUnits-dev-repeated-6": {
+      "function": "queryUnits",
+      "family": "dev-repeated",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "sequence"
+      ],
+      "basis": "Produce repeated units in sequence without deduplicating them."
+    },
+    "validateReaderSelection-dev-choice-membership-6": {
+      "function": "validateReaderSelection",
+      "family": "dev-choice-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check one choice against configured options."
+    },
+    "pageReaderFilters-dev-no-config-6": {
+      "function": "pageReaderFilters",
+      "family": "dev-no-config",
+      "ask_type": "function-outcome",
+      "complexity": "low",
+      "edges": [
+        "absence"
+      ],
+      "basis": "Apply the early no-config branch and its explicit-marking guard."
+    },
+    "validateSearchSynonyms-dev-term-types-7": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-term-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Reject unsupported term value types."
+    },
+    "phraseMatches-dev-phrase-space-7": {
+      "function": "phraseMatches",
+      "family": "dev-phrase-space",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Apply whitespace matching within a phrase."
+    },
+    "queryUnits-dev-repeated-7": {
+      "function": "queryUnits",
+      "family": "dev-repeated",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "sequence"
+      ],
+      "basis": "Produce repeated units in sequence without deduplicating them."
+    },
+    "validateReaderSelection-dev-choice-membership-7": {
+      "function": "validateReaderSelection",
+      "family": "dev-choice-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check one choice against configured options."
+    },
+    "pageReaderFilters-dev-no-config-7": {
+      "function": "pageReaderFilters",
+      "family": "dev-no-config",
+      "ask_type": "function-outcome",
+      "complexity": "low",
+      "edges": [
+        "absence"
+      ],
+      "basis": "Apply the early no-config branch and its explicit-marking guard."
+    },
+    "validateSearchSynonyms-dev-term-types-8": {
+      "function": "validateSearchSynonyms",
+      "family": "dev-term-types",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "types"
+      ],
+      "basis": "Reject unsupported term value types."
+    },
+    "phraseMatches-dev-phrase-space-8": {
+      "function": "phraseMatches",
+      "family": "dev-phrase-space",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Apply whitespace matching within a phrase."
+    },
+    "queryUnits-dev-repeated-8": {
+      "function": "queryUnits",
+      "family": "dev-repeated",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "sequence"
+      ],
+      "basis": "Produce repeated units in sequence without deduplicating them."
+    },
+    "validateReaderSelection-dev-choice-membership-8": {
+      "function": "validateReaderSelection",
+      "family": "dev-choice-membership",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "membership"
+      ],
+      "basis": "Check one choice against configured options."
+    },
+    "pageReaderFilters-dev-no-config-8": {
+      "function": "pageReaderFilters",
+      "family": "dev-no-config",
+      "ask_type": "function-outcome",
+      "complexity": "low",
+      "edges": [
+        "absence"
+      ],
+      "basis": "Apply the early no-config branch and its explicit-marking guard."
+    },
+    "validateSearchSynonyms-test-punctuation-1": {
+      "function": "validateSearchSynonyms",
+      "family": "test-punctuation",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "punctuation"
+      ],
+      "basis": "Apply the allowed-character rule."
+    },
+    "phraseMatches-test-unicode-boundary-1": {
+      "function": "phraseMatches",
+      "family": "test-unicode-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "word-boundary"
+      ],
+      "basis": "Apply Unicode-aware word boundaries."
+    },
+    "queryUnits-test-case-folding-1": {
+      "function": "queryUnits",
+      "family": "test-case-folding",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "case",
+        "normalization"
+      ],
+      "basis": "Lowercase the query before lookup and output construction."
+    },
+    "validateReaderSelection-test-root-shape-1": {
+      "function": "validateReaderSelection",
+      "family": "test-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check the outer selection mapping."
+    },
+    "pageReaderFilters-test-category-shorthand-1": {
+      "function": "pageReaderFilters",
+      "family": "test-category-shorthand",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "types",
+        "precedence"
+      ],
+      "basis": "Translate scalar/list category shorthand, validate, and merge defaults."
+    },
+    "validateSearchSynonyms-test-punctuation-2": {
+      "function": "validateSearchSynonyms",
+      "family": "test-punctuation",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "punctuation"
+      ],
+      "basis": "Apply the allowed-character rule."
+    },
+    "phraseMatches-test-unicode-boundary-2": {
+      "function": "phraseMatches",
+      "family": "test-unicode-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "word-boundary"
+      ],
+      "basis": "Apply Unicode-aware word boundaries."
+    },
+    "queryUnits-test-case-folding-2": {
+      "function": "queryUnits",
+      "family": "test-case-folding",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "case",
+        "normalization"
+      ],
+      "basis": "Lowercase the query before lookup and output construction."
+    },
+    "validateReaderSelection-test-root-shape-2": {
+      "function": "validateReaderSelection",
+      "family": "test-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check the outer selection mapping."
+    },
+    "pageReaderFilters-test-category-shorthand-2": {
+      "function": "pageReaderFilters",
+      "family": "test-category-shorthand",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "types",
+        "precedence"
+      ],
+      "basis": "Translate scalar/list category shorthand, validate, and merge defaults."
+    },
+    "validateSearchSynonyms-test-punctuation-3": {
+      "function": "validateSearchSynonyms",
+      "family": "test-punctuation",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "punctuation"
+      ],
+      "basis": "Apply the allowed-character rule."
+    },
+    "phraseMatches-test-unicode-boundary-3": {
+      "function": "phraseMatches",
+      "family": "test-unicode-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "word-boundary"
+      ],
+      "basis": "Apply Unicode-aware word boundaries."
+    },
+    "queryUnits-test-case-folding-3": {
+      "function": "queryUnits",
+      "family": "test-case-folding",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "case",
+        "normalization"
+      ],
+      "basis": "Lowercase the query before lookup and output construction."
+    },
+    "validateReaderSelection-test-root-shape-3": {
+      "function": "validateReaderSelection",
+      "family": "test-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check the outer selection mapping."
+    },
+    "pageReaderFilters-test-category-shorthand-3": {
+      "function": "pageReaderFilters",
+      "family": "test-category-shorthand",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "types",
+        "precedence"
+      ],
+      "basis": "Translate scalar/list category shorthand, validate, and merge defaults."
+    },
+    "validateSearchSynonyms-test-punctuation-4": {
+      "function": "validateSearchSynonyms",
+      "family": "test-punctuation",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "punctuation"
+      ],
+      "basis": "Apply the allowed-character rule."
+    },
+    "phraseMatches-test-unicode-boundary-4": {
+      "function": "phraseMatches",
+      "family": "test-unicode-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "word-boundary"
+      ],
+      "basis": "Apply Unicode-aware word boundaries."
+    },
+    "queryUnits-test-case-folding-4": {
+      "function": "queryUnits",
+      "family": "test-case-folding",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "case",
+        "normalization"
+      ],
+      "basis": "Lowercase the query before lookup and output construction."
+    },
+    "validateReaderSelection-test-root-shape-4": {
+      "function": "validateReaderSelection",
+      "family": "test-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check the outer selection mapping."
+    },
+    "pageReaderFilters-test-category-shorthand-4": {
+      "function": "pageReaderFilters",
+      "family": "test-category-shorthand",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "types",
+        "precedence"
+      ],
+      "basis": "Translate scalar/list category shorthand, validate, and merge defaults."
+    },
+    "validateSearchSynonyms-test-punctuation-5": {
+      "function": "validateSearchSynonyms",
+      "family": "test-punctuation",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "punctuation"
+      ],
+      "basis": "Apply the allowed-character rule."
+    },
+    "phraseMatches-test-unicode-boundary-5": {
+      "function": "phraseMatches",
+      "family": "test-unicode-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "word-boundary"
+      ],
+      "basis": "Apply Unicode-aware word boundaries."
+    },
+    "queryUnits-test-case-folding-5": {
+      "function": "queryUnits",
+      "family": "test-case-folding",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "case",
+        "normalization"
+      ],
+      "basis": "Lowercase the query before lookup and output construction."
+    },
+    "validateReaderSelection-test-root-shape-5": {
+      "function": "validateReaderSelection",
+      "family": "test-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check the outer selection mapping."
+    },
+    "pageReaderFilters-test-category-shorthand-5": {
+      "function": "pageReaderFilters",
+      "family": "test-category-shorthand",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "types",
+        "precedence"
+      ],
+      "basis": "Translate scalar/list category shorthand, validate, and merge defaults."
+    },
+    "validateSearchSynonyms-test-punctuation-6": {
+      "function": "validateSearchSynonyms",
+      "family": "test-punctuation",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "punctuation"
+      ],
+      "basis": "Apply the allowed-character rule."
+    },
+    "phraseMatches-test-unicode-boundary-6": {
+      "function": "phraseMatches",
+      "family": "test-unicode-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "word-boundary"
+      ],
+      "basis": "Apply Unicode-aware word boundaries."
+    },
+    "queryUnits-test-case-folding-6": {
+      "function": "queryUnits",
+      "family": "test-case-folding",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "case",
+        "normalization"
+      ],
+      "basis": "Lowercase the query before lookup and output construction."
+    },
+    "validateReaderSelection-test-root-shape-6": {
+      "function": "validateReaderSelection",
+      "family": "test-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check the outer selection mapping."
+    },
+    "pageReaderFilters-test-category-shorthand-6": {
+      "function": "pageReaderFilters",
+      "family": "test-category-shorthand",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "types",
+        "precedence"
+      ],
+      "basis": "Translate scalar/list category shorthand, validate, and merge defaults."
+    },
+    "validateSearchSynonyms-test-punctuation-7": {
+      "function": "validateSearchSynonyms",
+      "family": "test-punctuation",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "punctuation"
+      ],
+      "basis": "Apply the allowed-character rule."
+    },
+    "phraseMatches-test-unicode-boundary-7": {
+      "function": "phraseMatches",
+      "family": "test-unicode-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "word-boundary"
+      ],
+      "basis": "Apply Unicode-aware word boundaries."
+    },
+    "queryUnits-test-case-folding-7": {
+      "function": "queryUnits",
+      "family": "test-case-folding",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "case",
+        "normalization"
+      ],
+      "basis": "Lowercase the query before lookup and output construction."
+    },
+    "validateReaderSelection-test-root-shape-7": {
+      "function": "validateReaderSelection",
+      "family": "test-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check the outer selection mapping."
+    },
+    "pageReaderFilters-test-category-shorthand-7": {
+      "function": "pageReaderFilters",
+      "family": "test-category-shorthand",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "types",
+        "precedence"
+      ],
+      "basis": "Translate scalar/list category shorthand, validate, and merge defaults."
+    },
+    "validateSearchSynonyms-test-punctuation-8": {
+      "function": "validateSearchSynonyms",
+      "family": "test-punctuation",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "punctuation"
+      ],
+      "basis": "Apply the allowed-character rule."
+    },
+    "phraseMatches-test-unicode-boundary-8": {
+      "function": "phraseMatches",
+      "family": "test-unicode-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "word-boundary"
+      ],
+      "basis": "Apply Unicode-aware word boundaries."
+    },
+    "queryUnits-test-case-folding-8": {
+      "function": "queryUnits",
+      "family": "test-case-folding",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "case",
+        "normalization"
+      ],
+      "basis": "Lowercase the query before lookup and output construction."
+    },
+    "validateReaderSelection-test-root-shape-8": {
+      "function": "validateReaderSelection",
+      "family": "test-root-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check the outer selection mapping."
+    },
+    "pageReaderFilters-test-category-shorthand-8": {
+      "function": "pageReaderFilters",
+      "family": "test-category-shorthand",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "shorthand",
+        "types",
+        "precedence"
+      ],
+      "basis": "Translate scalar/list category shorthand, validate, and merge defaults."
+    },
+    "validateSearchSynonyms-test-unicode-1": {
+      "function": "validateSearchSynonyms",
+      "family": "test-unicode",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "normalization"
+      ],
+      "basis": "Apply Unicode word validation and lowercase normalization."
+    },
+    "phraseMatches-test-regex-literals-1": {
+      "function": "phraseMatches",
+      "family": "test-regex-literals",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "regex-literals"
+      ],
+      "basis": "Treat regex metacharacters as literal text."
+    },
+    "queryUnits-test-overlap-1": {
+      "function": "queryUnits",
+      "family": "test-overlap",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Resolve overlapping phrase and single-word matches."
+    },
+    "validateReaderSelection-test-prototype-lookups-1": {
+      "function": "validateReaderSelection",
+      "family": "test-prototype-lookups",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "prototype"
+      ],
+      "basis": "Distinguish own-facet checks from inherited option-property lookups."
+    },
+    "pageReaderFilters-test-shorthand-conflict-1": {
+      "function": "pageReaderFilters",
+      "family": "test-shorthand-conflict",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "conflict"
+      ],
+      "basis": "Detect conflicts between shorthand fields and explicit facet mappings."
+    },
+    "validateSearchSynonyms-test-unicode-2": {
+      "function": "validateSearchSynonyms",
+      "family": "test-unicode",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "normalization"
+      ],
+      "basis": "Apply Unicode word validation and lowercase normalization."
+    },
+    "phraseMatches-test-regex-literals-2": {
+      "function": "phraseMatches",
+      "family": "test-regex-literals",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "regex-literals"
+      ],
+      "basis": "Treat regex metacharacters as literal text."
+    },
+    "queryUnits-test-overlap-2": {
+      "function": "queryUnits",
+      "family": "test-overlap",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Resolve overlapping phrase and single-word matches."
+    },
+    "validateReaderSelection-test-prototype-lookups-2": {
+      "function": "validateReaderSelection",
+      "family": "test-prototype-lookups",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "prototype"
+      ],
+      "basis": "Distinguish own-facet checks from inherited option-property lookups."
+    },
+    "pageReaderFilters-test-shorthand-conflict-2": {
+      "function": "pageReaderFilters",
+      "family": "test-shorthand-conflict",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "conflict"
+      ],
+      "basis": "Detect conflicts between shorthand fields and explicit facet mappings."
+    },
+    "validateSearchSynonyms-test-unicode-3": {
+      "function": "validateSearchSynonyms",
+      "family": "test-unicode",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "normalization"
+      ],
+      "basis": "Apply Unicode word validation and lowercase normalization."
+    },
+    "phraseMatches-test-regex-literals-3": {
+      "function": "phraseMatches",
+      "family": "test-regex-literals",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "regex-literals"
+      ],
+      "basis": "Treat regex metacharacters as literal text."
+    },
+    "queryUnits-test-overlap-3": {
+      "function": "queryUnits",
+      "family": "test-overlap",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Resolve overlapping phrase and single-word matches."
+    },
+    "validateReaderSelection-test-prototype-lookups-3": {
+      "function": "validateReaderSelection",
+      "family": "test-prototype-lookups",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "prototype"
+      ],
+      "basis": "Distinguish own-facet checks from inherited option-property lookups."
+    },
+    "pageReaderFilters-test-shorthand-conflict-3": {
+      "function": "pageReaderFilters",
+      "family": "test-shorthand-conflict",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "conflict"
+      ],
+      "basis": "Detect conflicts between shorthand fields and explicit facet mappings."
+    },
+    "validateSearchSynonyms-test-unicode-4": {
+      "function": "validateSearchSynonyms",
+      "family": "test-unicode",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "normalization"
+      ],
+      "basis": "Apply Unicode word validation and lowercase normalization."
+    },
+    "phraseMatches-test-regex-literals-4": {
+      "function": "phraseMatches",
+      "family": "test-regex-literals",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "regex-literals"
+      ],
+      "basis": "Treat regex metacharacters as literal text."
+    },
+    "queryUnits-test-overlap-4": {
+      "function": "queryUnits",
+      "family": "test-overlap",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Resolve overlapping phrase and single-word matches."
+    },
+    "validateReaderSelection-test-prototype-lookups-4": {
+      "function": "validateReaderSelection",
+      "family": "test-prototype-lookups",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "prototype"
+      ],
+      "basis": "Distinguish own-facet checks from inherited option-property lookups."
+    },
+    "pageReaderFilters-test-shorthand-conflict-4": {
+      "function": "pageReaderFilters",
+      "family": "test-shorthand-conflict",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "conflict"
+      ],
+      "basis": "Detect conflicts between shorthand fields and explicit facet mappings."
+    },
+    "validateSearchSynonyms-test-unicode-5": {
+      "function": "validateSearchSynonyms",
+      "family": "test-unicode",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "normalization"
+      ],
+      "basis": "Apply Unicode word validation and lowercase normalization."
+    },
+    "phraseMatches-test-regex-literals-5": {
+      "function": "phraseMatches",
+      "family": "test-regex-literals",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "regex-literals"
+      ],
+      "basis": "Treat regex metacharacters as literal text."
+    },
+    "queryUnits-test-overlap-5": {
+      "function": "queryUnits",
+      "family": "test-overlap",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Resolve overlapping phrase and single-word matches."
+    },
+    "validateReaderSelection-test-prototype-lookups-5": {
+      "function": "validateReaderSelection",
+      "family": "test-prototype-lookups",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "prototype"
+      ],
+      "basis": "Distinguish own-facet checks from inherited option-property lookups."
+    },
+    "pageReaderFilters-test-shorthand-conflict-5": {
+      "function": "pageReaderFilters",
+      "family": "test-shorthand-conflict",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "conflict"
+      ],
+      "basis": "Detect conflicts between shorthand fields and explicit facet mappings."
+    },
+    "validateSearchSynonyms-test-unicode-6": {
+      "function": "validateSearchSynonyms",
+      "family": "test-unicode",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "normalization"
+      ],
+      "basis": "Apply Unicode word validation and lowercase normalization."
+    },
+    "phraseMatches-test-regex-literals-6": {
+      "function": "phraseMatches",
+      "family": "test-regex-literals",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "regex-literals"
+      ],
+      "basis": "Treat regex metacharacters as literal text."
+    },
+    "queryUnits-test-overlap-6": {
+      "function": "queryUnits",
+      "family": "test-overlap",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Resolve overlapping phrase and single-word matches."
+    },
+    "validateReaderSelection-test-prototype-lookups-6": {
+      "function": "validateReaderSelection",
+      "family": "test-prototype-lookups",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "prototype"
+      ],
+      "basis": "Distinguish own-facet checks from inherited option-property lookups."
+    },
+    "pageReaderFilters-test-shorthand-conflict-6": {
+      "function": "pageReaderFilters",
+      "family": "test-shorthand-conflict",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "conflict"
+      ],
+      "basis": "Detect conflicts between shorthand fields and explicit facet mappings."
+    },
+    "validateSearchSynonyms-test-unicode-7": {
+      "function": "validateSearchSynonyms",
+      "family": "test-unicode",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "normalization"
+      ],
+      "basis": "Apply Unicode word validation and lowercase normalization."
+    },
+    "phraseMatches-test-regex-literals-7": {
+      "function": "phraseMatches",
+      "family": "test-regex-literals",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "regex-literals"
+      ],
+      "basis": "Treat regex metacharacters as literal text."
+    },
+    "queryUnits-test-overlap-7": {
+      "function": "queryUnits",
+      "family": "test-overlap",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Resolve overlapping phrase and single-word matches."
+    },
+    "validateReaderSelection-test-prototype-lookups-7": {
+      "function": "validateReaderSelection",
+      "family": "test-prototype-lookups",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "prototype"
+      ],
+      "basis": "Distinguish own-facet checks from inherited option-property lookups."
+    },
+    "pageReaderFilters-test-shorthand-conflict-7": {
+      "function": "pageReaderFilters",
+      "family": "test-shorthand-conflict",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "conflict"
+      ],
+      "basis": "Detect conflicts between shorthand fields and explicit facet mappings."
+    },
+    "validateSearchSynonyms-test-unicode-8": {
+      "function": "validateSearchSynonyms",
+      "family": "test-unicode",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "unicode",
+        "normalization"
+      ],
+      "basis": "Apply Unicode word validation and lowercase normalization."
+    },
+    "phraseMatches-test-regex-literals-8": {
+      "function": "phraseMatches",
+      "family": "test-regex-literals",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "regex-literals"
+      ],
+      "basis": "Treat regex metacharacters as literal text."
+    },
+    "queryUnits-test-overlap-8": {
+      "function": "queryUnits",
+      "family": "test-overlap",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "precedence",
+        "phrases"
+      ],
+      "basis": "Resolve overlapping phrase and single-word matches."
+    },
+    "validateReaderSelection-test-prototype-lookups-8": {
+      "function": "validateReaderSelection",
+      "family": "test-prototype-lookups",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "prototype"
+      ],
+      "basis": "Distinguish own-facet checks from inherited option-property lookups."
+    },
+    "pageReaderFilters-test-shorthand-conflict-8": {
+      "function": "pageReaderFilters",
+      "family": "test-shorthand-conflict",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "conflict"
+      ],
+      "basis": "Detect conflicts between shorthand fields and explicit facet mappings."
+    },
+    "validateSearchSynonyms-test-group-shape-1": {
+      "function": "validateSearchSynonyms",
+      "family": "test-group-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check group list shape and minimum size."
+    },
+    "phraseMatches-test-final-plural-1": {
+      "function": "phraseMatches",
+      "family": "test-final-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "phrases"
+      ],
+      "basis": "Allow pluralization only at the end of a phrase."
+    },
+    "queryUnits-test-unknown-1": {
+      "function": "queryUnits",
+      "family": "test-unknown",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "fallback",
+        "synonyms"
+      ],
+      "basis": "Combine fallback units with recognized synonym units."
+    },
+    "validateReaderSelection-test-multiselect-1": {
+      "function": "validateReaderSelection",
+      "family": "test-multiselect",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "duplicates",
+        "multiple-fields"
+      ],
+      "basis": "Validate several choices across facets, including uniqueness."
+    },
+    "pageReaderFilters-test-empty-overrides-1": {
+      "function": "pageReaderFilters",
+      "family": "test-empty-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "empty",
+        "precedence"
+      ],
+      "basis": "Handle empty explicit values that erase defaults."
+    },
+    "validateSearchSynonyms-test-group-shape-2": {
+      "function": "validateSearchSynonyms",
+      "family": "test-group-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check group list shape and minimum size."
+    },
+    "phraseMatches-test-final-plural-2": {
+      "function": "phraseMatches",
+      "family": "test-final-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "phrases"
+      ],
+      "basis": "Allow pluralization only at the end of a phrase."
+    },
+    "queryUnits-test-unknown-2": {
+      "function": "queryUnits",
+      "family": "test-unknown",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "fallback",
+        "synonyms"
+      ],
+      "basis": "Combine fallback units with recognized synonym units."
+    },
+    "validateReaderSelection-test-multiselect-2": {
+      "function": "validateReaderSelection",
+      "family": "test-multiselect",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "duplicates",
+        "multiple-fields"
+      ],
+      "basis": "Validate several choices across facets, including uniqueness."
+    },
+    "pageReaderFilters-test-empty-overrides-2": {
+      "function": "pageReaderFilters",
+      "family": "test-empty-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "empty",
+        "precedence"
+      ],
+      "basis": "Handle empty explicit values that erase defaults."
+    },
+    "validateSearchSynonyms-test-group-shape-3": {
+      "function": "validateSearchSynonyms",
+      "family": "test-group-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check group list shape and minimum size."
+    },
+    "phraseMatches-test-final-plural-3": {
+      "function": "phraseMatches",
+      "family": "test-final-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "phrases"
+      ],
+      "basis": "Allow pluralization only at the end of a phrase."
+    },
+    "queryUnits-test-unknown-3": {
+      "function": "queryUnits",
+      "family": "test-unknown",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "fallback",
+        "synonyms"
+      ],
+      "basis": "Combine fallback units with recognized synonym units."
+    },
+    "validateReaderSelection-test-multiselect-3": {
+      "function": "validateReaderSelection",
+      "family": "test-multiselect",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "duplicates",
+        "multiple-fields"
+      ],
+      "basis": "Validate several choices across facets, including uniqueness."
+    },
+    "pageReaderFilters-test-empty-overrides-3": {
+      "function": "pageReaderFilters",
+      "family": "test-empty-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "empty",
+        "precedence"
+      ],
+      "basis": "Handle empty explicit values that erase defaults."
+    },
+    "validateSearchSynonyms-test-group-shape-4": {
+      "function": "validateSearchSynonyms",
+      "family": "test-group-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check group list shape and minimum size."
+    },
+    "phraseMatches-test-final-plural-4": {
+      "function": "phraseMatches",
+      "family": "test-final-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "phrases"
+      ],
+      "basis": "Allow pluralization only at the end of a phrase."
+    },
+    "queryUnits-test-unknown-4": {
+      "function": "queryUnits",
+      "family": "test-unknown",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "fallback",
+        "synonyms"
+      ],
+      "basis": "Combine fallback units with recognized synonym units."
+    },
+    "validateReaderSelection-test-multiselect-4": {
+      "function": "validateReaderSelection",
+      "family": "test-multiselect",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "duplicates",
+        "multiple-fields"
+      ],
+      "basis": "Validate several choices across facets, including uniqueness."
+    },
+    "pageReaderFilters-test-empty-overrides-4": {
+      "function": "pageReaderFilters",
+      "family": "test-empty-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "empty",
+        "precedence"
+      ],
+      "basis": "Handle empty explicit values that erase defaults."
+    },
+    "validateSearchSynonyms-test-group-shape-5": {
+      "function": "validateSearchSynonyms",
+      "family": "test-group-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check group list shape and minimum size."
+    },
+    "phraseMatches-test-final-plural-5": {
+      "function": "phraseMatches",
+      "family": "test-final-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "phrases"
+      ],
+      "basis": "Allow pluralization only at the end of a phrase."
+    },
+    "queryUnits-test-unknown-5": {
+      "function": "queryUnits",
+      "family": "test-unknown",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "fallback",
+        "synonyms"
+      ],
+      "basis": "Combine fallback units with recognized synonym units."
+    },
+    "validateReaderSelection-test-multiselect-5": {
+      "function": "validateReaderSelection",
+      "family": "test-multiselect",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "duplicates",
+        "multiple-fields"
+      ],
+      "basis": "Validate several choices across facets, including uniqueness."
+    },
+    "pageReaderFilters-test-empty-overrides-5": {
+      "function": "pageReaderFilters",
+      "family": "test-empty-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "empty",
+        "precedence"
+      ],
+      "basis": "Handle empty explicit values that erase defaults."
+    },
+    "validateSearchSynonyms-test-group-shape-6": {
+      "function": "validateSearchSynonyms",
+      "family": "test-group-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check group list shape and minimum size."
+    },
+    "phraseMatches-test-final-plural-6": {
+      "function": "phraseMatches",
+      "family": "test-final-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "phrases"
+      ],
+      "basis": "Allow pluralization only at the end of a phrase."
+    },
+    "queryUnits-test-unknown-6": {
+      "function": "queryUnits",
+      "family": "test-unknown",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "fallback",
+        "synonyms"
+      ],
+      "basis": "Combine fallback units with recognized synonym units."
+    },
+    "validateReaderSelection-test-multiselect-6": {
+      "function": "validateReaderSelection",
+      "family": "test-multiselect",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "duplicates",
+        "multiple-fields"
+      ],
+      "basis": "Validate several choices across facets, including uniqueness."
+    },
+    "pageReaderFilters-test-empty-overrides-6": {
+      "function": "pageReaderFilters",
+      "family": "test-empty-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "empty",
+        "precedence"
+      ],
+      "basis": "Handle empty explicit values that erase defaults."
+    },
+    "validateSearchSynonyms-test-group-shape-7": {
+      "function": "validateSearchSynonyms",
+      "family": "test-group-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check group list shape and minimum size."
+    },
+    "phraseMatches-test-final-plural-7": {
+      "function": "phraseMatches",
+      "family": "test-final-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "phrases"
+      ],
+      "basis": "Allow pluralization only at the end of a phrase."
+    },
+    "queryUnits-test-unknown-7": {
+      "function": "queryUnits",
+      "family": "test-unknown",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "fallback",
+        "synonyms"
+      ],
+      "basis": "Combine fallback units with recognized synonym units."
+    },
+    "validateReaderSelection-test-multiselect-7": {
+      "function": "validateReaderSelection",
+      "family": "test-multiselect",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "duplicates",
+        "multiple-fields"
+      ],
+      "basis": "Validate several choices across facets, including uniqueness."
+    },
+    "pageReaderFilters-test-empty-overrides-7": {
+      "function": "pageReaderFilters",
+      "family": "test-empty-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "empty",
+        "precedence"
+      ],
+      "basis": "Handle empty explicit values that erase defaults."
+    },
+    "validateSearchSynonyms-test-group-shape-8": {
+      "function": "validateSearchSynonyms",
+      "family": "test-group-shape",
+      "ask_type": "function-validity",
+      "complexity": "low",
+      "edges": [
+        "shape"
+      ],
+      "basis": "Check group list shape and minimum size."
+    },
+    "phraseMatches-test-final-plural-8": {
+      "function": "phraseMatches",
+      "family": "test-final-plural",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "plural",
+        "phrases"
+      ],
+      "basis": "Allow pluralization only at the end of a phrase."
+    },
+    "queryUnits-test-unknown-8": {
+      "function": "queryUnits",
+      "family": "test-unknown",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "fallback",
+        "synonyms"
+      ],
+      "basis": "Combine fallback units with recognized synonym units."
+    },
+    "validateReaderSelection-test-multiselect-8": {
+      "function": "validateReaderSelection",
+      "family": "test-multiselect",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "duplicates",
+        "multiple-fields"
+      ],
+      "basis": "Validate several choices across facets, including uniqueness."
+    },
+    "pageReaderFilters-test-empty-overrides-8": {
+      "function": "pageReaderFilters",
+      "family": "test-empty-overrides",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "empty",
+        "precedence"
+      ],
+      "basis": "Handle empty explicit values that erase defaults."
+    },
+    "validateSearchSynonyms-test-empty-multiple-1": {
+      "function": "validateSearchSynonyms",
+      "family": "test-empty-multiple",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "multiple-groups"
+      ],
+      "basis": "Track terms across several groups."
+    },
+    "phraseMatches-test-case-1": {
+      "function": "phraseMatches",
+      "family": "test-case",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "case"
+      ],
+      "basis": "Apply case-insensitive matching with word boundaries."
+    },
+    "queryUnits-test-whitespace-1": {
+      "function": "queryUnits",
+      "family": "test-whitespace",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Normalize separators before matching and scanning phrases."
+    },
+    "validateReaderSelection-test-empty-lists-1": {
+      "function": "validateReaderSelection",
+      "family": "test-empty-lists",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "empty"
+      ],
+      "basis": "Distinguish permitted empty lists from lists with invalid elements."
+    },
+    "pageReaderFilters-test-invalid-selection-1": {
+      "function": "pageReaderFilters",
+      "family": "test-invalid-selection",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "membership",
+        "types"
+      ],
+      "basis": "Apply delegated selection validation before merging."
+    },
+    "validateSearchSynonyms-test-empty-multiple-2": {
+      "function": "validateSearchSynonyms",
+      "family": "test-empty-multiple",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "multiple-groups"
+      ],
+      "basis": "Track terms across several groups."
+    },
+    "phraseMatches-test-case-2": {
+      "function": "phraseMatches",
+      "family": "test-case",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "case"
+      ],
+      "basis": "Apply case-insensitive matching with word boundaries."
+    },
+    "queryUnits-test-whitespace-2": {
+      "function": "queryUnits",
+      "family": "test-whitespace",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Normalize separators before matching and scanning phrases."
+    },
+    "validateReaderSelection-test-empty-lists-2": {
+      "function": "validateReaderSelection",
+      "family": "test-empty-lists",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "empty"
+      ],
+      "basis": "Distinguish permitted empty lists from lists with invalid elements."
+    },
+    "pageReaderFilters-test-invalid-selection-2": {
+      "function": "pageReaderFilters",
+      "family": "test-invalid-selection",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "membership",
+        "types"
+      ],
+      "basis": "Apply delegated selection validation before merging."
+    },
+    "validateSearchSynonyms-test-empty-multiple-3": {
+      "function": "validateSearchSynonyms",
+      "family": "test-empty-multiple",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "multiple-groups"
+      ],
+      "basis": "Track terms across several groups."
+    },
+    "phraseMatches-test-case-3": {
+      "function": "phraseMatches",
+      "family": "test-case",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "case"
+      ],
+      "basis": "Apply case-insensitive matching with word boundaries."
+    },
+    "queryUnits-test-whitespace-3": {
+      "function": "queryUnits",
+      "family": "test-whitespace",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Normalize separators before matching and scanning phrases."
+    },
+    "validateReaderSelection-test-empty-lists-3": {
+      "function": "validateReaderSelection",
+      "family": "test-empty-lists",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "empty"
+      ],
+      "basis": "Distinguish permitted empty lists from lists with invalid elements."
+    },
+    "pageReaderFilters-test-invalid-selection-3": {
+      "function": "pageReaderFilters",
+      "family": "test-invalid-selection",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "membership",
+        "types"
+      ],
+      "basis": "Apply delegated selection validation before merging."
+    },
+    "validateSearchSynonyms-test-empty-multiple-4": {
+      "function": "validateSearchSynonyms",
+      "family": "test-empty-multiple",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "multiple-groups"
+      ],
+      "basis": "Track terms across several groups."
+    },
+    "phraseMatches-test-case-4": {
+      "function": "phraseMatches",
+      "family": "test-case",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "case"
+      ],
+      "basis": "Apply case-insensitive matching with word boundaries."
+    },
+    "queryUnits-test-whitespace-4": {
+      "function": "queryUnits",
+      "family": "test-whitespace",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Normalize separators before matching and scanning phrases."
+    },
+    "validateReaderSelection-test-empty-lists-4": {
+      "function": "validateReaderSelection",
+      "family": "test-empty-lists",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "empty"
+      ],
+      "basis": "Distinguish permitted empty lists from lists with invalid elements."
+    },
+    "pageReaderFilters-test-invalid-selection-4": {
+      "function": "pageReaderFilters",
+      "family": "test-invalid-selection",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "membership",
+        "types"
+      ],
+      "basis": "Apply delegated selection validation before merging."
+    },
+    "validateSearchSynonyms-test-empty-multiple-5": {
+      "function": "validateSearchSynonyms",
+      "family": "test-empty-multiple",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "multiple-groups"
+      ],
+      "basis": "Track terms across several groups."
+    },
+    "phraseMatches-test-case-5": {
+      "function": "phraseMatches",
+      "family": "test-case",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "case"
+      ],
+      "basis": "Apply case-insensitive matching with word boundaries."
+    },
+    "queryUnits-test-whitespace-5": {
+      "function": "queryUnits",
+      "family": "test-whitespace",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Normalize separators before matching and scanning phrases."
+    },
+    "validateReaderSelection-test-empty-lists-5": {
+      "function": "validateReaderSelection",
+      "family": "test-empty-lists",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "empty"
+      ],
+      "basis": "Distinguish permitted empty lists from lists with invalid elements."
+    },
+    "pageReaderFilters-test-invalid-selection-5": {
+      "function": "pageReaderFilters",
+      "family": "test-invalid-selection",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "membership",
+        "types"
+      ],
+      "basis": "Apply delegated selection validation before merging."
+    },
+    "validateSearchSynonyms-test-empty-multiple-6": {
+      "function": "validateSearchSynonyms",
+      "family": "test-empty-multiple",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "multiple-groups"
+      ],
+      "basis": "Track terms across several groups."
+    },
+    "phraseMatches-test-case-6": {
+      "function": "phraseMatches",
+      "family": "test-case",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "case"
+      ],
+      "basis": "Apply case-insensitive matching with word boundaries."
+    },
+    "queryUnits-test-whitespace-6": {
+      "function": "queryUnits",
+      "family": "test-whitespace",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Normalize separators before matching and scanning phrases."
+    },
+    "validateReaderSelection-test-empty-lists-6": {
+      "function": "validateReaderSelection",
+      "family": "test-empty-lists",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "empty"
+      ],
+      "basis": "Distinguish permitted empty lists from lists with invalid elements."
+    },
+    "pageReaderFilters-test-invalid-selection-6": {
+      "function": "pageReaderFilters",
+      "family": "test-invalid-selection",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "membership",
+        "types"
+      ],
+      "basis": "Apply delegated selection validation before merging."
+    },
+    "validateSearchSynonyms-test-empty-multiple-7": {
+      "function": "validateSearchSynonyms",
+      "family": "test-empty-multiple",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "multiple-groups"
+      ],
+      "basis": "Track terms across several groups."
+    },
+    "phraseMatches-test-case-7": {
+      "function": "phraseMatches",
+      "family": "test-case",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "case"
+      ],
+      "basis": "Apply case-insensitive matching with word boundaries."
+    },
+    "queryUnits-test-whitespace-7": {
+      "function": "queryUnits",
+      "family": "test-whitespace",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Normalize separators before matching and scanning phrases."
+    },
+    "validateReaderSelection-test-empty-lists-7": {
+      "function": "validateReaderSelection",
+      "family": "test-empty-lists",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "empty"
+      ],
+      "basis": "Distinguish permitted empty lists from lists with invalid elements."
+    },
+    "pageReaderFilters-test-invalid-selection-7": {
+      "function": "pageReaderFilters",
+      "family": "test-invalid-selection",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "membership",
+        "types"
+      ],
+      "basis": "Apply delegated selection validation before merging."
+    },
+    "validateSearchSynonyms-test-empty-multiple-8": {
+      "function": "validateSearchSynonyms",
+      "family": "test-empty-multiple",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "multiple-groups"
+      ],
+      "basis": "Track terms across several groups."
+    },
+    "phraseMatches-test-case-8": {
+      "function": "phraseMatches",
+      "family": "test-case",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "case"
+      ],
+      "basis": "Apply case-insensitive matching with word boundaries."
+    },
+    "queryUnits-test-whitespace-8": {
+      "function": "queryUnits",
+      "family": "test-whitespace",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "whitespace",
+        "phrases"
+      ],
+      "basis": "Normalize separators before matching and scanning phrases."
+    },
+    "validateReaderSelection-test-empty-lists-8": {
+      "function": "validateReaderSelection",
+      "family": "test-empty-lists",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "empty"
+      ],
+      "basis": "Distinguish permitted empty lists from lists with invalid elements."
+    },
+    "pageReaderFilters-test-invalid-selection-8": {
+      "function": "pageReaderFilters",
+      "family": "test-invalid-selection",
+      "ask_type": "function-outcome",
+      "complexity": "medium",
+      "edges": [
+        "membership",
+        "types"
+      ],
+      "basis": "Apply delegated selection validation before merging."
+    },
+    "validateSearchSynonyms-test-whitespace-collisions-1": {
+      "function": "validateSearchSynonyms",
+      "family": "test-whitespace-collisions",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Resolve whether whitespace normalization creates duplicate phrases."
+    },
+    "phraseMatches-test-number-boundary-1": {
+      "function": "phraseMatches",
+      "family": "test-number-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "number-boundary"
+      ],
+      "basis": "Distinguish standalone numeric words from longer alphanumeric tokens."
+    },
+    "queryUnits-test-alternative-order-1": {
+      "function": "queryUnits",
+      "family": "test-alternative-order",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "order",
+        "synonyms"
+      ],
+      "basis": "Preserve alternative order while excluding the matched canonical term."
+    },
+    "validateReaderSelection-test-mixed-facets-1": {
+      "function": "validateReaderSelection",
+      "family": "test-mixed-facets",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields"
+      ],
+      "basis": "Resolve the whole mapping when one facet fails validation."
+    },
+    "pageReaderFilters-test-missing-facet-1": {
+      "function": "pageReaderFilters",
+      "family": "test-missing-facet",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "absence",
+        "defaults"
+      ],
+      "basis": "Ignore unconfigured shorthand while retaining applicable defaults."
+    },
+    "validateSearchSynonyms-test-whitespace-collisions-2": {
+      "function": "validateSearchSynonyms",
+      "family": "test-whitespace-collisions",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Resolve whether whitespace normalization creates duplicate phrases."
+    },
+    "phraseMatches-test-number-boundary-2": {
+      "function": "phraseMatches",
+      "family": "test-number-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "number-boundary"
+      ],
+      "basis": "Distinguish standalone numeric words from longer alphanumeric tokens."
+    },
+    "queryUnits-test-alternative-order-2": {
+      "function": "queryUnits",
+      "family": "test-alternative-order",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "order",
+        "synonyms"
+      ],
+      "basis": "Preserve alternative order while excluding the matched canonical term."
+    },
+    "validateReaderSelection-test-mixed-facets-2": {
+      "function": "validateReaderSelection",
+      "family": "test-mixed-facets",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields"
+      ],
+      "basis": "Resolve the whole mapping when one facet fails validation."
+    },
+    "pageReaderFilters-test-missing-facet-2": {
+      "function": "pageReaderFilters",
+      "family": "test-missing-facet",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "absence",
+        "defaults"
+      ],
+      "basis": "Ignore unconfigured shorthand while retaining applicable defaults."
+    },
+    "validateSearchSynonyms-test-whitespace-collisions-3": {
+      "function": "validateSearchSynonyms",
+      "family": "test-whitespace-collisions",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Resolve whether whitespace normalization creates duplicate phrases."
+    },
+    "phraseMatches-test-number-boundary-3": {
+      "function": "phraseMatches",
+      "family": "test-number-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "number-boundary"
+      ],
+      "basis": "Distinguish standalone numeric words from longer alphanumeric tokens."
+    },
+    "queryUnits-test-alternative-order-3": {
+      "function": "queryUnits",
+      "family": "test-alternative-order",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "order",
+        "synonyms"
+      ],
+      "basis": "Preserve alternative order while excluding the matched canonical term."
+    },
+    "validateReaderSelection-test-mixed-facets-3": {
+      "function": "validateReaderSelection",
+      "family": "test-mixed-facets",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields"
+      ],
+      "basis": "Resolve the whole mapping when one facet fails validation."
+    },
+    "pageReaderFilters-test-missing-facet-3": {
+      "function": "pageReaderFilters",
+      "family": "test-missing-facet",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "absence",
+        "defaults"
+      ],
+      "basis": "Ignore unconfigured shorthand while retaining applicable defaults."
+    },
+    "validateSearchSynonyms-test-whitespace-collisions-4": {
+      "function": "validateSearchSynonyms",
+      "family": "test-whitespace-collisions",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Resolve whether whitespace normalization creates duplicate phrases."
+    },
+    "phraseMatches-test-number-boundary-4": {
+      "function": "phraseMatches",
+      "family": "test-number-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "number-boundary"
+      ],
+      "basis": "Distinguish standalone numeric words from longer alphanumeric tokens."
+    },
+    "queryUnits-test-alternative-order-4": {
+      "function": "queryUnits",
+      "family": "test-alternative-order",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "order",
+        "synonyms"
+      ],
+      "basis": "Preserve alternative order while excluding the matched canonical term."
+    },
+    "validateReaderSelection-test-mixed-facets-4": {
+      "function": "validateReaderSelection",
+      "family": "test-mixed-facets",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields"
+      ],
+      "basis": "Resolve the whole mapping when one facet fails validation."
+    },
+    "pageReaderFilters-test-missing-facet-4": {
+      "function": "pageReaderFilters",
+      "family": "test-missing-facet",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "absence",
+        "defaults"
+      ],
+      "basis": "Ignore unconfigured shorthand while retaining applicable defaults."
+    },
+    "validateSearchSynonyms-test-whitespace-collisions-5": {
+      "function": "validateSearchSynonyms",
+      "family": "test-whitespace-collisions",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Resolve whether whitespace normalization creates duplicate phrases."
+    },
+    "phraseMatches-test-number-boundary-5": {
+      "function": "phraseMatches",
+      "family": "test-number-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "number-boundary"
+      ],
+      "basis": "Distinguish standalone numeric words from longer alphanumeric tokens."
+    },
+    "queryUnits-test-alternative-order-5": {
+      "function": "queryUnits",
+      "family": "test-alternative-order",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "order",
+        "synonyms"
+      ],
+      "basis": "Preserve alternative order while excluding the matched canonical term."
+    },
+    "validateReaderSelection-test-mixed-facets-5": {
+      "function": "validateReaderSelection",
+      "family": "test-mixed-facets",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields"
+      ],
+      "basis": "Resolve the whole mapping when one facet fails validation."
+    },
+    "pageReaderFilters-test-missing-facet-5": {
+      "function": "pageReaderFilters",
+      "family": "test-missing-facet",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "absence",
+        "defaults"
+      ],
+      "basis": "Ignore unconfigured shorthand while retaining applicable defaults."
+    },
+    "validateSearchSynonyms-test-whitespace-collisions-6": {
+      "function": "validateSearchSynonyms",
+      "family": "test-whitespace-collisions",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Resolve whether whitespace normalization creates duplicate phrases."
+    },
+    "phraseMatches-test-number-boundary-6": {
+      "function": "phraseMatches",
+      "family": "test-number-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "number-boundary"
+      ],
+      "basis": "Distinguish standalone numeric words from longer alphanumeric tokens."
+    },
+    "queryUnits-test-alternative-order-6": {
+      "function": "queryUnits",
+      "family": "test-alternative-order",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "order",
+        "synonyms"
+      ],
+      "basis": "Preserve alternative order while excluding the matched canonical term."
+    },
+    "validateReaderSelection-test-mixed-facets-6": {
+      "function": "validateReaderSelection",
+      "family": "test-mixed-facets",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields"
+      ],
+      "basis": "Resolve the whole mapping when one facet fails validation."
+    },
+    "pageReaderFilters-test-missing-facet-6": {
+      "function": "pageReaderFilters",
+      "family": "test-missing-facet",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "absence",
+        "defaults"
+      ],
+      "basis": "Ignore unconfigured shorthand while retaining applicable defaults."
+    },
+    "validateSearchSynonyms-test-whitespace-collisions-7": {
+      "function": "validateSearchSynonyms",
+      "family": "test-whitespace-collisions",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Resolve whether whitespace normalization creates duplicate phrases."
+    },
+    "phraseMatches-test-number-boundary-7": {
+      "function": "phraseMatches",
+      "family": "test-number-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "number-boundary"
+      ],
+      "basis": "Distinguish standalone numeric words from longer alphanumeric tokens."
+    },
+    "queryUnits-test-alternative-order-7": {
+      "function": "queryUnits",
+      "family": "test-alternative-order",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "order",
+        "synonyms"
+      ],
+      "basis": "Preserve alternative order while excluding the matched canonical term."
+    },
+    "validateReaderSelection-test-mixed-facets-7": {
+      "function": "validateReaderSelection",
+      "family": "test-mixed-facets",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields"
+      ],
+      "basis": "Resolve the whole mapping when one facet fails validation."
+    },
+    "pageReaderFilters-test-missing-facet-7": {
+      "function": "pageReaderFilters",
+      "family": "test-missing-facet",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "absence",
+        "defaults"
+      ],
+      "basis": "Ignore unconfigured shorthand while retaining applicable defaults."
+    },
+    "validateSearchSynonyms-test-whitespace-collisions-8": {
+      "function": "validateSearchSynonyms",
+      "family": "test-whitespace-collisions",
+      "ask_type": "function-validity",
+      "complexity": "medium",
+      "edges": [
+        "duplicates",
+        "normalization"
+      ],
+      "basis": "Resolve whether whitespace normalization creates duplicate phrases."
+    },
+    "phraseMatches-test-number-boundary-8": {
+      "function": "phraseMatches",
+      "family": "test-number-boundary",
+      "ask_type": "boolean-result",
+      "complexity": "medium",
+      "edges": [
+        "number-boundary"
+      ],
+      "basis": "Distinguish standalone numeric words from longer alphanumeric tokens."
+    },
+    "queryUnits-test-alternative-order-8": {
+      "function": "queryUnits",
+      "family": "test-alternative-order",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "order",
+        "synonyms"
+      ],
+      "basis": "Preserve alternative order while excluding the matched canonical term."
+    },
+    "validateReaderSelection-test-mixed-facets-8": {
+      "function": "validateReaderSelection",
+      "family": "test-mixed-facets",
+      "ask_type": "function-validity",
+      "complexity": "high",
+      "edges": [
+        "multiple-fields"
+      ],
+      "basis": "Resolve the whole mapping when one facet fails validation."
+    },
+    "pageReaderFilters-test-missing-facet-8": {
+      "function": "pageReaderFilters",
+      "family": "test-missing-facet",
+      "ask_type": "function-outcome",
+      "complexity": "high",
+      "edges": [
+        "absence",
+        "defaults"
+      ],
+      "basis": "Ignore unconfigured shorthand while retaining applicable defaults."
+    }
+  }
+}

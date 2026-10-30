@@ -1,0 +1,18 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+runs/
+catalog.local.json
+models.local.json
+.DS_Store
+
+node_modules/
+docs/site-dist/
+.shoalrun/
+*.tgz
+
+# Local reviewer notes are not benchmark inputs or public source.
+data/reviews/

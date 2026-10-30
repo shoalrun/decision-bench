@@ -1,0 +1,136 @@
+---
+id: guide.run
+title: Run the benchmark
+summary: Install the tools, verify answers, and compare selected models.
+slug: /run
+type: how-to
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Use Python 3.9 or newer and Node v22.23.3, the runtime recorded for the executable oracle—the code that calculates the correct answers. The Python runner has no third-party runtime dependencies. Shoalrun is needed only for building this documentation.
+
+The included datasets test **predictions about frozen source-code behavior**. They supply code or rules directly to each model; running them does not evaluate a documentation site or give models repository access.
+
+## Get the harness
+
+```sh
+git clone https://github.com/shoalrun/decision-bench.git
+cd decision-bench
+python3 -m decision_bench validate
+python3 -m unittest discover -s tests -v
+```
+
+By default, validation replays all 96 retrieval-configuration answers before inference. It checks source hashes, visible inputs, recorded outcomes, and labels.
+
+## Choose the questions
+
+The default dataset is retrieval configuration. Select another with `--dataset` for either `validate` or `run`.
+
+| Dataset | Fixture | Cases per split | Calls per split with four remote models |
+|---|---|---:|---:|
+| Retrieval configuration | `data/shoalrun-known-v1.json` | 48 | 192 |
+| Search and reader filters | `data/shoalrun-expanded-v1.json` | 200 | 800 |
+| Three reference formats | `data/shoalrun-presentations-v1.json` | 600 views of 200 cases | 2,400 |
+
+Each dataset has development and test splits. Development checks the evaluation’s prompts and runner settings; test measures performance after those choices are fixed. Neither trains the models. The format comparison reuses the search/reader cases; its views are not new independent questions.
+
+## Try it offline
+
+```sh
+python3 -m decision_bench run --out runs/uniform
+```
+
+This selects an offline uniform-probability baseline: 50% each for yes/no answers, or 25% each for four options. It ignores the question and reference when assigning probabilities and makes no provider calls. Ties always select “yes” or the first option, so measured accuracy can differ from random guessing. See [methodology](doc:guide.methodology) for how to interpret the baseline. Read `runs/uniform/report.md`; the summary and per-case results are in the same directory.
+
+## Configure your endpoint
+
+Copy `models.example.json` to the ignored `models.local.json`. Replace the model ID, endpoint URL, credential environment-variable name, and authorization scheme for the entry you want to use. Keep credentials in your shell environment; the runner does not read `.env` files.
+
+Two HTTP adapters are available:
+
+| Adapter | Endpoint contract | Probability source |
+|---|---|---|
+| `systemone` | Typed `state`/`questions` requests and `answers` responses | Returned decision probabilities |
+| `chat` | Chat-completions requests with JSON mode, temperature 0, and a 1,024-token output cap | Probabilities estimated in the model’s JSON answer |
+
+The endpoint must support the selected contract. A provider with a different request format, authentication header, or response shape needs a dedicated adapter. Chat estimates are self-reported probabilities; assess their calibration separately from native decision-model probabilities.
+
+For example, a decision endpoint entry looks like this:
+
+```json
+{
+  "name": "decision-model",
+  "adapter": "systemone",
+  "model": "YOUR_DECISION_MODEL_ID",
+  "url": "https://your-provider.example/v1/systemone",
+  "key_env": "DECISION_API_KEY",
+  "auth_scheme": "Bearer"
+}
+```
+
+Remote entries live in the config’s `models` array. Requests use an `Authorization` header with the configured scheme. HTTPS is required except for loopback HTTP endpoints; a local endpoint without authentication can omit `key_env`. Redirects are refused. The README describes the exact transport fields.
+
+## Compare selected models
+
+After configuring your endpoint and setting its credential environment variable, run a small comparison:
+
+```sh
+python3 -m decision_bench run \
+  --config models.local.json --models uniform,decision-model \
+  --limit 8 --max-requests 8 --out runs/endpoint-smoke
+```
+
+Select `chat-model` instead for the chat adapter, or list multiple configured names separated by commas. Only explicitly selected entries are called. The command above makes up to eight paid API calls. The cap limits requests, not dollars. Output directories must be new. Requests are sequential, with no hidden retries or provider fallback.
+
+After the connection check, remove `--limit 8`, choose a dataset, and raise the request cap using the table above. Calls equal selected cases multiplied by selected remote models; offline baselines add none. Freeze prompts and settings before selecting `--split test`. Use observed cases for regression checks, and reserve new held-out cases before tuning prompts.
+
+## Provider examples
+
+The general runner does not require OpenRouter. Optional configs are provided separately:
+
+- `models/openrouter.example.json`: Joey, Mammoth, Elephant, and Jev latest through OpenRouter; uses `OPENROUTER_API_KEY`.
+- `models/baseten.example.json`: direct Baseten Joey example; uses `BASETEN_API_KEY`.
+- `models/expanded-2026-10-30.json`: the fixed OpenRouter releases used in the dated report.
+
+For the four-model OpenRouter example:
+
+```sh
+python3 -m decision_bench run \
+  --config models/openrouter.example.json \
+  --models uniform,joey-openrouter,mammoth-openrouter,elephant-openrouter,jev-latest \
+  --limit 8 --max-requests 32 --out runs/openrouter-smoke
+```
+
+This makes up to 32 paid calls. The report tested these four models through OpenRouter. Direct Baseten and live chat-adapter inference were not part of that comparison.
+
+## Read the results
+
+`report.md` compares exact accuracy, probability error, confidence thresholds, and client round-trip latency. A confidence threshold retains decisions whose selected-label probability reaches the cutoff; coverage reports how many cases remain. `summary.json` contains task scores and paired outcomes. `results.jsonl` retains per-case responses locally. Run manifests record requested model IDs, dataset and code hashes, request order, and settings.
+
+Responses record the model ID returned by the provider; use a pinned release for comparisons over time. In the OpenRouter example, Jev latest follows a moving alias. To use the fixed releases in the dated report, add `--config models/expanded-2026-10-30.json`. Keep dataset, split, and model selections consistent with the comparison you intend to reproduce. The report used the default request-order seed of 42 and 30-second timeout. Repeat measurements can quantify variability, but do not count them as independent new cases.
+
+Repeat the identical command with `--resume` after an interruption. Completed rows, including errors, are retained; retry errors in a new output directory.
+
+## Optional OpenRouter discovery
+
+The `catalog` command is specific to OpenRouter’s decision-model catalog. Other endpoints can be configured manually; discovery is not required to run them.
+
+```sh
+mkdir -p runs/discovery
+python3 -m decision_bench catalog \
+  --out runs/discovery/catalog.json --config-out runs/discovery/models.json
+```
+
+Discovery makes no inference calls. Use a fresh output directory if those files already exist; catalog files cannot be overwritten. Select specific generated entry names explicitly with `--config runs/discovery/models.json --models ...`. The command does not discover models from other providers. Generated configs select no models for inference automatically.
+
+## Build this documentation
+
+```sh
+npm ci
+npm run docs:build
+npm run docs:serve
+```
+
+The CLI is pinned to a public npm release. Use Shoalrun’s authoring snapshot workflow to preview draft pages. The normal build publishes only pages whose access policy is public. The GitHub Pages workflow is manual-only and does not run model evaluations or load provider credentials.

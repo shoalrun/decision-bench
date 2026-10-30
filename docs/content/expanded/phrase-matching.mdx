@@ -1,0 +1,1064 @@
+---
+id: reference.expanded-phrase-matching
+title: Phrase matching questions
+summary: Inspect 80 executable cases for phraseMatches.
+slug: /questions/expanded/phrase-matching
+type: reference
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Phrase matching means checking whether text contains a specified word or phrase under the source’s boundary, whitespace, case, and plural rules.
+
+These 80 cases test `phraseMatches`: 40 development cases used to check the evaluation’s prompts and runner settings, and 40 test cases reserved until those choices were fixed. Neither set trains the models. The supplied source code is the rule; expected answers come from executing it.
+
+**Question type: `noul` (yes/no).** The model returns a probability of “yes”; the runner uses a 0.5 cutoff.
+
+**Exact question:** Does phraseMatches return true for these arguments?
+
+[Source at the recorded revision](https://github.com/shoalrun/shoalrun/blob/1f2ed786f11d3510182c10184693c23f04a2ae35/framework/src/search-synonyms.ts). See [methodology](doc:guide.methodology), [the case-set overview](doc:reference.expanded-cases), and [results](doc:report.2026-10-30).
+
+## Development — noul (40 cases)
+
+### phraseMatches dev word 1
+
+**Arguments:**
+
+```json
+[
+  "use topiceec3ab now",
+  "topiceec3ab"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev word 2
+
+**Arguments:**
+
+```json
+[
+  "xtopic17007c",
+  "topic17007c"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev word 3
+
+**Arguments:**
+
+```json
+[
+  "use topic73b8de now",
+  "topic73b8de"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev word 4
+
+**Arguments:**
+
+```json
+[
+  "xtopic73c1e1",
+  "topic73c1e1"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev word 5
+
+**Arguments:**
+
+```json
+[
+  "use topicee7364 now",
+  "topicee7364"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev word 6
+
+**Arguments:**
+
+```json
+[
+  "xtopic1a0c6f",
+  "topic1a0c6f"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev word 7
+
+**Arguments:**
+
+```json
+[
+  "use topicef988b now",
+  "topicef988b"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev word 8
+
+**Arguments:**
+
+```json
+[
+  "xtopicb7db31",
+  "topicb7db31"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev plural 1
+
+**Arguments:**
+
+```json
+[
+  "topicf19e56s",
+  "topicf19e56"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev plural 2
+
+**Arguments:**
+
+```json
+[
+  "topic5ccc5fing",
+  "topic5ccc5f"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev plural 3
+
+**Arguments:**
+
+```json
+[
+  "topic02cd66s",
+  "topic02cd66"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev plural 4
+
+**Arguments:**
+
+```json
+[
+  "topiccebf4aing",
+  "topiccebf4a"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev plural 5
+
+**Arguments:**
+
+```json
+[
+  "topic7337f2s",
+  "topic7337f2"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev plural 6
+
+**Arguments:**
+
+```json
+[
+  "topic256333ing",
+  "topic256333"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev plural 7
+
+**Arguments:**
+
+```json
+[
+  "topic092cfcs",
+  "topic092cfc"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev plural 8
+
+**Arguments:**
+
+```json
+[
+  "topic3bd1aaing",
+  "topic3bd1aa"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev start boundary 1
+
+**Arguments:**
+
+```json
+[
+  ".topic908491",
+  "topic908491"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev start boundary 2
+
+**Arguments:**
+
+```json
+[
+  "atopicc5810b",
+  "topicc5810b"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev start boundary 3
+
+**Arguments:**
+
+```json
+[
+  ".topic209f11",
+  "topic209f11"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev start boundary 4
+
+**Arguments:**
+
+```json
+[
+  "atopicdfa83d",
+  "topicdfa83d"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev start boundary 5
+
+**Arguments:**
+
+```json
+[
+  ".topicc87dc0",
+  "topicc87dc0"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev start boundary 6
+
+**Arguments:**
+
+```json
+[
+  "atopic159b73",
+  "topic159b73"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev start boundary 7
+
+**Arguments:**
+
+```json
+[
+  ".topic0b9232",
+  "topic0b9232"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev start boundary 8
+
+**Arguments:**
+
+```json
+[
+  "atopic018826",
+  "topic018826"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev end boundary 1
+
+**Arguments:**
+
+```json
+[
+  "topicb4fa08!",
+  "topicb4fa08"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev end boundary 2
+
+**Arguments:**
+
+```json
+[
+  "topic366fa6a",
+  "topic366fa6"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev end boundary 3
+
+**Arguments:**
+
+```json
+[
+  "topice08809!",
+  "topice08809"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev end boundary 4
+
+**Arguments:**
+
+```json
+[
+  "topic99a454a",
+  "topic99a454"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev end boundary 5
+
+**Arguments:**
+
+```json
+[
+  "topicc445a9!",
+  "topicc445a9"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev end boundary 6
+
+**Arguments:**
+
+```json
+[
+  "topica819b2a",
+  "topica819b2"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev end boundary 7
+
+**Arguments:**
+
+```json
+[
+  "topice6b9e5!",
+  "topice6b9e5"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev end boundary 8
+
+**Arguments:**
+
+```json
+[
+  "topic4a421ba",
+  "topic4a421b"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev phrase space 1
+
+**Arguments:**
+
+```json
+[
+  "read\ttopic25d0ef",
+  "read topic25d0ef"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev phrase space 2
+
+**Arguments:**
+
+```json
+[
+  "read-topicd44f47",
+  "read topicd44f47"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev phrase space 3
+
+**Arguments:**
+
+```json
+[
+  "read\ttopicc24343",
+  "read topicc24343"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev phrase space 4
+
+**Arguments:**
+
+```json
+[
+  "read-topic5541ba",
+  "read topic5541ba"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev phrase space 5
+
+**Arguments:**
+
+```json
+[
+  "read\ttopic8c1250",
+  "read topic8c1250"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev phrase space 6
+
+**Arguments:**
+
+```json
+[
+  "read-topicbf404d",
+  "read topicbf404d"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches dev phrase space 7
+
+**Arguments:**
+
+```json
+[
+  "read\ttopica06224",
+  "read topica06224"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches dev phrase space 8
+
+**Arguments:**
+
+```json
+[
+  "read-topic11ecc7",
+  "read topic11ecc7"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+## Test — noul (40 cases)
+
+### phraseMatches test unicode boundary 1
+
+**Arguments:**
+
+```json
+[
+  "文 topic7175a7 文",
+  "topic7175a7"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test unicode boundary 2
+
+**Arguments:**
+
+```json
+[
+  "文topice69f16",
+  "topice69f16"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test unicode boundary 3
+
+**Arguments:**
+
+```json
+[
+  "文 topic45927e 文",
+  "topic45927e"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test unicode boundary 4
+
+**Arguments:**
+
+```json
+[
+  "文topic286f8c",
+  "topic286f8c"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test unicode boundary 5
+
+**Arguments:**
+
+```json
+[
+  "文 topica94c08 文",
+  "topica94c08"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test unicode boundary 6
+
+**Arguments:**
+
+```json
+[
+  "文topic0871b7",
+  "topic0871b7"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test unicode boundary 7
+
+**Arguments:**
+
+```json
+[
+  "文 topic71e662 文",
+  "topic71e662"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test unicode boundary 8
+
+**Arguments:**
+
+```json
+[
+  "文topic159dc9",
+  "topic159dc9"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test regex literals 1
+
+**Arguments:**
+
+```json
+[
+  "c++30bd5c",
+  "c++30bd5c"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test regex literals 2
+
+**Arguments:**
+
+```json
+[
+  "aqb5e4036",
+  "a.b5e4036"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test regex literals 3
+
+**Arguments:**
+
+```json
+[
+  "x(y)aa19dc",
+  "x(y)aa19dc"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test regex literals 4
+
+**Arguments:**
+
+```json
+[
+  "aqbq8b9ac7",
+  "a[b]8b9ac7"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test regex literals 5
+
+**Arguments:**
+
+```json
+[
+  "x?y8654fb",
+  "x?y8654fb"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test regex literals 6
+
+**Arguments:**
+
+```json
+[
+  "aqbcee877",
+  "a$bcee877"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test regex literals 7
+
+**Arguments:**
+
+```json
+[
+  "x|y44af6c",
+  "x|y44af6c"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test regex literals 8
+
+**Arguments:**
+
+```json
+[
+  "aqb8316e3",
+  "a*b8316e3"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test final plural 1
+
+**Arguments:**
+
+```json
+[
+  "read topic9e8231s",
+  "read topic9e8231"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test final plural 2
+
+**Arguments:**
+
+```json
+[
+  "reads topic0e13df",
+  "read topic0e13df"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test final plural 3
+
+**Arguments:**
+
+```json
+[
+  "read topic30e437s",
+  "read topic30e437"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test final plural 4
+
+**Arguments:**
+
+```json
+[
+  "reads topiceed460",
+  "read topiceed460"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test final plural 5
+
+**Arguments:**
+
+```json
+[
+  "read topic356881s",
+  "read topic356881"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test final plural 6
+
+**Arguments:**
+
+```json
+[
+  "reads topica88588",
+  "read topica88588"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test final plural 7
+
+**Arguments:**
+
+```json
+[
+  "read topic66681as",
+  "read topic66681a"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test final plural 8
+
+**Arguments:**
+
+```json
+[
+  "reads topice2253c",
+  "read topice2253c"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test case 1
+
+**Arguments:**
+
+```json
+[
+  "TOPIC078251",
+  "topic078251"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test case 2
+
+**Arguments:**
+
+```json
+[
+  "XTOPIC26B053",
+  "topic26b053"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test case 3
+
+**Arguments:**
+
+```json
+[
+  "TOPIC9C71BD",
+  "topic9c71bd"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test case 4
+
+**Arguments:**
+
+```json
+[
+  "XTOPIC517494",
+  "topic517494"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test case 5
+
+**Arguments:**
+
+```json
+[
+  "TOPICF7F6CA",
+  "topicf7f6ca"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test case 6
+
+**Arguments:**
+
+```json
+[
+  "XTOPIC8D5FE9",
+  "topic8d5fe9"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test case 7
+
+**Arguments:**
+
+```json
+[
+  "TOPICBB6830",
+  "topicbb6830"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test case 8
+
+**Arguments:**
+
+```json
+[
+  "XTOPICFF9618",
+  "topicff9618"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test number boundary 1
+
+**Arguments:**
+
+```json
+[
+  ".4200.",
+  "4200"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test number boundary 2
+
+**Arguments:**
+
+```json
+[
+  "94201",
+  "4201"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test number boundary 3
+
+**Arguments:**
+
+```json
+[
+  ".4202.",
+  "4202"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test number boundary 4
+
+**Arguments:**
+
+```json
+[
+  "94203",
+  "4203"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test number boundary 5
+
+**Arguments:**
+
+```json
+[
+  ".4204.",
+  "4204"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test number boundary 6
+
+**Arguments:**
+
+```json
+[
+  "94205",
+  "4205"
+]
+```
+
+**Known answer:** No — the function returns false.
+
+### phraseMatches test number boundary 7
+
+**Arguments:**
+
+```json
+[
+  ".4206.",
+  "4206"
+]
+```
+
+**Known answer:** Yes — the function returns true.
+
+### phraseMatches test number boundary 8
+
+**Arguments:**
+
+```json
+[
+  "94207",
+  "4207"
+]
+```
+
+**Known answer:** No — the function returns false.

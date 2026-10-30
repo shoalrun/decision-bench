@@ -1,0 +1,40 @@
+{
+  "models": [
+    {
+      "name": "uniform",
+      "adapter": "uniform"
+    },
+    {
+      "name": "joey-openrouter",
+      "adapter": "systemone",
+      "model": "baseten/joey-1-20261029",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "mammoth-openrouter",
+      "adapter": "systemone",
+      "model": "baseten/mammoth-1-20261021",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "elephant-openrouter",
+      "adapter": "systemone",
+      "model": "baseten/elephant-1-20261021",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "jev-latest",
+      "adapter": "systemone",
+      "model": "typesafe/jev-1.14-20261014",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    }
+  ]
+}

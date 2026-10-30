@@ -1,0 +1,5036 @@
+---
+id: reference.expanded-reader-selection
+title: Reader selection questions
+summary: Inspect 80 executable cases for validateReaderSelection.
+slug: /questions/expanded/reader-selection
+type: reference
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Reader selection means checking whether a page’s requested filter names and choices are accepted by the configured validation rules.
+
+A reader filter is a page attribute, such as audience or product, used to narrow the documentation shown to a reader.
+
+These 80 cases test `validateReaderSelection`: 40 development cases used to check the evaluation’s prompts and runner settings, and 40 test cases reserved until those choices were fixed. Neither set trains the models. The supplied source code is the rule; expected answers come from executing it.
+
+**Question type: `noul` (yes/no).** The model returns a probability of “yes”; the runner uses a 0.5 cutoff.
+
+**Exact question:** Does validateReaderSelection return normally without throwing for this input?
+
+[Source at the recorded revision](https://github.com/shoalrun/shoalrun/blob/1f2ed786f11d3510182c10184693c23f04a2ae35/framework/src/reader-filters.ts). See [methodology](doc:guide.methodology), [the case-set overview](doc:reference.expanded-cases), and [results](doc:report.2026-10-30).
+
+## Development — noul (40 cases)
+
+### validateReaderSelection dev combinations 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "product": [],
+    "area": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-924bed": "Author",
+          "reader-924bed": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-924bed": "API",
+          "web-924bed": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-924bed": "Guide",
+          "reference-924bed": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-924bed": "Start",
+          "advanced-924bed": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-924bed"
+        ],
+        "product": [
+          "api-924bed"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev combinations 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-3f773f"
+    ],
+    "product": [],
+    "area": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-3f773f": "Author",
+          "reader-3f773f": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-3f773f": "API",
+          "web-3f773f": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-3f773f": "Guide",
+          "reference-3f773f": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-3f773f": "Start",
+          "advanced-3f773f": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-3f773f"
+        ],
+        "product": [
+          "api-3f773f"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev combinations 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "product": [
+      "web-1946c9"
+    ],
+    "area": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-1946c9": "Author",
+          "reader-1946c9": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-1946c9": "API",
+          "web-1946c9": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-1946c9": "Guide",
+          "reference-1946c9": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-1946c9": "Start",
+          "advanced-1946c9": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-1946c9"
+        ],
+        "product": [
+          "api-1946c9"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev combinations 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-6f9c35"
+    ],
+    "product": [
+      "web-6f9c35"
+    ],
+    "area": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-6f9c35": "Author",
+          "reader-6f9c35": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-6f9c35": "API",
+          "web-6f9c35": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-6f9c35": "Guide",
+          "reference-6f9c35": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-6f9c35": "Start",
+          "advanced-6f9c35": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-6f9c35"
+        ],
+        "product": [
+          "api-6f9c35"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev combinations 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "product": [],
+    "area": [
+      "guide-8a6b56"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-8a6b56": "Author",
+          "reader-8a6b56": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-8a6b56": "API",
+          "web-8a6b56": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-8a6b56": "Guide",
+          "reference-8a6b56": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-8a6b56": "Start",
+          "advanced-8a6b56": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-8a6b56"
+        ],
+        "product": [
+          "api-8a6b56"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev combinations 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-00613b"
+    ],
+    "product": [],
+    "area": [
+      "guide-00613b"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-00613b": "Author",
+          "reader-00613b": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-00613b": "API",
+          "web-00613b": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-00613b": "Guide",
+          "reference-00613b": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-00613b": "Start",
+          "advanced-00613b": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-00613b"
+        ],
+        "product": [
+          "api-00613b"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev combinations 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "product": [
+      "web-9f74a5"
+    ],
+    "area": [
+      "guide-9f74a5"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9f74a5": "Author",
+          "reader-9f74a5": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9f74a5": "API",
+          "web-9f74a5": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9f74a5": "Guide",
+          "reference-9f74a5": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9f74a5": "Start",
+          "advanced-9f74a5": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9f74a5"
+        ],
+        "product": [
+          "api-9f74a5"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev combinations 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-826ee7"
+    ],
+    "product": [
+      "web-826ee7"
+    ],
+    "area": [
+      "guide-826ee7"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-826ee7": "Author",
+          "reader-826ee7": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-826ee7": "API",
+          "web-826ee7": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-826ee7": "Guide",
+          "reference-826ee7": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-826ee7": "Start",
+          "advanced-826ee7": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-826ee7"
+        ],
+        "product": [
+          "api-826ee7"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev list types 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": "author"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-ec2f4e": "Author",
+          "reader-ec2f4e": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ec2f4e": "API",
+          "web-ec2f4e": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ec2f4e": "Guide",
+          "reference-ec2f4e": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ec2f4e": "Start",
+          "advanced-ec2f4e": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-ec2f4e"
+        ],
+        "product": [
+          "api-ec2f4e"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev list types 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": null
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-6f4dcf": "Author",
+          "reader-6f4dcf": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-6f4dcf": "API",
+          "web-6f4dcf": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-6f4dcf": "Guide",
+          "reference-6f4dcf": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-6f4dcf": "Start",
+          "advanced-6f4dcf": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-6f4dcf"
+        ],
+        "product": [
+          "api-6f4dcf"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev list types 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": 42
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-732b8b": "Author",
+          "reader-732b8b": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-732b8b": "API",
+          "web-732b8b": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-732b8b": "Guide",
+          "reference-732b8b": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-732b8b": "Start",
+          "advanced-732b8b": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-732b8b"
+        ],
+        "product": [
+          "api-732b8b"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev list types 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": true
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-600132": "Author",
+          "reader-600132": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-600132": "API",
+          "web-600132": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-600132": "Guide",
+          "reference-600132": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-600132": "Start",
+          "advanced-600132": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-600132"
+        ],
+        "product": [
+          "api-600132"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev list types 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": {}
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-b6fcf2": "Author",
+          "reader-b6fcf2": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-b6fcf2": "API",
+          "web-b6fcf2": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-b6fcf2": "Guide",
+          "reference-b6fcf2": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-b6fcf2": "Start",
+          "advanced-b6fcf2": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-b6fcf2"
+        ],
+        "product": [
+          "api-b6fcf2"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev list types 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "unknown"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-ee949b": "Author",
+          "reader-ee949b": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ee949b": "API",
+          "web-ee949b": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ee949b": "Guide",
+          "reference-ee949b": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ee949b": "Start",
+          "advanced-ee949b": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-ee949b"
+        ],
+        "product": [
+          "api-ee949b"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev list types 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      null
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-8a7dd6": "Author",
+          "reader-8a7dd6": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-8a7dd6": "API",
+          "web-8a7dd6": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-8a7dd6": "Guide",
+          "reference-8a7dd6": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-8a7dd6": "Start",
+          "advanced-8a7dd6": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-8a7dd6"
+        ],
+        "product": [
+          "api-8a7dd6"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev list types 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      1
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9e6c92": "Author",
+          "reader-9e6c92": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9e6c92": "API",
+          "web-9e6c92": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9e6c92": "Guide",
+          "reference-9e6c92": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9e6c92": "Start",
+          "advanced-9e6c92": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9e6c92"
+        ],
+        "product": [
+          "api-9e6c92"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev facet membership 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-32573e"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-32573e": "Author",
+          "reader-32573e": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-32573e": "API",
+          "web-32573e": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-32573e": "Guide",
+          "reference-32573e": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-32573e": "Start",
+          "advanced-32573e": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-32573e"
+        ],
+        "product": [
+          "api-32573e"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev facet membership 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "web-1bc34c"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-1bc34c": "Author",
+          "reader-1bc34c": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-1bc34c": "API",
+          "web-1bc34c": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-1bc34c": "Guide",
+          "reference-1bc34c": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-1bc34c": "Start",
+          "advanced-1bc34c": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-1bc34c"
+        ],
+        "product": [
+          "api-1bc34c"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev facet membership 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-817488"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-817488": "Author",
+          "reader-817488": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-817488": "API",
+          "web-817488": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-817488": "Guide",
+          "reference-817488": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-817488": "Start",
+          "advanced-817488": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-817488"
+        ],
+        "product": [
+          "api-817488"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev facet membership 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "web-840870"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-840870": "Author",
+          "reader-840870": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-840870": "API",
+          "web-840870": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-840870": "Guide",
+          "reference-840870": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-840870": "Start",
+          "advanced-840870": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-840870"
+        ],
+        "product": [
+          "api-840870"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev facet membership 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "missing1311f3": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-dc0986": "Author",
+          "reader-dc0986": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-dc0986": "API",
+          "web-dc0986": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-dc0986": "Guide",
+          "reference-dc0986": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-dc0986": "Start",
+          "advanced-dc0986": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-dc0986"
+        ],
+        "product": [
+          "api-dc0986"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev facet membership 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "missingffbd52": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-7250d9": "Author",
+          "reader-7250d9": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-7250d9": "API",
+          "web-7250d9": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-7250d9": "Guide",
+          "reference-7250d9": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-7250d9": "Start",
+          "advanced-7250d9": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-7250d9"
+        ],
+        "product": [
+          "api-7250d9"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev facet membership 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "missing57ae05": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-6e1bfd": "Author",
+          "reader-6e1bfd": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-6e1bfd": "API",
+          "web-6e1bfd": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-6e1bfd": "Guide",
+          "reference-6e1bfd": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-6e1bfd": "Start",
+          "advanced-6e1bfd": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-6e1bfd"
+        ],
+        "product": [
+          "api-6e1bfd"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev facet membership 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "missingd0fbe6": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-069a29": "Author",
+          "reader-069a29": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-069a29": "API",
+          "web-069a29": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-069a29": "Guide",
+          "reference-069a29": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-069a29": "Start",
+          "advanced-069a29": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-069a29"
+        ],
+        "product": [
+          "api-069a29"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev duplicate choices 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-a14a58",
+      "reader-a14a58"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-a14a58": "Author",
+          "reader-a14a58": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-a14a58": "API",
+          "web-a14a58": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-a14a58": "Guide",
+          "reference-a14a58": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-a14a58": "Start",
+          "advanced-a14a58": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-a14a58"
+        ],
+        "product": [
+          "api-a14a58"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev duplicate choices 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-118891",
+      "reader-118891"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-118891": "Author",
+          "reader-118891": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-118891": "API",
+          "web-118891": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-118891": "Guide",
+          "reference-118891": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-118891": "Start",
+          "advanced-118891": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-118891"
+        ],
+        "product": [
+          "api-118891"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev duplicate choices 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-109898",
+      "reader-109898"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-109898": "Author",
+          "reader-109898": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-109898": "API",
+          "web-109898": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-109898": "Guide",
+          "reference-109898": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-109898": "Start",
+          "advanced-109898": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-109898"
+        ],
+        "product": [
+          "api-109898"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev duplicate choices 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-d25bfe",
+      "reader-d25bfe"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-d25bfe": "Author",
+          "reader-d25bfe": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d25bfe": "API",
+          "web-d25bfe": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d25bfe": "Guide",
+          "reference-d25bfe": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d25bfe": "Start",
+          "advanced-d25bfe": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-d25bfe"
+        ],
+        "product": [
+          "api-d25bfe"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev duplicate choices 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-801d03",
+      "author-801d03"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-801d03": "Author",
+          "reader-801d03": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-801d03": "API",
+          "web-801d03": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-801d03": "Guide",
+          "reference-801d03": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-801d03": "Start",
+          "advanced-801d03": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-801d03"
+        ],
+        "product": [
+          "api-801d03"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev duplicate choices 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-3f2013",
+      "author-3f2013"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-3f2013": "Author",
+          "reader-3f2013": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-3f2013": "API",
+          "web-3f2013": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-3f2013": "Guide",
+          "reference-3f2013": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-3f2013": "Start",
+          "advanced-3f2013": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-3f2013"
+        ],
+        "product": [
+          "api-3f2013"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev duplicate choices 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-f29b60",
+      "author-f29b60"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-f29b60": "Author",
+          "reader-f29b60": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-f29b60": "API",
+          "web-f29b60": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-f29b60": "Guide",
+          "reference-f29b60": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-f29b60": "Start",
+          "advanced-f29b60": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-f29b60"
+        ],
+        "product": [
+          "api-f29b60"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev duplicate choices 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-fedd37",
+      "author-fedd37"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-fedd37": "Author",
+          "reader-fedd37": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-fedd37": "API",
+          "web-fedd37": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-fedd37": "Guide",
+          "reference-fedd37": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-fedd37": "Start",
+          "advanced-fedd37": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-fedd37"
+        ],
+        "product": [
+          "api-fedd37"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev choice membership 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "area": [
+      "guide-bbf39a"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-bbf39a": "Author",
+          "reader-bbf39a": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-bbf39a": "API",
+          "web-bbf39a": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-bbf39a": "Guide",
+          "reference-bbf39a": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-bbf39a": "Start",
+          "advanced-bbf39a": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-bbf39a"
+        ],
+        "product": [
+          "api-bbf39a"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev choice membership 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "area": [
+      "reference-ed5f3e"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-ed5f3e": "Author",
+          "reader-ed5f3e": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ed5f3e": "API",
+          "web-ed5f3e": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ed5f3e": "Guide",
+          "reference-ed5f3e": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ed5f3e": "Start",
+          "advanced-ed5f3e": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-ed5f3e"
+        ],
+        "product": [
+          "api-ed5f3e"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev choice membership 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "area": [
+      "guide-b65ade"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-b65ade": "Author",
+          "reader-b65ade": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-b65ade": "API",
+          "web-b65ade": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-b65ade": "Guide",
+          "reference-b65ade": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-b65ade": "Start",
+          "advanced-b65ade": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-b65ade"
+        ],
+        "product": [
+          "api-b65ade"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev choice membership 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "area": [
+      "reference-355de5"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-355de5": "Author",
+          "reader-355de5": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-355de5": "API",
+          "web-355de5": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-355de5": "Guide",
+          "reference-355de5": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-355de5": "Start",
+          "advanced-355de5": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-355de5"
+        ],
+        "product": [
+          "api-355de5"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection dev choice membership 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "area": [
+      "unconfigured4"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-0102dc": "Author",
+          "reader-0102dc": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-0102dc": "API",
+          "web-0102dc": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-0102dc": "Guide",
+          "reference-0102dc": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-0102dc": "Start",
+          "advanced-0102dc": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-0102dc"
+        ],
+        "product": [
+          "api-0102dc"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev choice membership 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "area": [
+      "unconfigured5"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-75af96": "Author",
+          "reader-75af96": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-75af96": "API",
+          "web-75af96": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-75af96": "Guide",
+          "reference-75af96": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-75af96": "Start",
+          "advanced-75af96": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-75af96"
+        ],
+        "product": [
+          "api-75af96"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev choice membership 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "area": [
+      "unconfigured6"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-6f0bed": "Author",
+          "reader-6f0bed": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-6f0bed": "API",
+          "web-6f0bed": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-6f0bed": "Guide",
+          "reference-6f0bed": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-6f0bed": "Start",
+          "advanced-6f0bed": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-6f0bed"
+        ],
+        "product": [
+          "api-6f0bed"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection dev choice membership 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "area": [
+      "unconfigured7"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-4f6c67": "Author",
+          "reader-4f6c67": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-4f6c67": "API",
+          "web-4f6c67": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-4f6c67": "Guide",
+          "reference-4f6c67": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-4f6c67": "Start",
+          "advanced-4f6c67": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-4f6c67"
+        ],
+        "product": [
+          "api-4f6c67"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+## Test — noul (40 cases)
+
+### validateReaderSelection test root shape 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "subarea": [
+      "start-da7885"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-da7885": "Author",
+          "reader-da7885": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-da7885": "API",
+          "web-da7885": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-da7885": "Guide",
+          "reference-da7885": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-da7885": "Start",
+          "advanced-da7885": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-da7885"
+        ],
+        "product": [
+          "api-da7885"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test root shape 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "subarea": [
+      "advanced-90558a"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-90558a": "Author",
+          "reader-90558a": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-90558a": "API",
+          "web-90558a": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-90558a": "Guide",
+          "reference-90558a": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-90558a": "Start",
+          "advanced-90558a": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-90558a"
+        ],
+        "product": [
+          "api-90558a"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test root shape 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "subarea": [
+      "start-f19e8c"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-f19e8c": "Author",
+          "reader-f19e8c": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-f19e8c": "API",
+          "web-f19e8c": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-f19e8c": "Guide",
+          "reference-f19e8c": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-f19e8c": "Start",
+          "advanced-f19e8c": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-f19e8c"
+        ],
+        "product": [
+          "api-f19e8c"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test root shape 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "subarea": [
+      "advanced-9c4edf"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9c4edf": "Author",
+          "reader-9c4edf": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9c4edf": "API",
+          "web-9c4edf": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9c4edf": "Guide",
+          "reference-9c4edf": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9c4edf": "Start",
+          "advanced-9c4edf": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9c4edf"
+        ],
+        "product": [
+          "api-9c4edf"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test root shape 5
+
+**Arguments:**
+
+```json
+[
+  null,
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9d4d9f": "Author",
+          "reader-9d4d9f": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9d4d9f": "API",
+          "web-9d4d9f": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9d4d9f": "Guide",
+          "reference-9d4d9f": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9d4d9f": "Start",
+          "advanced-9d4d9f": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9d4d9f"
+        ],
+        "product": [
+          "api-9d4d9f"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test root shape 6
+
+**Arguments:**
+
+```json
+[
+  [],
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-029e4a": "Author",
+          "reader-029e4a": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-029e4a": "API",
+          "web-029e4a": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-029e4a": "Guide",
+          "reference-029e4a": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-029e4a": "Start",
+          "advanced-029e4a": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-029e4a"
+        ],
+        "product": [
+          "api-029e4a"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test root shape 7
+
+**Arguments:**
+
+```json
+[
+  true,
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-fcbe81": "Author",
+          "reader-fcbe81": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-fcbe81": "API",
+          "web-fcbe81": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-fcbe81": "Guide",
+          "reference-fcbe81": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-fcbe81": "Start",
+          "advanced-fcbe81": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-fcbe81"
+        ],
+        "product": [
+          "api-fcbe81"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test root shape 8
+
+**Arguments:**
+
+```json
+[
+  "reader",
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-c3dd97": "Author",
+          "reader-c3dd97": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-c3dd97": "API",
+          "web-c3dd97": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-c3dd97": "Guide",
+          "reference-c3dd97": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-c3dd97": "Start",
+          "advanced-c3dd97": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-c3dd97"
+        ],
+        "product": [
+          "api-c3dd97"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test prototype lookups 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "constructor"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-bb5c82": "Author",
+          "reader-bb5c82": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-bb5c82": "API",
+          "web-bb5c82": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-bb5c82": "Guide",
+          "reference-bb5c82": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-bb5c82": "Start",
+          "advanced-bb5c82": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-bb5c82"
+        ],
+        "product": [
+          "api-bb5c82"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test prototype lookups 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "toString"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-c04908": "Author",
+          "reader-c04908": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-c04908": "API",
+          "web-c04908": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-c04908": "Guide",
+          "reference-c04908": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-c04908": "Start",
+          "advanced-c04908": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-c04908"
+        ],
+        "product": [
+          "api-c04908"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test prototype lookups 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "valueOf"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-3ba01d": "Author",
+          "reader-3ba01d": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-3ba01d": "API",
+          "web-3ba01d": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-3ba01d": "Guide",
+          "reference-3ba01d": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-3ba01d": "Start",
+          "advanced-3ba01d": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-3ba01d"
+        ],
+        "product": [
+          "api-3ba01d"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test prototype lookups 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "hasOwnProperty"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-d16a67": "Author",
+          "reader-d16a67": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d16a67": "API",
+          "web-d16a67": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d16a67": "Guide",
+          "reference-d16a67": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d16a67": "Start",
+          "advanced-d16a67": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-d16a67"
+        ],
+        "product": [
+          "api-d16a67"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test prototype lookups 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "missing"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-fa0671": "Author",
+          "reader-fa0671": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-fa0671": "API",
+          "web-fa0671": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-fa0671": "Guide",
+          "reference-fa0671": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-fa0671": "Start",
+          "advanced-fa0671": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-fa0671"
+        ],
+        "product": [
+          "api-fa0671"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test prototype lookups 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "auditor"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-eb8acc": "Author",
+          "reader-eb8acc": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-eb8acc": "API",
+          "web-eb8acc": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-eb8acc": "Guide",
+          "reference-eb8acc": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-eb8acc": "Start",
+          "advanced-eb8acc": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-eb8acc"
+        ],
+        "product": [
+          "api-eb8acc"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test prototype lookups 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "AUTHOR"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-ebdc0d": "Author",
+          "reader-ebdc0d": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ebdc0d": "API",
+          "web-ebdc0d": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ebdc0d": "Guide",
+          "reference-ebdc0d": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ebdc0d": "Start",
+          "advanced-ebdc0d": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-ebdc0d"
+        ],
+        "product": [
+          "api-ebdc0d"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test prototype lookups 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "reader "
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-5fda7f": "Author",
+          "reader-5fda7f": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-5fda7f": "API",
+          "web-5fda7f": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-5fda7f": "Guide",
+          "reference-5fda7f": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-5fda7f": "Start",
+          "advanced-5fda7f": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-5fda7f"
+        ],
+        "product": [
+          "api-5fda7f"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test multiselect 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-79f828",
+      "reader-79f828"
+    ],
+    "product": [
+      "api-79f828"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-79f828": "Author",
+          "reader-79f828": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-79f828": "API",
+          "web-79f828": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-79f828": "Guide",
+          "reference-79f828": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-79f828": "Start",
+          "advanced-79f828": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-79f828"
+        ],
+        "product": [
+          "api-79f828"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test multiselect 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-320dd1",
+      "reader-320dd1"
+    ],
+    "product": [
+      "web-320dd1"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-320dd1": "Author",
+          "reader-320dd1": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-320dd1": "API",
+          "web-320dd1": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-320dd1": "Guide",
+          "reference-320dd1": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-320dd1": "Start",
+          "advanced-320dd1": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-320dd1"
+        ],
+        "product": [
+          "api-320dd1"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test multiselect 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-11756d",
+      "reader-11756d"
+    ],
+    "product": [
+      "api-11756d"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-11756d": "Author",
+          "reader-11756d": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-11756d": "API",
+          "web-11756d": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-11756d": "Guide",
+          "reference-11756d": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-11756d": "Start",
+          "advanced-11756d": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-11756d"
+        ],
+        "product": [
+          "api-11756d"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test multiselect 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-d610af",
+      "reader-d610af"
+    ],
+    "product": [
+      "web-d610af"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-d610af": "Author",
+          "reader-d610af": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d610af": "API",
+          "web-d610af": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d610af": "Guide",
+          "reference-d610af": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d610af": "Start",
+          "advanced-d610af": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-d610af"
+        ],
+        "product": [
+          "api-d610af"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test multiselect 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-e32548",
+      "reader-e32548",
+      "author-e32548"
+    ],
+    "product": [
+      "api-e32548"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-e32548": "Author",
+          "reader-e32548": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-e32548": "API",
+          "web-e32548": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-e32548": "Guide",
+          "reference-e32548": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-e32548": "Start",
+          "advanced-e32548": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-e32548"
+        ],
+        "product": [
+          "api-e32548"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test multiselect 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-f43c54",
+      "reader-f43c54",
+      "author-f43c54"
+    ],
+    "product": [
+      "web-f43c54"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-f43c54": "Author",
+          "reader-f43c54": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-f43c54": "API",
+          "web-f43c54": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-f43c54": "Guide",
+          "reference-f43c54": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-f43c54": "Start",
+          "advanced-f43c54": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-f43c54"
+        ],
+        "product": [
+          "api-f43c54"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test multiselect 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-bf20f4",
+      "reader-bf20f4",
+      "author-bf20f4"
+    ],
+    "product": [
+      "api-bf20f4"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-bf20f4": "Author",
+          "reader-bf20f4": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-bf20f4": "API",
+          "web-bf20f4": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-bf20f4": "Guide",
+          "reference-bf20f4": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-bf20f4": "Start",
+          "advanced-bf20f4": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-bf20f4"
+        ],
+        "product": [
+          "api-bf20f4"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test multiselect 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [
+      "author-9d4b41",
+      "reader-9d4b41",
+      "author-9d4b41"
+    ],
+    "product": [
+      "web-9d4b41"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9d4b41": "Author",
+          "reader-9d4b41": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9d4b41": "API",
+          "web-9d4b41": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9d4b41": "Guide",
+          "reference-9d4b41": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9d4b41": "Start",
+          "advanced-9d4b41": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9d4b41"
+        ],
+        "product": [
+          "api-9d4b41"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test empty lists 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "area": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-a9fafa": "Author",
+          "reader-a9fafa": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-a9fafa": "API",
+          "web-a9fafa": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-a9fafa": "Guide",
+          "reference-a9fafa": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-a9fafa": "Start",
+          "advanced-a9fafa": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-a9fafa"
+        ],
+        "product": [
+          "api-a9fafa"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test empty lists 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "area": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-f31fae": "Author",
+          "reader-f31fae": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-f31fae": "API",
+          "web-f31fae": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-f31fae": "Guide",
+          "reference-f31fae": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-f31fae": "Start",
+          "advanced-f31fae": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-f31fae"
+        ],
+        "product": [
+          "api-f31fae"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test empty lists 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "area": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-6dd23d": "Author",
+          "reader-6dd23d": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-6dd23d": "API",
+          "web-6dd23d": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-6dd23d": "Guide",
+          "reference-6dd23d": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-6dd23d": "Start",
+          "advanced-6dd23d": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-6dd23d"
+        ],
+        "product": [
+          "api-6dd23d"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test empty lists 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "area": []
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-3f8310": "Author",
+          "reader-3f8310": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-3f8310": "API",
+          "web-3f8310": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-3f8310": "Guide",
+          "reference-3f8310": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-3f8310": "Start",
+          "advanced-3f8310": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-3f8310"
+        ],
+        "product": [
+          "api-3f8310"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test empty lists 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "area": [
+      "unknown"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9a4cd9": "Author",
+          "reader-9a4cd9": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9a4cd9": "API",
+          "web-9a4cd9": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9a4cd9": "Guide",
+          "reference-9a4cd9": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9a4cd9": "Start",
+          "advanced-9a4cd9": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9a4cd9"
+        ],
+        "product": [
+          "api-9a4cd9"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test empty lists 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "area": [
+      null
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-ddee88": "Author",
+          "reader-ddee88": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ddee88": "API",
+          "web-ddee88": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ddee88": "Guide",
+          "reference-ddee88": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ddee88": "Start",
+          "advanced-ddee88": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-ddee88"
+        ],
+        "product": [
+          "api-ddee88"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test empty lists 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "area": [
+      0
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-d9c9e4": "Author",
+          "reader-d9c9e4": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d9c9e4": "API",
+          "web-d9c9e4": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d9c9e4": "Guide",
+          "reference-d9c9e4": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d9c9e4": "Start",
+          "advanced-d9c9e4": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-d9c9e4"
+        ],
+        "product": [
+          "api-d9c9e4"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test empty lists 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "audience": [],
+    "area": [
+      false
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-ca016e": "Author",
+          "reader-ca016e": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-ca016e": "API",
+          "web-ca016e": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-ca016e": "Guide",
+          "reference-ca016e": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-ca016e": "Start",
+          "advanced-ca016e": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-ca016e"
+        ],
+        "product": [
+          "api-ca016e"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test mixed facets 1
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-b9b649"
+    ],
+    "area": [
+      "reference-b9b649"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-b9b649": "Author",
+          "reader-b9b649": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-b9b649": "API",
+          "web-b9b649": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-b9b649": "Guide",
+          "reference-b9b649": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-b9b649": "Start",
+          "advanced-b9b649": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-b9b649"
+        ],
+        "product": [
+          "api-b9b649"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test mixed facets 2
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-eaaf46"
+    ],
+    "area": [
+      "reference-eaaf46"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-eaaf46": "Author",
+          "reader-eaaf46": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-eaaf46": "API",
+          "web-eaaf46": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-eaaf46": "Guide",
+          "reference-eaaf46": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-eaaf46": "Start",
+          "advanced-eaaf46": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-eaaf46"
+        ],
+        "product": [
+          "api-eaaf46"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test mixed facets 3
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-1185df"
+    ],
+    "area": [
+      "reference-1185df"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-1185df": "Author",
+          "reader-1185df": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-1185df": "API",
+          "web-1185df": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-1185df": "Guide",
+          "reference-1185df": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-1185df": "Start",
+          "advanced-1185df": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-1185df"
+        ],
+        "product": [
+          "api-1185df"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test mixed facets 4
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-9468ea"
+    ],
+    "area": [
+      "reference-9468ea"
+    ]
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-9468ea": "Author",
+          "reader-9468ea": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-9468ea": "API",
+          "web-9468ea": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-9468ea": "Guide",
+          "reference-9468ea": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-9468ea": "Start",
+          "advanced-9468ea": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-9468ea"
+        ],
+        "product": [
+          "api-9468ea"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateReaderSelection test mixed facets 5
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-8af541"
+    ],
+    "area": "not-a-list"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-8af541": "Author",
+          "reader-8af541": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-8af541": "API",
+          "web-8af541": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-8af541": "Guide",
+          "reference-8af541": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-8af541": "Start",
+          "advanced-8af541": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-8af541"
+        ],
+        "product": [
+          "api-8af541"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test mixed facets 6
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-efcc5a"
+    ],
+    "area": "not-a-list"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-efcc5a": "Author",
+          "reader-efcc5a": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-efcc5a": "API",
+          "web-efcc5a": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-efcc5a": "Guide",
+          "reference-efcc5a": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-efcc5a": "Start",
+          "advanced-efcc5a": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-efcc5a"
+        ],
+        "product": [
+          "api-efcc5a"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test mixed facets 7
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-d4ac2a"
+    ],
+    "area": "not-a-list"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-d4ac2a": "Author",
+          "reader-d4ac2a": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-d4ac2a": "API",
+          "web-d4ac2a": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-d4ac2a": "Guide",
+          "reference-d4ac2a": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-d4ac2a": "Start",
+          "advanced-d4ac2a": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-d4ac2a"
+        ],
+        "product": [
+          "api-d4ac2a"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateReaderSelection test mixed facets 8
+
+**Arguments:**
+
+```json
+[
+  {
+    "product": [
+      "api-b09b86"
+    ],
+    "area": "not-a-list"
+  },
+  {
+    "facets": {
+      "audience": {
+        "label": "Audience",
+        "options": {
+          "author-b09b86": "Author",
+          "reader-b09b86": "Reader"
+        }
+      },
+      "product": {
+        "label": "Product",
+        "options": {
+          "api-b09b86": "API",
+          "web-b09b86": "Web"
+        }
+      },
+      "area": {
+        "label": "Area",
+        "options": {
+          "guide-b09b86": "Guide",
+          "reference-b09b86": "Reference"
+        }
+      },
+      "subarea": {
+        "label": "Subarea",
+        "options": {
+          "start-b09b86": "Start",
+          "advanced-b09b86": "Advanced"
+        }
+      }
+    },
+    "typeDefaults": {
+      "guide": {
+        "audience": [
+          "author-b09b86"
+        ],
+        "product": [
+          "api-b09b86"
+        ]
+      }
+    },
+    "controls": {
+      "sidebar": true
+    }
+  },
+  "selection"
+]
+```
+
+**Known answer:** No — the function throws.

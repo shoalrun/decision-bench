@@ -1,0 +1,6208 @@
+---
+id: reference.expanded-query-decomposition
+title: Query decomposition questions
+summary: Inspect 80 executable cases for queryUnits.
+slug: /questions/expanded/query-decomposition
+type: reference
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Query decomposition means splitting search text into word or phrase units and attaching the alternative terms from configured synonym groups.
+
+These 80 cases test `queryUnits`: 40 development cases used to check the evaluation’s prompts and runner settings, and 40 test cases reserved until those choices were fixed. Neither set trains the models. The supplied source code is the rule; expected answers come from executing it.
+
+**Question type: `choice` (four options).** The model selects the exact returned result or error, with a probability for each option.
+
+**Exact question:** Which exact result or exception does queryUnits produce for these arguments?
+
+[Source at the recorded revision](https://github.com/shoalrun/shoalrun/blob/1f2ed786f11d3510182c10184693c23f04a2ae35/framework/src/search-synonyms.ts). See [methodology](doc:guide.methodology), [the case-set overview](doc:reference.expanded-cases), and [results](doc:report.2026-10-30).
+
+## Development — choice (40 cases)
+
+### queryUnits dev single 1
+
+**Arguments:**
+
+```json
+[
+  "topic2e2dc0",
+  [
+    [
+      "topic2e2dc0",
+      "other2e2dc0"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2e2dc0",
+        "alternatives": [
+          "other2e2dc0"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2e2dc0s",
+        "alternatives": [
+          "other2e2dc0"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2e2dc0",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2e2dc0",
+        "alternatives": [
+          "topic2e2dc0",
+          "other2e2dc0"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["other2e2dc0"], "term": "topic2e2dc0"}]}`
+
+### queryUnits dev single 2
+
+**Arguments:**
+
+```json
+[
+  "topic6f4616",
+  [
+    [
+      "topic6f4616",
+      "other6f4616"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic6f4616",
+        "alternatives": [
+          "other6f4616"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic6f4616s",
+        "alternatives": [
+          "other6f4616"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic6f4616",
+        "alternatives": [
+          "topic6f4616",
+          "other6f4616"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic6f4616",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["other6f4616"], "term": "topic6f4616"}]}`
+
+### queryUnits dev single 3
+
+**Arguments:**
+
+```json
+[
+  "topicba4f24",
+  [
+    [
+      "topicba4f24",
+      "otherba4f24"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicba4f24",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicba4f24",
+        "alternatives": [
+          "topicba4f24",
+          "otherba4f24"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicba4f24",
+        "alternatives": [
+          "otherba4f24"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicba4f24s",
+        "alternatives": [
+          "otherba4f24"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["otherba4f24"], "term": "topicba4f24"}]}`
+
+### queryUnits dev single 4
+
+**Arguments:**
+
+```json
+[
+  "topicb8297b",
+  [
+    [
+      "topicb8297b",
+      "otherb8297b"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb8297b",
+        "alternatives": [
+          "otherb8297b"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb8297b",
+        "alternatives": [
+          "topicb8297b",
+          "otherb8297b"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb8297bs",
+        "alternatives": [
+          "otherb8297b"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb8297b",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["otherb8297b"], "term": "topicb8297b"}]}`
+
+### queryUnits dev single 5
+
+**Arguments:**
+
+```json
+[
+  "topic4af334",
+  [
+    [
+      "topic4af334",
+      "other4af334"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4af334",
+        "alternatives": [
+          "topic4af334",
+          "other4af334"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4af334s",
+        "alternatives": [
+          "other4af334"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4af334",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4af334",
+        "alternatives": [
+          "other4af334"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other4af334"], "term": "topic4af334"}]}`
+
+### queryUnits dev single 6
+
+**Arguments:**
+
+```json
+[
+  "topic674315",
+  [
+    [
+      "topic674315",
+      "other674315"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic674315s",
+        "alternatives": [
+          "other674315"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic674315",
+        "alternatives": [
+          "other674315"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic674315",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic674315",
+        "alternatives": [
+          "topic674315",
+          "other674315"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other674315"], "term": "topic674315"}]}`
+
+### queryUnits dev single 7
+
+**Arguments:**
+
+```json
+[
+  "topicc59878",
+  [
+    [
+      "topicc59878",
+      "otherc59878"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicc59878",
+        "alternatives": [
+          "otherc59878"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicc59878",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicc59878",
+        "alternatives": [
+          "topicc59878",
+          "otherc59878"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicc59878s",
+        "alternatives": [
+          "otherc59878"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["otherc59878"], "term": "topicc59878"}]}`
+
+### queryUnits dev single 8
+
+**Arguments:**
+
+```json
+[
+  "topic4c748a",
+  [
+    [
+      "topic4c748a",
+      "other4c748a"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4c748a",
+        "alternatives": [
+          "other4c748a"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4c748as",
+        "alternatives": [
+          "other4c748a"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4c748a",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4c748a",
+        "alternatives": [
+          "topic4c748a",
+          "other4c748a"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["other4c748a"], "term": "topic4c748a"}]}`
+
+### queryUnits dev longest phrase 1
+
+**Arguments:**
+
+```json
+[
+  "read topic6d993f now",
+  [
+    [
+      "read topic6d993f",
+      "other6d993f"
+    ],
+    [
+      "read",
+      "extra6d993f"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic6d993f",
+        "alternatives": [
+          "other6d993f"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic6d993fs",
+        "alternatives": [
+          "other6d993f"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic6d993f",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic6d993f",
+        "alternatives": [
+          "other6d993f"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["other6d993f"], "term": "read topic6d993f"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev longest phrase 2
+
+**Arguments:**
+
+```json
+[
+  "read topice43e8c now",
+  [
+    [
+      "read topice43e8c",
+      "othere43e8c"
+    ],
+    [
+      "read",
+      "extrae43e8c"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice43e8cs",
+        "alternatives": [
+          "othere43e8c"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice43e8c",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice43e8c",
+        "alternatives": [
+          "othere43e8c"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice43e8c",
+        "alternatives": [
+          "othere43e8c"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["othere43e8c"], "term": "read topice43e8c"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev longest phrase 3
+
+**Arguments:**
+
+```json
+[
+  "read topic63ffa2 now",
+  [
+    [
+      "read topic63ffa2",
+      "other63ffa2"
+    ],
+    [
+      "read",
+      "extra63ffa2"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic63ffa2",
+        "alternatives": [
+          "other63ffa2"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic63ffa2",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic63ffa2s",
+        "alternatives": [
+          "other63ffa2"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic63ffa2",
+        "alternatives": [
+          "other63ffa2"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other63ffa2"], "term": "read topic63ffa2"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev longest phrase 4
+
+**Arguments:**
+
+```json
+[
+  "read topic5d9832 now",
+  [
+    [
+      "read topic5d9832",
+      "other5d9832"
+    ],
+    [
+      "read",
+      "extra5d9832"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic5d9832",
+        "alternatives": [
+          "other5d9832"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic5d9832",
+        "alternatives": [
+          "other5d9832"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic5d9832s",
+        "alternatives": [
+          "other5d9832"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic5d9832",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other5d9832"], "term": "read topic5d9832"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev longest phrase 5
+
+**Arguments:**
+
+```json
+[
+  "read topic681bdf now",
+  [
+    [
+      "read topic681bdf",
+      "other681bdf"
+    ],
+    [
+      "read",
+      "extra681bdf"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic681bdf",
+        "alternatives": [
+          "other681bdf"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic681bdfs",
+        "alternatives": [
+          "other681bdf"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic681bdf",
+        "alternatives": [
+          "other681bdf"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic681bdf",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other681bdf"], "term": "read topic681bdf"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev longest phrase 6
+
+**Arguments:**
+
+```json
+[
+  "read topic4c574f now",
+  [
+    [
+      "read topic4c574f",
+      "other4c574f"
+    ],
+    [
+      "read",
+      "extra4c574f"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic4c574f",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic4c574fs",
+        "alternatives": [
+          "other4c574f"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic4c574f",
+        "alternatives": [
+          "other4c574f"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic4c574f",
+        "alternatives": [
+          "other4c574f"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other4c574f"], "term": "read topic4c574f"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev longest phrase 7
+
+**Arguments:**
+
+```json
+[
+  "read topic06f276 now",
+  [
+    [
+      "read topic06f276",
+      "other06f276"
+    ],
+    [
+      "read",
+      "extra06f276"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic06f276",
+        "alternatives": [
+          "other06f276"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic06f276s",
+        "alternatives": [
+          "other06f276"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic06f276",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic06f276",
+        "alternatives": [
+          "other06f276"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other06f276"], "term": "read topic06f276"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev longest phrase 8
+
+**Arguments:**
+
+```json
+[
+  "read topica25085 now",
+  [
+    [
+      "read topica25085",
+      "othera25085"
+    ],
+    [
+      "read",
+      "extraa25085"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topica25085",
+        "alternatives": [
+          "othera25085"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topica25085s",
+        "alternatives": [
+          "othera25085"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topica25085",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topica25085",
+        "alternatives": [
+          "othera25085"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["othera25085"], "term": "read topica25085"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev edge punctuation 1
+
+**Arguments:**
+
+```json
+[
+  "(topic247b61,",
+  [
+    [
+      "topic247b61",
+      "other247b61"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic247b61",
+        "alternatives": [
+          "topic247b61",
+          "other247b61"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic247b61s",
+        "alternatives": [
+          "other247b61"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic247b61",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic247b61",
+        "alternatives": [
+          "other247b61"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other247b61"], "term": "topic247b61"}]}`
+
+### queryUnits dev edge punctuation 2
+
+**Arguments:**
+
+```json
+[
+  "[topic47677b,",
+  [
+    [
+      "topic47677b",
+      "other47677b"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic47677bs",
+        "alternatives": [
+          "other47677b"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic47677b",
+        "alternatives": [
+          "other47677b"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic47677b",
+        "alternatives": [
+          "topic47677b",
+          "other47677b"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic47677b",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other47677b"], "term": "topic47677b"}]}`
+
+### queryUnits dev edge punctuation 3
+
+**Arguments:**
+
+```json
+[
+  "\"topicf4779c,",
+  [
+    [
+      "topicf4779c",
+      "otherf4779c"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf4779c",
+        "alternatives": [
+          "otherf4779c"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf4779cs",
+        "alternatives": [
+          "otherf4779c"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf4779c",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf4779c",
+        "alternatives": [
+          "topicf4779c",
+          "otherf4779c"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["otherf4779c"], "term": "topicf4779c"}]}`
+
+### queryUnits dev edge punctuation 4
+
+**Arguments:**
+
+```json
+[
+  ".topic2f23b6,",
+  [
+    [
+      "topic2f23b6",
+      "other2f23b6"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2f23b6s",
+        "alternatives": [
+          "other2f23b6"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2f23b6",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2f23b6",
+        "alternatives": [
+          "other2f23b6"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2f23b6",
+        "alternatives": [
+          "topic2f23b6",
+          "other2f23b6"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other2f23b6"], "term": "topic2f23b6"}]}`
+
+### queryUnits dev edge punctuation 5
+
+**Arguments:**
+
+```json
+[
+  "!topic4d2276,",
+  [
+    [
+      "topic4d2276",
+      "other4d2276"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4d2276s",
+        "alternatives": [
+          "other4d2276"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4d2276",
+        "alternatives": [
+          "other4d2276"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4d2276",
+        "alternatives": [
+          "topic4d2276",
+          "other4d2276"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic4d2276",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other4d2276"], "term": "topic4d2276"}]}`
+
+### queryUnits dev edge punctuation 6
+
+**Arguments:**
+
+```json
+[
+  "?topiccdeb70,",
+  [
+    [
+      "topiccdeb70",
+      "othercdeb70"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topiccdeb70",
+        "alternatives": [
+          "othercdeb70"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topiccdeb70s",
+        "alternatives": [
+          "othercdeb70"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topiccdeb70",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topiccdeb70",
+        "alternatives": [
+          "topiccdeb70",
+          "othercdeb70"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["othercdeb70"], "term": "topiccdeb70"}]}`
+
+### queryUnits dev edge punctuation 7
+
+**Arguments:**
+
+```json
+[
+  ":topic38f230,",
+  [
+    [
+      "topic38f230",
+      "other38f230"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic38f230s",
+        "alternatives": [
+          "other38f230"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic38f230",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic38f230",
+        "alternatives": [
+          "other38f230"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic38f230",
+        "alternatives": [
+          "topic38f230",
+          "other38f230"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other38f230"], "term": "topic38f230"}]}`
+
+### queryUnits dev edge punctuation 8
+
+**Arguments:**
+
+```json
+[
+  ";topicf25272,",
+  [
+    [
+      "topicf25272",
+      "otherf25272"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf25272",
+        "alternatives": [
+          "otherf25272"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf25272",
+        "alternatives": [
+          "topicf25272",
+          "otherf25272"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf25272s",
+        "alternatives": [
+          "otherf25272"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf25272",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["otherf25272"], "term": "topicf25272"}]}`
+
+### queryUnits dev plural 1
+
+**Arguments:**
+
+```json
+[
+  "topic625fa5s",
+  [
+    [
+      "topic625fa5",
+      "other625fa5"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic625fa5ss",
+        "alternatives": [
+          "other625fa5"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic625fa5s",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic625fa5s",
+        "alternatives": [
+          "other625fa5"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic625fa5s",
+        "alternatives": [
+          "topic625fa5s",
+          "other625fa5"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other625fa5"], "term": "topic625fa5s"}]}`
+
+### queryUnits dev plural 2
+
+**Arguments:**
+
+```json
+[
+  "topic54b2dfs",
+  [
+    [
+      "topic54b2df",
+      "other54b2df"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic54b2dfs",
+        "alternatives": [
+          "topic54b2dfs",
+          "other54b2df"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic54b2dfs",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic54b2dfs",
+        "alternatives": [
+          "other54b2df"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic54b2dfss",
+        "alternatives": [
+          "other54b2df"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other54b2df"], "term": "topic54b2dfs"}]}`
+
+### queryUnits dev plural 3
+
+**Arguments:**
+
+```json
+[
+  "topic55bfc6s",
+  [
+    [
+      "topic55bfc6",
+      "other55bfc6"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic55bfc6s",
+        "alternatives": [
+          "topic55bfc6s",
+          "other55bfc6"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic55bfc6s",
+        "alternatives": [
+          "other55bfc6"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic55bfc6ss",
+        "alternatives": [
+          "other55bfc6"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic55bfc6s",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other55bfc6"], "term": "topic55bfc6s"}]}`
+
+### queryUnits dev plural 4
+
+**Arguments:**
+
+```json
+[
+  "topic025984s",
+  [
+    [
+      "topic025984",
+      "other025984"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic025984ss",
+        "alternatives": [
+          "other025984"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic025984s",
+        "alternatives": [
+          "topic025984s",
+          "other025984"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic025984s",
+        "alternatives": [
+          "other025984"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic025984s",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other025984"], "term": "topic025984s"}]}`
+
+### queryUnits dev plural 5
+
+**Arguments:**
+
+```json
+[
+  "topice1696cs",
+  [
+    [
+      "topice1696c",
+      "othere1696c"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topice1696cs",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topice1696css",
+        "alternatives": [
+          "othere1696c"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topice1696cs",
+        "alternatives": [
+          "othere1696c"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topice1696cs",
+        "alternatives": [
+          "topice1696cs",
+          "othere1696c"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["othere1696c"], "term": "topice1696cs"}]}`
+
+### queryUnits dev plural 6
+
+**Arguments:**
+
+```json
+[
+  "topic49884es",
+  [
+    [
+      "topic49884e",
+      "other49884e"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic49884es",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic49884ess",
+        "alternatives": [
+          "other49884e"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic49884es",
+        "alternatives": [
+          "other49884e"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic49884es",
+        "alternatives": [
+          "topic49884es",
+          "other49884e"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other49884e"], "term": "topic49884es"}]}`
+
+### queryUnits dev plural 7
+
+**Arguments:**
+
+```json
+[
+  "topic5191b0s",
+  [
+    [
+      "topic5191b0",
+      "other5191b0"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic5191b0s",
+        "alternatives": [
+          "other5191b0"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic5191b0s",
+        "alternatives": [
+          "topic5191b0s",
+          "other5191b0"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic5191b0s",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic5191b0ss",
+        "alternatives": [
+          "other5191b0"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["other5191b0"], "term": "topic5191b0s"}]}`
+
+### queryUnits dev plural 8
+
+**Arguments:**
+
+```json
+[
+  "topicb15ab8s",
+  [
+    [
+      "topicb15ab8",
+      "otherb15ab8"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb15ab8ss",
+        "alternatives": [
+          "otherb15ab8"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb15ab8s",
+        "alternatives": [
+          "topicb15ab8s",
+          "otherb15ab8"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb15ab8s",
+        "alternatives": [
+          "otherb15ab8"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb15ab8s",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["otherb15ab8"], "term": "topicb15ab8s"}]}`
+
+### queryUnits dev repeated 1
+
+**Arguments:**
+
+```json
+[
+  "topicf8c1a4 topicf8c1a4 now",
+  [
+    [
+      "topicf8c1a4",
+      "otherf8c1a4"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf8c1a4",
+        "alternatives": []
+      },
+      {
+        "term": "topicf8c1a4",
+        "alternatives": [
+          "otherf8c1a4"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf8c1a4",
+        "alternatives": [
+          "otherf8c1a4"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf8c1a4s",
+        "alternatives": [
+          "otherf8c1a4"
+        ]
+      },
+      {
+        "term": "topicf8c1a4",
+        "alternatives": [
+          "otherf8c1a4"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicf8c1a4",
+        "alternatives": [
+          "otherf8c1a4"
+        ]
+      },
+      {
+        "term": "topicf8c1a4",
+        "alternatives": [
+          "otherf8c1a4"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["otherf8c1a4"], "term": "topicf8c1a4"}, {"alternatives": ["otherf8c1a4"], "term": "topicf8c1a4"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev repeated 2
+
+**Arguments:**
+
+```json
+[
+  "topic2e1cb3 topic2e1cb3 now",
+  [
+    [
+      "topic2e1cb3",
+      "other2e1cb3"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2e1cb3",
+        "alternatives": [
+          "other2e1cb3"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2e1cb3s",
+        "alternatives": [
+          "other2e1cb3"
+        ]
+      },
+      {
+        "term": "topic2e1cb3",
+        "alternatives": [
+          "other2e1cb3"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2e1cb3",
+        "alternatives": []
+      },
+      {
+        "term": "topic2e1cb3",
+        "alternatives": [
+          "other2e1cb3"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic2e1cb3",
+        "alternatives": [
+          "other2e1cb3"
+        ]
+      },
+      {
+        "term": "topic2e1cb3",
+        "alternatives": [
+          "other2e1cb3"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other2e1cb3"], "term": "topic2e1cb3"}, {"alternatives": ["other2e1cb3"], "term": "topic2e1cb3"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev repeated 3
+
+**Arguments:**
+
+```json
+[
+  "topicea5044 topicea5044 now",
+  [
+    [
+      "topicea5044",
+      "otherea5044"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicea5044s",
+        "alternatives": [
+          "otherea5044"
+        ]
+      },
+      {
+        "term": "topicea5044",
+        "alternatives": [
+          "otherea5044"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicea5044",
+        "alternatives": [
+          "otherea5044"
+        ]
+      },
+      {
+        "term": "topicea5044",
+        "alternatives": [
+          "otherea5044"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicea5044",
+        "alternatives": []
+      },
+      {
+        "term": "topicea5044",
+        "alternatives": [
+          "otherea5044"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicea5044",
+        "alternatives": [
+          "otherea5044"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["otherea5044"], "term": "topicea5044"}, {"alternatives": ["otherea5044"], "term": "topicea5044"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev repeated 4
+
+**Arguments:**
+
+```json
+[
+  "topic893f16 topic893f16 now",
+  [
+    [
+      "topic893f16",
+      "other893f16"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic893f16",
+        "alternatives": []
+      },
+      {
+        "term": "topic893f16",
+        "alternatives": [
+          "other893f16"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic893f16",
+        "alternatives": [
+          "other893f16"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic893f16s",
+        "alternatives": [
+          "other893f16"
+        ]
+      },
+      {
+        "term": "topic893f16",
+        "alternatives": [
+          "other893f16"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic893f16",
+        "alternatives": [
+          "other893f16"
+        ]
+      },
+      {
+        "term": "topic893f16",
+        "alternatives": [
+          "other893f16"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other893f16"], "term": "topic893f16"}, {"alternatives": ["other893f16"], "term": "topic893f16"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev repeated 5
+
+**Arguments:**
+
+```json
+[
+  "topicefb2cb topicefb2cb now",
+  [
+    [
+      "topicefb2cb",
+      "otherefb2cb"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicefb2cbs",
+        "alternatives": [
+          "otherefb2cb"
+        ]
+      },
+      {
+        "term": "topicefb2cb",
+        "alternatives": [
+          "otherefb2cb"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicefb2cb",
+        "alternatives": []
+      },
+      {
+        "term": "topicefb2cb",
+        "alternatives": [
+          "otherefb2cb"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicefb2cb",
+        "alternatives": [
+          "otherefb2cb"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicefb2cb",
+        "alternatives": [
+          "otherefb2cb"
+        ]
+      },
+      {
+        "term": "topicefb2cb",
+        "alternatives": [
+          "otherefb2cb"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["otherefb2cb"], "term": "topicefb2cb"}, {"alternatives": ["otherefb2cb"], "term": "topicefb2cb"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev repeated 6
+
+**Arguments:**
+
+```json
+[
+  "topica83faf topica83faf now",
+  [
+    [
+      "topica83faf",
+      "othera83faf"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topica83fafs",
+        "alternatives": [
+          "othera83faf"
+        ]
+      },
+      {
+        "term": "topica83faf",
+        "alternatives": [
+          "othera83faf"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topica83faf",
+        "alternatives": []
+      },
+      {
+        "term": "topica83faf",
+        "alternatives": [
+          "othera83faf"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topica83faf",
+        "alternatives": [
+          "othera83faf"
+        ]
+      },
+      {
+        "term": "topica83faf",
+        "alternatives": [
+          "othera83faf"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topica83faf",
+        "alternatives": [
+          "othera83faf"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["othera83faf"], "term": "topica83faf"}, {"alternatives": ["othera83faf"], "term": "topica83faf"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev repeated 7
+
+**Arguments:**
+
+```json
+[
+  "topic347d6e topic347d6e now",
+  [
+    [
+      "topic347d6e",
+      "other347d6e"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic347d6e",
+        "alternatives": [
+          "other347d6e"
+        ]
+      },
+      {
+        "term": "topic347d6e",
+        "alternatives": [
+          "other347d6e"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic347d6es",
+        "alternatives": [
+          "other347d6e"
+        ]
+      },
+      {
+        "term": "topic347d6e",
+        "alternatives": [
+          "other347d6e"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic347d6e",
+        "alternatives": []
+      },
+      {
+        "term": "topic347d6e",
+        "alternatives": [
+          "other347d6e"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic347d6e",
+        "alternatives": [
+          "other347d6e"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["other347d6e"], "term": "topic347d6e"}, {"alternatives": ["other347d6e"], "term": "topic347d6e"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits dev repeated 8
+
+**Arguments:**
+
+```json
+[
+  "topicb42308 topicb42308 now",
+  [
+    [
+      "topicb42308",
+      "otherb42308"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb42308s",
+        "alternatives": [
+          "otherb42308"
+        ]
+      },
+      {
+        "term": "topicb42308",
+        "alternatives": [
+          "otherb42308"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb42308",
+        "alternatives": []
+      },
+      {
+        "term": "topicb42308",
+        "alternatives": [
+          "otherb42308"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb42308",
+        "alternatives": [
+          "otherb42308"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb42308",
+        "alternatives": [
+          "otherb42308"
+        ]
+      },
+      {
+        "term": "topicb42308",
+        "alternatives": [
+          "otherb42308"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["otherb42308"], "term": "topicb42308"}, {"alternatives": ["otherb42308"], "term": "topicb42308"}, {"alternatives": [], "term": "now"}]}`
+
+## Test — choice (40 cases)
+
+### queryUnits test case folding 1
+
+**Arguments:**
+
+```json
+[
+  "TOPIC3B7A7A",
+  [
+    [
+      "topic3b7a7a",
+      "other3b7a7a"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic3b7a7a",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic3b7a7a",
+        "alternatives": [
+          "topic3b7a7a",
+          "other3b7a7a"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic3b7a7as",
+        "alternatives": [
+          "other3b7a7a"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic3b7a7a",
+        "alternatives": [
+          "other3b7a7a"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other3b7a7a"], "term": "topic3b7a7a"}]}`
+
+### queryUnits test case folding 2
+
+**Arguments:**
+
+```json
+[
+  "TOPIC06F7BC",
+  [
+    [
+      "topic06f7bc",
+      "other06f7bc"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic06f7bc",
+        "alternatives": [
+          "topic06f7bc",
+          "other06f7bc"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic06f7bcs",
+        "alternatives": [
+          "other06f7bc"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic06f7bc",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic06f7bc",
+        "alternatives": [
+          "other06f7bc"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other06f7bc"], "term": "topic06f7bc"}]}`
+
+### queryUnits test case folding 3
+
+**Arguments:**
+
+```json
+[
+  "TOPICBAFACC",
+  [
+    [
+      "topicbafacc",
+      "otherbafacc"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicbafacc",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicbafacc",
+        "alternatives": [
+          "topicbafacc",
+          "otherbafacc"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicbafacc",
+        "alternatives": [
+          "otherbafacc"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicbafaccs",
+        "alternatives": [
+          "otherbafacc"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["otherbafacc"], "term": "topicbafacc"}]}`
+
+### queryUnits test case folding 4
+
+**Arguments:**
+
+```json
+[
+  "TOPICB79456",
+  [
+    [
+      "topicb79456",
+      "otherb79456"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb79456s",
+        "alternatives": [
+          "otherb79456"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb79456",
+        "alternatives": [
+          "topicb79456",
+          "otherb79456"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb79456",
+        "alternatives": [
+          "otherb79456"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicb79456",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["otherb79456"], "term": "topicb79456"}]}`
+
+### queryUnits test case folding 5
+
+**Arguments:**
+
+```json
+[
+  "TOPICAED44B",
+  [
+    [
+      "topicaed44b",
+      "otheraed44b"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicaed44b",
+        "alternatives": [
+          "otheraed44b"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicaed44b",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicaed44bs",
+        "alternatives": [
+          "otheraed44b"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topicaed44b",
+        "alternatives": [
+          "topicaed44b",
+          "otheraed44b"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["otheraed44b"], "term": "topicaed44b"}]}`
+
+### queryUnits test case folding 6
+
+**Arguments:**
+
+```json
+[
+  "TOPIC9B9B7B",
+  [
+    [
+      "topic9b9b7b",
+      "other9b9b7b"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic9b9b7bs",
+        "alternatives": [
+          "other9b9b7b"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic9b9b7b",
+        "alternatives": [
+          "other9b9b7b"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic9b9b7b",
+        "alternatives": [
+          "topic9b9b7b",
+          "other9b9b7b"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic9b9b7b",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other9b9b7b"], "term": "topic9b9b7b"}]}`
+
+### queryUnits test case folding 7
+
+**Arguments:**
+
+```json
+[
+  "TOPIC7965CF",
+  [
+    [
+      "topic7965cf",
+      "other7965cf"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic7965cf",
+        "alternatives": [
+          "other7965cf"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic7965cf",
+        "alternatives": [
+          "topic7965cf",
+          "other7965cf"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic7965cf",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic7965cfs",
+        "alternatives": [
+          "other7965cf"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["other7965cf"], "term": "topic7965cf"}]}`
+
+### queryUnits test case folding 8
+
+**Arguments:**
+
+```json
+[
+  "TOPIC111866",
+  [
+    [
+      "topic111866",
+      "other111866"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic111866",
+        "alternatives": [
+          "topic111866",
+          "other111866"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic111866s",
+        "alternatives": [
+          "other111866"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic111866",
+        "alternatives": [
+          "other111866"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "topic111866",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other111866"], "term": "topic111866"}]}`
+
+### queryUnits test overlap 1
+
+**Arguments:**
+
+```json
+[
+  "one topicd221b6 one",
+  [
+    [
+      "one topicd221b6",
+      "otherd221b6"
+    ],
+    [
+      "one",
+      "extrad221b6"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topicd221b6",
+        "alternatives": [
+          "otherd221b6"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topicd221b6s",
+        "alternatives": [
+          "otherd221b6"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extrad221b6"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topicd221b6",
+        "alternatives": []
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extrad221b6"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topicd221b6",
+        "alternatives": [
+          "otherd221b6"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extrad221b6"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["otherd221b6"], "term": "one topicd221b6"}, {"alternatives": ["extrad221b6"], "term": "one"}]}`
+
+### queryUnits test overlap 2
+
+**Arguments:**
+
+```json
+[
+  "one topic95c61f one",
+  [
+    [
+      "one topic95c61f",
+      "other95c61f"
+    ],
+    [
+      "one",
+      "extra95c61f"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic95c61f",
+        "alternatives": [
+          "other95c61f"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic95c61f",
+        "alternatives": [
+          "other95c61f"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra95c61f"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic95c61f",
+        "alternatives": []
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra95c61f"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic95c61fs",
+        "alternatives": [
+          "other95c61f"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra95c61f"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other95c61f"], "term": "one topic95c61f"}, {"alternatives": ["extra95c61f"], "term": "one"}]}`
+
+### queryUnits test overlap 3
+
+**Arguments:**
+
+```json
+[
+  "one topic5a19ed one",
+  [
+    [
+      "one topic5a19ed",
+      "other5a19ed"
+    ],
+    [
+      "one",
+      "extra5a19ed"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic5a19ed",
+        "alternatives": [
+          "other5a19ed"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic5a19ed",
+        "alternatives": [
+          "other5a19ed"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra5a19ed"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic5a19ed",
+        "alternatives": []
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra5a19ed"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic5a19eds",
+        "alternatives": [
+          "other5a19ed"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra5a19ed"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other5a19ed"], "term": "one topic5a19ed"}, {"alternatives": ["extra5a19ed"], "term": "one"}]}`
+
+### queryUnits test overlap 4
+
+**Arguments:**
+
+```json
+[
+  "one topic0593a8 one",
+  [
+    [
+      "one topic0593a8",
+      "other0593a8"
+    ],
+    [
+      "one",
+      "extra0593a8"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic0593a8s",
+        "alternatives": [
+          "other0593a8"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra0593a8"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic0593a8",
+        "alternatives": [
+          "other0593a8"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic0593a8",
+        "alternatives": [
+          "other0593a8"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra0593a8"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic0593a8",
+        "alternatives": []
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra0593a8"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other0593a8"], "term": "one topic0593a8"}, {"alternatives": ["extra0593a8"], "term": "one"}]}`
+
+### queryUnits test overlap 5
+
+**Arguments:**
+
+```json
+[
+  "one topic70ec09 one",
+  [
+    [
+      "one topic70ec09",
+      "other70ec09"
+    ],
+    [
+      "one",
+      "extra70ec09"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic70ec09s",
+        "alternatives": [
+          "other70ec09"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra70ec09"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic70ec09",
+        "alternatives": []
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra70ec09"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic70ec09",
+        "alternatives": [
+          "other70ec09"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic70ec09",
+        "alternatives": [
+          "other70ec09"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra70ec09"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other70ec09"], "term": "one topic70ec09"}, {"alternatives": ["extra70ec09"], "term": "one"}]}`
+
+### queryUnits test overlap 6
+
+**Arguments:**
+
+```json
+[
+  "one topic0506c9 one",
+  [
+    [
+      "one topic0506c9",
+      "other0506c9"
+    ],
+    [
+      "one",
+      "extra0506c9"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic0506c9s",
+        "alternatives": [
+          "other0506c9"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra0506c9"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic0506c9",
+        "alternatives": [
+          "other0506c9"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra0506c9"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic0506c9",
+        "alternatives": []
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra0506c9"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic0506c9",
+        "alternatives": [
+          "other0506c9"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other0506c9"], "term": "one topic0506c9"}, {"alternatives": ["extra0506c9"], "term": "one"}]}`
+
+### queryUnits test overlap 7
+
+**Arguments:**
+
+```json
+[
+  "one topic857918 one",
+  [
+    [
+      "one topic857918",
+      "other857918"
+    ],
+    [
+      "one",
+      "extra857918"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic857918",
+        "alternatives": []
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra857918"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic857918s",
+        "alternatives": [
+          "other857918"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra857918"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic857918",
+        "alternatives": [
+          "other857918"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topic857918",
+        "alternatives": [
+          "other857918"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extra857918"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["other857918"], "term": "one topic857918"}, {"alternatives": ["extra857918"], "term": "one"}]}`
+
+### queryUnits test overlap 8
+
+**Arguments:**
+
+```json
+[
+  "one topicdfbb59 one",
+  [
+    [
+      "one topicdfbb59",
+      "otherdfbb59"
+    ],
+    [
+      "one",
+      "extradfbb59"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topicdfbb59",
+        "alternatives": [
+          "otherdfbb59"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extradfbb59"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topicdfbb59s",
+        "alternatives": [
+          "otherdfbb59"
+        ]
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extradfbb59"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topicdfbb59",
+        "alternatives": []
+      },
+      {
+        "term": "one",
+        "alternatives": [
+          "extradfbb59"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "one topicdfbb59",
+        "alternatives": [
+          "otherdfbb59"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["otherdfbb59"], "term": "one topicdfbb59"}, {"alternatives": ["extradfbb59"], "term": "one"}]}`
+
+### queryUnits test unknown 1
+
+**Arguments:**
+
+```json
+[
+  "unknown37e65a topic37e65a",
+  [
+    [
+      "topic37e65a",
+      "other37e65a"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown37e65a",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown37e65as",
+        "alternatives": []
+      },
+      {
+        "term": "topic37e65a",
+        "alternatives": [
+          "other37e65a"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown37e65a",
+        "alternatives": []
+      },
+      {
+        "term": "topic37e65a",
+        "alternatives": [
+          "other37e65a"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown37e65a",
+        "alternatives": [
+          "unknown37e65a"
+        ]
+      },
+      {
+        "term": "topic37e65a",
+        "alternatives": [
+          "other37e65a"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": [], "term": "unknown37e65a"}, {"alternatives": ["other37e65a"], "term": "topic37e65a"}]}`
+
+### queryUnits test unknown 2
+
+**Arguments:**
+
+```json
+[
+  "unknown088fb3 topic088fb3",
+  [
+    [
+      "topic088fb3",
+      "other088fb3"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown088fb3s",
+        "alternatives": []
+      },
+      {
+        "term": "topic088fb3",
+        "alternatives": [
+          "other088fb3"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown088fb3",
+        "alternatives": [
+          "unknown088fb3"
+        ]
+      },
+      {
+        "term": "topic088fb3",
+        "alternatives": [
+          "other088fb3"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown088fb3",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown088fb3",
+        "alternatives": []
+      },
+      {
+        "term": "topic088fb3",
+        "alternatives": [
+          "other088fb3"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": [], "term": "unknown088fb3"}, {"alternatives": ["other088fb3"], "term": "topic088fb3"}]}`
+
+### queryUnits test unknown 3
+
+**Arguments:**
+
+```json
+[
+  "unknown4643b4 topic4643b4",
+  [
+    [
+      "topic4643b4",
+      "other4643b4"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown4643b4s",
+        "alternatives": []
+      },
+      {
+        "term": "topic4643b4",
+        "alternatives": [
+          "other4643b4"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown4643b4",
+        "alternatives": []
+      },
+      {
+        "term": "topic4643b4",
+        "alternatives": [
+          "other4643b4"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown4643b4",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown4643b4",
+        "alternatives": [
+          "unknown4643b4"
+        ]
+      },
+      {
+        "term": "topic4643b4",
+        "alternatives": [
+          "other4643b4"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": [], "term": "unknown4643b4"}, {"alternatives": ["other4643b4"], "term": "topic4643b4"}]}`
+
+### queryUnits test unknown 4
+
+**Arguments:**
+
+```json
+[
+  "unknown75d624 topic75d624",
+  [
+    [
+      "topic75d624",
+      "other75d624"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown75d624s",
+        "alternatives": []
+      },
+      {
+        "term": "topic75d624",
+        "alternatives": [
+          "other75d624"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown75d624",
+        "alternatives": [
+          "unknown75d624"
+        ]
+      },
+      {
+        "term": "topic75d624",
+        "alternatives": [
+          "other75d624"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown75d624",
+        "alternatives": []
+      },
+      {
+        "term": "topic75d624",
+        "alternatives": [
+          "other75d624"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown75d624",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": [], "term": "unknown75d624"}, {"alternatives": ["other75d624"], "term": "topic75d624"}]}`
+
+### queryUnits test unknown 5
+
+**Arguments:**
+
+```json
+[
+  "unknown97e916 topic97e916",
+  [
+    [
+      "topic97e916",
+      "other97e916"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown97e916",
+        "alternatives": []
+      },
+      {
+        "term": "topic97e916",
+        "alternatives": [
+          "other97e916"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown97e916",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown97e916",
+        "alternatives": [
+          "unknown97e916"
+        ]
+      },
+      {
+        "term": "topic97e916",
+        "alternatives": [
+          "other97e916"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown97e916s",
+        "alternatives": []
+      },
+      {
+        "term": "topic97e916",
+        "alternatives": [
+          "other97e916"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": [], "term": "unknown97e916"}, {"alternatives": ["other97e916"], "term": "topic97e916"}]}`
+
+### queryUnits test unknown 6
+
+**Arguments:**
+
+```json
+[
+  "unknowned374a topiced374a",
+  [
+    [
+      "topiced374a",
+      "othered374a"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknowned374a",
+        "alternatives": []
+      },
+      {
+        "term": "topiced374a",
+        "alternatives": [
+          "othered374a"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknowned374as",
+        "alternatives": []
+      },
+      {
+        "term": "topiced374a",
+        "alternatives": [
+          "othered374a"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknowned374a",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknowned374a",
+        "alternatives": [
+          "unknowned374a"
+        ]
+      },
+      {
+        "term": "topiced374a",
+        "alternatives": [
+          "othered374a"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": [], "term": "unknowned374a"}, {"alternatives": ["othered374a"], "term": "topiced374a"}]}`
+
+### queryUnits test unknown 7
+
+**Arguments:**
+
+```json
+[
+  "unknown4d64f4 topic4d64f4",
+  [
+    [
+      "topic4d64f4",
+      "other4d64f4"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown4d64f4s",
+        "alternatives": []
+      },
+      {
+        "term": "topic4d64f4",
+        "alternatives": [
+          "other4d64f4"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown4d64f4",
+        "alternatives": [
+          "unknown4d64f4"
+        ]
+      },
+      {
+        "term": "topic4d64f4",
+        "alternatives": [
+          "other4d64f4"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown4d64f4",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknown4d64f4",
+        "alternatives": []
+      },
+      {
+        "term": "topic4d64f4",
+        "alternatives": [
+          "other4d64f4"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": [], "term": "unknown4d64f4"}, {"alternatives": ["other4d64f4"], "term": "topic4d64f4"}]}`
+
+### queryUnits test unknown 8
+
+**Arguments:**
+
+```json
+[
+  "unknownbff185 topicbff185",
+  [
+    [
+      "topicbff185",
+      "otherbff185"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknownbff185s",
+        "alternatives": []
+      },
+      {
+        "term": "topicbff185",
+        "alternatives": [
+          "otherbff185"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknownbff185",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknownbff185",
+        "alternatives": []
+      },
+      {
+        "term": "topicbff185",
+        "alternatives": [
+          "otherbff185"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "unknownbff185",
+        "alternatives": [
+          "unknownbff185"
+        ]
+      },
+      {
+        "term": "topicbff185",
+        "alternatives": [
+          "otherbff185"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": [], "term": "unknownbff185"}, {"alternatives": ["otherbff185"], "term": "topicbff185"}]}`
+
+### queryUnits test whitespace 1
+
+**Arguments:**
+
+```json
+[
+  "read\t topica0e2a1\nnow",
+  [
+    [
+      "read topica0e2a1",
+      "othera0e2a1"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topica0e2a1s",
+        "alternatives": [
+          "othera0e2a1"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topica0e2a1",
+        "alternatives": [
+          "othera0e2a1"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topica0e2a1",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topica0e2a1",
+        "alternatives": [
+          "othera0e2a1"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["othera0e2a1"], "term": "read topica0e2a1"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits test whitespace 2
+
+**Arguments:**
+
+```json
+[
+  "read\t topicc11ef4\nnow",
+  [
+    [
+      "read topicc11ef4",
+      "otherc11ef4"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topicc11ef4",
+        "alternatives": [
+          "otherc11ef4"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topicc11ef4s",
+        "alternatives": [
+          "otherc11ef4"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topicc11ef4",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topicc11ef4",
+        "alternatives": [
+          "otherc11ef4"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["otherc11ef4"], "term": "read topicc11ef4"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits test whitespace 3
+
+**Arguments:**
+
+```json
+[
+  "read\t topic3b8e0c\nnow",
+  [
+    [
+      "read topic3b8e0c",
+      "other3b8e0c"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic3b8e0c",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic3b8e0c",
+        "alternatives": [
+          "other3b8e0c"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic3b8e0c",
+        "alternatives": [
+          "other3b8e0c"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic3b8e0cs",
+        "alternatives": [
+          "other3b8e0c"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["other3b8e0c"], "term": "read topic3b8e0c"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits test whitespace 4
+
+**Arguments:**
+
+```json
+[
+  "read\t topicd138f1\nnow",
+  [
+    [
+      "read topicd138f1",
+      "otherd138f1"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topicd138f1",
+        "alternatives": [
+          "otherd138f1"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topicd138f1s",
+        "alternatives": [
+          "otherd138f1"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topicd138f1",
+        "alternatives": [
+          "otherd138f1"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topicd138f1",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["otherd138f1"], "term": "read topicd138f1"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits test whitespace 5
+
+**Arguments:**
+
+```json
+[
+  "read\t topic1bcf22\nnow",
+  [
+    [
+      "read topic1bcf22",
+      "other1bcf22"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic1bcf22",
+        "alternatives": [
+          "other1bcf22"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic1bcf22",
+        "alternatives": [
+          "other1bcf22"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic1bcf22s",
+        "alternatives": [
+          "other1bcf22"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic1bcf22",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["other1bcf22"], "term": "read topic1bcf22"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits test whitespace 6
+
+**Arguments:**
+
+```json
+[
+  "read\t topice538db\nnow",
+  [
+    [
+      "read topice538db",
+      "othere538db"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice538dbs",
+        "alternatives": [
+          "othere538db"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice538db",
+        "alternatives": [
+          "othere538db"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice538db",
+        "alternatives": [
+          "othere538db"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice538db",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_b` — `{"ok": true, "result": [{"alternatives": ["othere538db"], "term": "read topice538db"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits test whitespace 7
+
+**Arguments:**
+
+```json
+[
+  "read\t topic1ef927\nnow",
+  [
+    [
+      "read topic1ef927",
+      "other1ef927"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic1ef927",
+        "alternatives": [
+          "other1ef927"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic1ef927",
+        "alternatives": [
+          "other1ef927"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic1ef927",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topic1ef927s",
+        "alternatives": [
+          "other1ef927"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["other1ef927"], "term": "read topic1ef927"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits test whitespace 8
+
+**Arguments:**
+
+```json
+[
+  "read\t topice14d45\nnow",
+  [
+    [
+      "read topice14d45",
+      "othere14d45"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice14d45",
+        "alternatives": []
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice14d45",
+        "alternatives": [
+          "othere14d45"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice14d45s",
+        "alternatives": [
+          "othere14d45"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "read topice14d45",
+        "alternatives": [
+          "othere14d45"
+        ]
+      },
+      {
+        "term": "now",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["othere14d45"], "term": "read topice14d45"}, {"alternatives": [], "term": "now"}]}`
+
+### queryUnits test alternative order 1
+
+**Arguments:**
+
+```json
+[
+  "other555e58",
+  [
+    [
+      "topic555e58",
+      "other555e58",
+      "extra555e58"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other555e58",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other555e58",
+        "alternatives": [
+          "other555e58",
+          "topic555e58",
+          "extra555e58"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other555e58s",
+        "alternatives": [
+          "topic555e58",
+          "extra555e58"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other555e58",
+        "alternatives": [
+          "topic555e58",
+          "extra555e58"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["topic555e58", "extra555e58"], "term": "other555e58"}]}`
+
+### queryUnits test alternative order 2
+
+**Arguments:**
+
+```json
+[
+  "other276708",
+  [
+    [
+      "topic276708",
+      "other276708",
+      "extra276708"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other276708",
+        "alternatives": [
+          "topic276708",
+          "extra276708"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other276708",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other276708s",
+        "alternatives": [
+          "topic276708",
+          "extra276708"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other276708",
+        "alternatives": [
+          "other276708",
+          "topic276708",
+          "extra276708"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["topic276708", "extra276708"], "term": "other276708"}]}`
+
+### queryUnits test alternative order 3
+
+**Arguments:**
+
+```json
+[
+  "other2e0780",
+  [
+    [
+      "topic2e0780",
+      "other2e0780",
+      "extra2e0780"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other2e0780",
+        "alternatives": [
+          "topic2e0780",
+          "extra2e0780"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other2e0780",
+        "alternatives": [
+          "other2e0780",
+          "topic2e0780",
+          "extra2e0780"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other2e0780s",
+        "alternatives": [
+          "topic2e0780",
+          "extra2e0780"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other2e0780",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["topic2e0780", "extra2e0780"], "term": "other2e0780"}]}`
+
+### queryUnits test alternative order 4
+
+**Arguments:**
+
+```json
+[
+  "other0995c6",
+  [
+    [
+      "topic0995c6",
+      "other0995c6",
+      "extra0995c6"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other0995c6",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other0995c6s",
+        "alternatives": [
+          "topic0995c6",
+          "extra0995c6"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other0995c6",
+        "alternatives": [
+          "topic0995c6",
+          "extra0995c6"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other0995c6",
+        "alternatives": [
+          "other0995c6",
+          "topic0995c6",
+          "extra0995c6"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["topic0995c6", "extra0995c6"], "term": "other0995c6"}]}`
+
+### queryUnits test alternative order 5
+
+**Arguments:**
+
+```json
+[
+  "other8c38b2",
+  [
+    [
+      "topic8c38b2",
+      "other8c38b2",
+      "extra8c38b2"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other8c38b2",
+        "alternatives": [
+          "topic8c38b2",
+          "extra8c38b2"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other8c38b2",
+        "alternatives": [
+          "other8c38b2",
+          "topic8c38b2",
+          "extra8c38b2"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other8c38b2s",
+        "alternatives": [
+          "topic8c38b2",
+          "extra8c38b2"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other8c38b2",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["topic8c38b2", "extra8c38b2"], "term": "other8c38b2"}]}`
+
+### queryUnits test alternative order 6
+
+**Arguments:**
+
+```json
+[
+  "other5c3d15",
+  [
+    [
+      "topic5c3d15",
+      "other5c3d15",
+      "extra5c3d15"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other5c3d15",
+        "alternatives": [
+          "topic5c3d15",
+          "extra5c3d15"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other5c3d15s",
+        "alternatives": [
+          "topic5c3d15",
+          "extra5c3d15"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other5c3d15",
+        "alternatives": [
+          "other5c3d15",
+          "topic5c3d15",
+          "extra5c3d15"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other5c3d15",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_a` — `{"ok": true, "result": [{"alternatives": ["topic5c3d15", "extra5c3d15"], "term": "other5c3d15"}]}`
+
+### queryUnits test alternative order 7
+
+**Arguments:**
+
+```json
+[
+  "other4d9d33",
+  [
+    [
+      "topic4d9d33",
+      "other4d9d33",
+      "extra4d9d33"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other4d9d33s",
+        "alternatives": [
+          "topic4d9d33",
+          "extra4d9d33"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other4d9d33",
+        "alternatives": []
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other4d9d33",
+        "alternatives": [
+          "other4d9d33",
+          "topic4d9d33",
+          "extra4d9d33"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other4d9d33",
+        "alternatives": [
+          "topic4d9d33",
+          "extra4d9d33"
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_d` — `{"ok": true, "result": [{"alternatives": ["topic4d9d33", "extra4d9d33"], "term": "other4d9d33"}]}`
+
+### queryUnits test alternative order 8
+
+**Arguments:**
+
+```json
+[
+  "other20f509",
+  [
+    [
+      "topic20f509",
+      "other20f509",
+      "extra20f509"
+    ]
+  ]
+]
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other20f509",
+        "alternatives": [
+          "other20f509",
+          "topic20f509",
+          "extra20f509"
+        ]
+      }
+    ]
+  },
+  "option_b": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other20f509s",
+        "alternatives": [
+          "topic20f509",
+          "extra20f509"
+        ]
+      }
+    ]
+  },
+  "option_c": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other20f509",
+        "alternatives": [
+          "topic20f509",
+          "extra20f509"
+        ]
+      }
+    ]
+  },
+  "option_d": {
+    "ok": true,
+    "result": [
+      {
+        "term": "other20f509",
+        "alternatives": []
+      }
+    ]
+  }
+}
+```
+
+**Known answer:** `option_c` — `{"ok": true, "result": [{"alternatives": ["topic20f509", "extra20f509"], "term": "other20f509"}]}`

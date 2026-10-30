@@ -1,0 +1,51 @@
+---
+id: guide.welcome
+title: Decision Bench
+summary: A workbench for comparing decision models against known answers.
+slug: /
+type: explanation
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Decision Bench is a workbench for comparing decision models against known answers.
+
+**The evaluation on this site tests predictions about source-code behavior. It does not test reading, searching, or answering questions about a documentation site.**
+
+We froze copies of eight Shoalrun functions in the dataset files. Each case supplies concrete inputs and asks what the code accepts, selects, or returns. Executing those functions establishes the correct answers. Models receive the relevant code or written rules directly in their request; they do not browse the repository or documentation.
+
+For example, a case can ask whether a configuration makes a validation function return normally or throw an error. The model predicts the result, and the runner compares that prediction with the recorded, replayable execution result.
+
+The runner makes fixed requests and grades decisions by exact comparison. No agents or LLM judges participate in a run. Configure a compatible decision or chat-completions endpoint; OpenRouter is one provider example, not a requirement.
+
+## Why Shoalrun
+
+I wanted a decision-model benchmarking workbench that I could own, experiment with, and change as needed. This repo lives in the Shoalrun organization because I maintain Shoalrun and can use its code to create datasets with known answers. Shoalrun supplies the test data; the workbench is intended to support datasets from other projects too.
+
+## Read the questions
+
+The Questions navigation groups cases by the behavior they test. Development cases check the evaluation’s prompts and runner settings; test cases measure performance after those choices are fixed. Neither set trains the models. `noul` means a yes/no probability question; `choice` selects one of four options.
+
+## Results
+
+The matched reference-format comparison repeats the same 200 synonym and reader-filter test cases with full source, focused code, and written rules. These cases were already observed; the comparison tests presentation choices.
+
+| Model | Written-rules correct | Median round trip |
+|---|---:|---:|
+| Mammoth 1 | 192/200 | 319 ms |
+| Jev 1.14 | 180/200 | 221 ms |
+| Elephant 1 | 180/200 | 248 ms |
+| Joey 1 | 97/200 | 242 ms |
+
+Read the [30 October 2026 report](doc:report.2026-10-30) for the source-only results, task and complexity breakdowns, reported costs, and limits.
+
+Browse all dated evaluations in [Reports](doc:reference.reports).
+
+## Use the benchmark
+
+- [Run the benchmark](doc:guide.run) with offline baselines or your selected providers.
+- [Understand the methodology](doc:guide.methodology) and how answers are verified.
+- Inspect the [retrieval development questions](doc:reference.questions-dev), [retrieval test questions](doc:reference.questions-test), and [400 synonym and reader-filter cases](doc:reference.expanded-cases).
+
+The [source repository](https://github.com/shoalrun/decision-bench) contains the runner, fixtures, verifier, and tests. It is independent of the Shoalrun runtime.

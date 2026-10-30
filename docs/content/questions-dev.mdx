@@ -1,0 +1,2210 @@
+---
+id: reference.questions-dev
+title: Retrieval configuration — development
+summary: Inspect all 48 dev cases and their executable expected answers.
+slug: /questions/dev
+type: reference
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Retrieval configuration chooses the service and model used to turn documentation and search queries into numeric vectors for search. These questions check whether that configuration is accepted and which provider/model pair its helpers select. Models predict these frozen functions’ behavior from supplied code or rules; they do not search or read a documentation site. Acceptance checks local configuration rules; it does not prove a remote model exists or an API call will succeed.
+
+These are the 48 development cases in `data/shoalrun-known-v1.json`. Development cases are used to check the evaluation’s prompts and runner settings; they do not train the models. Each question is listed with the exact input, choices where applicable, and expected outcome from the pinned function. “Accepted” means that function returns without throwing.
+
+[Source at the recorded revision](https://github.com/shoalrun/shoalrun/blob/6f59004f4e9323ef1de171caa233e59a01fb982d/framework/src/retrieval-config.ts). See [methodology](doc:guide.methodology) for scope and [the evaluation report](doc:report.2026-10-30) for results. These cases make the evaluation reproducible. Reserve separate held-out cases when tuning prompts.
+
+`noul` is a yes/no question: the endpoint returns a probability of “yes”, and this runner uses a 0.5 cutoff. `choice` selects one of four named options, with a probability for each option.
+
+## noul — yes/no (24 cases)
+
+### provider validity 1
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-3ab92b82"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-3ab92b82"
+    }
+  }
+}
+```
+
+### provider validity 2
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-8da37b02"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "openai",
+      "model": "m-8da37b02"
+    }
+  }
+}
+```
+
+### provider validity 3
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": " voyage ",
+        "model": "m-506b50a1"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-506b50a1"
+    }
+  }
+}
+```
+
+### provider validity 4
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": " openai ",
+        "model": "m-e923a533"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "openai",
+      "model": "m-e923a533"
+    }
+  }
+}
+```
+
+### provider validity 5
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "cohere",
+        "model": "m-3ab92b82"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.provider must be one of voyage, openai"
+  }
+}
+```
+
+### provider validity 6
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "VOYAGE",
+        "model": "m-8da37b02"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.provider must be one of voyage, openai"
+  }
+}
+```
+
+### provider validity 7
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": null,
+        "model": "m-506b50a1"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.provider must be a nonempty string"
+  }
+}
+```
+
+### provider validity 8
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "",
+        "model": "m-e923a533"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.provider must be a nonempty string"
+  }
+}
+```
+
+### key env validity 1
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-eee9bd8c",
+        "keyEnv": "MY_KEY"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-eee9bd8c",
+      "keyEnv": "MY_KEY"
+    }
+  }
+}
+```
+
+### key env validity 2
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-ea2628ad",
+        "keyEnv": "_KEY"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-ea2628ad",
+      "keyEnv": "_KEY"
+    }
+  }
+}
+```
+
+### key env validity 3
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-d25aae2e",
+        "keyEnv": "key2"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-d25aae2e",
+      "keyEnv": "key2"
+    }
+  }
+}
+```
+
+### key env validity 4
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-19a5878e",
+        "keyEnv": " A_B "
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-19a5878e",
+      "keyEnv": "A_B"
+    }
+  }
+}
+```
+
+### key env validity 5
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-eee9bd8c",
+        "keyEnv": "1KEY"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.keyEnv names an environment variable, such as OPENAI_API_KEY, not the key itself"
+  }
+}
+```
+
+### key env validity 6
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-ea2628ad",
+        "keyEnv": "MY-KEY"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.keyEnv names an environment variable, such as OPENAI_API_KEY, not the key itself"
+  }
+}
+```
+
+### key env validity 7
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-d25aae2e",
+        "keyEnv": "has space"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.keyEnv names an environment variable, such as OPENAI_API_KEY, not the key itself"
+  }
+}
+```
+
+### key env validity 8
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-19a5878e",
+        "keyEnv": ""
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.keyEnv must be a nonempty string"
+  }
+}
+```
+
+### unknown fields validity 1
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-c6be0f82"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-c6be0f82"
+    }
+  }
+}
+```
+
+### unknown fields validity 2
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-3dfa8654",
+        "dimension": 8
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "openai",
+      "model": "m-3dfa8654",
+      "dimension": 8
+    }
+  }
+}
+```
+
+### unknown fields validity 3
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-f373dc34",
+        "queryModel": "q"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-f373dc34",
+      "queryModel": "q"
+    }
+  }
+}
+```
+
+### unknown fields validity 4
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-bbfaf3d8",
+        "keyEnv": "LOCAL_KEY"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** Yes — returns without throwing.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "embeddings": {
+      "provider": "openai",
+      "model": "m-bbfaf3d8",
+      "keyEnv": "LOCAL_KEY"
+    }
+  }
+}
+```
+
+### unknown fields validity 5
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-c6be0f82",
+        "flavor": "dummy"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings has an unknown setting flavor; it accepts provider, model, dimension, queryModel, baseUrl, keyEnv"
+  }
+}
+```
+
+### unknown fields validity 6
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-3dfa8654",
+        "endpoint": "dummy"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings has an unknown setting endpoint; it accepts provider, model, dimension, queryModel, baseUrl, keyEnv"
+  }
+}
+```
+
+### unknown fields validity 7
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-f373dc34",
+        "apiKey": "dummy"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings.apiKey is not a setting. The config never holds a key; name the environment variable that does with keyEnv"
+  }
+}
+```
+
+### unknown fields validity 8
+
+**Question:** Does validateRetrieval return normally without throwing for this input?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-bbfaf3d8",
+        "extra": "dummy"
+      }
+    }
+  ]
+}
+```
+
+**Known answer:** No — throws.
+
+**Recorded execution:**
+
+```json
+{
+  "ok": false,
+  "error": {
+    "name": "Error",
+    "message": "retrieval.embeddings has an unknown setting extra; it accepts provider, model, dimension, queryModel, baseUrl, keyEnv"
+  }
+}
+```
+
+## choice — four options (24 cases)
+
+These comprise 12 configuration-choice cases and 12 provider/model-selection cases.
+
+### provider choice 1
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": null,
+      "model": "m-506b50a1"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "VOYAGE",
+      "model": "m-8da37b02"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-3ab92b82"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "cohere",
+      "model": "m-3ab92b82"
+    }
+  }
+}
+```
+
+**Known answer:** option_c — `{"embeddings": {"model": "m-3ab92b82", "provider": "voyage"}}`
+
+**Recorded execution:** all four options executed; only `option_c` returned normally.
+
+### provider choice 2
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "VOYAGE",
+      "model": "m-8da37b02"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "openai",
+      "model": "m-8da37b02"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "",
+      "model": "m-e923a533"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": null,
+      "model": "m-506b50a1"
+    }
+  }
+}
+```
+
+**Known answer:** option_b — `{"embeddings": {"model": "m-8da37b02", "provider": "openai"}}`
+
+**Recorded execution:** all four options executed; only `option_b` returned normally.
+
+### provider choice 3
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": " voyage ",
+      "model": "m-506b50a1"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "cohere",
+      "model": "m-3ab92b82"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "",
+      "model": "m-e923a533"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": null,
+      "model": "m-506b50a1"
+    }
+  }
+}
+```
+
+**Known answer:** option_a — `{"embeddings": {"model": "m-506b50a1", "provider": " voyage "}}`
+
+**Recorded execution:** all four options executed; only `option_a` returned normally.
+
+### provider choice 4
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": " openai ",
+      "model": "m-e923a533"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "",
+      "model": "m-e923a533"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "cohere",
+      "model": "m-3ab92b82"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "VOYAGE",
+      "model": "m-8da37b02"
+    }
+  }
+}
+```
+
+**Known answer:** option_a — `{"embeddings": {"model": "m-e923a533", "provider": " openai "}}`
+
+**Recorded execution:** all four options executed; only `option_a` returned normally.
+
+### key env choice 1
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-ea2628ad",
+      "keyEnv": "MY-KEY"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-d25aae2e",
+      "keyEnv": "has space"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-eee9bd8c",
+      "keyEnv": "MY_KEY"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-eee9bd8c",
+      "keyEnv": "1KEY"
+    }
+  }
+}
+```
+
+**Known answer:** option_c — `{"embeddings": {"keyEnv": "MY_KEY", "model": "m-eee9bd8c", "provider": "voyage"}}`
+
+**Recorded execution:** all four options executed; only `option_c` returned normally.
+
+### key env choice 2
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-ea2628ad",
+      "keyEnv": "MY-KEY"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-ea2628ad",
+      "keyEnv": "_KEY"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-19a5878e",
+      "keyEnv": ""
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-d25aae2e",
+      "keyEnv": "has space"
+    }
+  }
+}
+```
+
+**Known answer:** option_b — `{"embeddings": {"keyEnv": "_KEY", "model": "m-ea2628ad", "provider": "voyage"}}`
+
+**Recorded execution:** all four options executed; only `option_b` returned normally.
+
+### key env choice 3
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-19a5878e",
+      "keyEnv": ""
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-d25aae2e",
+      "keyEnv": "key2"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-d25aae2e",
+      "keyEnv": "has space"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-eee9bd8c",
+      "keyEnv": "1KEY"
+    }
+  }
+}
+```
+
+**Known answer:** option_b — `{"embeddings": {"keyEnv": "key2", "model": "m-d25aae2e", "provider": "voyage"}}`
+
+**Recorded execution:** all four options executed; only `option_b` returned normally.
+
+### key env choice 4
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-ea2628ad",
+      "keyEnv": "MY-KEY"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-eee9bd8c",
+      "keyEnv": "1KEY"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-19a5878e",
+      "keyEnv": ""
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-19a5878e",
+      "keyEnv": " A_B "
+    }
+  }
+}
+```
+
+**Known answer:** option_d — `{"embeddings": {"keyEnv": " A_B ", "model": "m-19a5878e", "provider": "voyage"}}`
+
+**Recorded execution:** all four options executed; only `option_d` returned normally.
+
+### unknown fields choice 1
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-f373dc34",
+      "apiKey": "dummy"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-c6be0f82"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-c6be0f82",
+      "flavor": "dummy"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-3dfa8654",
+      "endpoint": "dummy"
+    }
+  }
+}
+```
+
+**Known answer:** option_b — `{"embeddings": {"model": "m-c6be0f82", "provider": "voyage"}}`
+
+**Recorded execution:** all four options executed; only `option_b` returned normally.
+
+### unknown fields choice 2
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-f373dc34",
+      "apiKey": "dummy"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-bbfaf3d8",
+      "extra": "dummy"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-3dfa8654",
+      "endpoint": "dummy"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "openai",
+      "model": "m-3dfa8654",
+      "dimension": 8
+    }
+  }
+}
+```
+
+**Known answer:** option_d — `{"embeddings": {"dimension": 8, "model": "m-3dfa8654", "provider": "openai"}}`
+
+**Recorded execution:** all four options executed; only `option_d` returned normally.
+
+### unknown fields choice 3
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-f373dc34",
+      "apiKey": "dummy"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-bbfaf3d8",
+      "extra": "dummy"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-c6be0f82",
+      "flavor": "dummy"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-f373dc34",
+      "queryModel": "q"
+    }
+  }
+}
+```
+
+**Known answer:** option_d — `{"embeddings": {"model": "m-f373dc34", "provider": "voyage", "queryModel": "q"}}`
+
+**Recorded execution:** all four options executed; only `option_d` returned normally.
+
+### unknown fields choice 4
+
+**Question:** Which one of these retrieval inputs does validateRetrieval accept without throwing?
+
+**Function call:**
+
+```json
+{
+  "function": "validateRetrieval"
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-3dfa8654",
+      "endpoint": "dummy"
+    }
+  },
+  "option_b": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-c6be0f82",
+      "flavor": "dummy"
+    }
+  },
+  "option_c": {
+    "embeddings": {
+      "provider": "openai",
+      "model": "m-bbfaf3d8",
+      "keyEnv": "LOCAL_KEY"
+    }
+  },
+  "option_d": {
+    "embeddings": {
+      "provider": "voyage",
+      "model": "m-bbfaf3d8",
+      "extra": "dummy"
+    }
+  }
+}
+```
+
+**Known answer:** option_c — `{"embeddings": {"keyEnv": "LOCAL_KEY", "model": "m-bbfaf3d8", "provider": "openai"}}`
+
+**Recorded execution:** all four options executed; only `option_c` returned normally.
+
+### embedding selection 1
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-a6b85fe7",
+        "queryModel": "m-ae1c0645"
+      }
+    },
+    {}
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-a6b85fe7"
+  },
+  "option_b": {
+    "provider": "openai",
+    "model": "m-cda97c9a"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-a6b85fe7"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-cda97c9a"
+  }
+}
+```
+
+**Known answer:** option_c — `{"model": "m-a6b85fe7", "provider": "voyage"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "voyage",
+    "model": "m-a6b85fe7"
+  }
+}
+```
+
+### embedding selection 2
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-8f4a8b33",
+        "queryModel": "m-91ad548a"
+      }
+    },
+    {
+      "model": "m-b64aa043"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-b64aa043"
+  },
+  "option_b": {
+    "provider": "openai",
+    "model": "m-8f4a8b33"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-8f4a8b33"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-b64aa043"
+  }
+}
+```
+
+**Known answer:** option_a — `{"model": "m-b64aa043", "provider": "openai"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "openai",
+    "model": "m-b64aa043"
+  }
+}
+```
+
+### embedding selection 3
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-dc7fd769",
+        "queryModel": "m-640d2921"
+      }
+    },
+    {
+      "provider": "openai",
+      "model": "m-0b4a99bb"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-dc7fd769"
+  },
+  "option_b": {
+    "provider": "voyage",
+    "model": "m-0b4a99bb"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-dc7fd769"
+  },
+  "option_d": {
+    "provider": "openai",
+    "model": "m-0b4a99bb"
+  }
+}
+```
+
+**Known answer:** option_d — `{"model": "m-0b4a99bb", "provider": "openai"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "openai",
+    "model": "m-0b4a99bb"
+  }
+}
+```
+
+### embedding selection 4
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-45828ae7",
+        "queryModel": "m-cd0bc96a"
+      }
+    },
+    {
+      "provider": "voyage"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "voyage",
+    "model": "m-45828ae7"
+  },
+  "option_b": {
+    "provider": "openai",
+    "model": "m-45828ae7"
+  },
+  "option_c": {
+    "provider": "openai",
+    "model": "m-787dd3d9"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-787dd3d9"
+  }
+}
+```
+
+**Known answer:** option_a — `{"model": "m-45828ae7", "provider": "voyage"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "voyage",
+    "model": "m-45828ae7"
+  }
+}
+```
+
+### embedding selection 5
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-4f40b800",
+        "queryModel": "m-3f394477"
+      }
+    },
+    {}
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-6427ffd7"
+  },
+  "option_b": {
+    "provider": "voyage",
+    "model": "m-6427ffd7"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-4f40b800"
+  },
+  "option_d": {
+    "provider": "openai",
+    "model": "m-4f40b800"
+  }
+}
+```
+
+**Known answer:** option_c — `{"model": "m-4f40b800", "provider": "voyage"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "voyage",
+    "model": "m-4f40b800"
+  }
+}
+```
+
+### embedding selection 6
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-7559f543",
+        "queryModel": "m-11121b93"
+      }
+    },
+    {
+      "model": "m-83a7b719"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "voyage",
+    "model": "m-83a7b719"
+  },
+  "option_b": {
+    "provider": "openai",
+    "model": "m-83a7b719"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-7559f543"
+  },
+  "option_d": {
+    "provider": "openai",
+    "model": "m-7559f543"
+  }
+}
+```
+
+**Known answer:** option_b — `{"model": "m-83a7b719", "provider": "openai"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "openai",
+    "model": "m-83a7b719"
+  }
+}
+```
+
+### embedding selection 7
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-99bb8890",
+        "queryModel": "m-46b581e8"
+      }
+    },
+    {
+      "provider": "openai",
+      "model": "m-83a982bd"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-83a982bd"
+  },
+  "option_b": {
+    "provider": "openai",
+    "model": "m-99bb8890"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-83a982bd"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-99bb8890"
+  }
+}
+```
+
+**Known answer:** option_a — `{"model": "m-83a982bd", "provider": "openai"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "openai",
+    "model": "m-83a982bd"
+  }
+}
+```
+
+### embedding selection 8
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-e1a38d54",
+        "queryModel": "m-d0807e23"
+      }
+    },
+    {
+      "provider": "voyage"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-e1a38d54"
+  },
+  "option_b": {
+    "provider": "openai",
+    "model": "m-2cd75421"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-2cd75421"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-e1a38d54"
+  }
+}
+```
+
+**Known answer:** option_d — `{"model": "m-e1a38d54", "provider": "voyage"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "voyage",
+    "model": "m-e1a38d54"
+  }
+}
+```
+
+### embedding selection 9
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-78732da4",
+        "queryModel": "m-ab81882f"
+      }
+    },
+    {}
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-2a90e71c"
+  },
+  "option_b": {
+    "provider": "voyage",
+    "model": "m-78732da4"
+  },
+  "option_c": {
+    "provider": "openai",
+    "model": "m-78732da4"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-2a90e71c"
+  }
+}
+```
+
+**Known answer:** option_b — `{"model": "m-78732da4", "provider": "voyage"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "voyage",
+    "model": "m-78732da4"
+  }
+}
+```
+
+### embedding selection 10
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-233cb9fa",
+        "queryModel": "m-3398678f"
+      }
+    },
+    {
+      "model": "m-e4c81242"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-e4c81242"
+  },
+  "option_b": {
+    "provider": "openai",
+    "model": "m-233cb9fa"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-e4c81242"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-233cb9fa"
+  }
+}
+```
+
+**Known answer:** option_a — `{"model": "m-e4c81242", "provider": "openai"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "openai",
+    "model": "m-e4c81242"
+  }
+}
+```
+
+### embedding selection 11
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "voyage",
+        "model": "m-a9bda4bc",
+        "queryModel": "m-54137335"
+      }
+    },
+    {
+      "provider": "openai",
+      "model": "m-684ed4ce"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-684ed4ce"
+  },
+  "option_b": {
+    "provider": "openai",
+    "model": "m-a9bda4bc"
+  },
+  "option_c": {
+    "provider": "voyage",
+    "model": "m-684ed4ce"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-a9bda4bc"
+  }
+}
+```
+
+**Known answer:** option_a — `{"model": "m-684ed4ce", "provider": "openai"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "openai",
+    "model": "m-684ed4ce"
+  }
+}
+```
+
+### embedding selection 12
+
+**Question:** Which provider and model pair does embeddingProviderConfig return for this config and flags?
+
+**Function call:**
+
+```json
+{
+  "function": "embeddingProviderConfig",
+  "args": [
+    {
+      "embeddings": {
+        "provider": "openai",
+        "model": "m-707a8c1b",
+        "queryModel": "m-042abd9c"
+      }
+    },
+    {
+      "provider": "voyage"
+    }
+  ]
+}
+```
+
+**Choices:**
+
+```json
+{
+  "option_a": {
+    "provider": "openai",
+    "model": "m-f9eb7695"
+  },
+  "option_b": {
+    "provider": "voyage",
+    "model": "m-707a8c1b"
+  },
+  "option_c": {
+    "provider": "openai",
+    "model": "m-707a8c1b"
+  },
+  "option_d": {
+    "provider": "voyage",
+    "model": "m-f9eb7695"
+  }
+}
+```
+
+**Known answer:** option_b — `{"model": "m-707a8c1b", "provider": "voyage"}`
+
+**Recorded execution:**
+
+```json
+{
+  "ok": true,
+  "result": {
+    "provider": "voyage",
+    "model": "m-707a8c1b"
+  }
+}
+```

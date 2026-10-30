@@ -1,0 +1,20 @@
+{
+  "models": [
+    {
+      "name": "uniform",
+      "adapter": "uniform"
+    },
+    {
+      "name": "lexical",
+      "adapter": "lexical"
+    },
+    {
+      "name": "joey-baseten",
+      "adapter": "systemone",
+      "model": "decision-models/baseten-joey-2b-latest",
+      "url": "https://inference.baseten.co/v1/systemone",
+      "key_env": "BASETEN_API_KEY",
+      "auth_scheme": "Api-Key"
+    }
+  ]
+}

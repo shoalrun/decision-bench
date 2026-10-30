@@ -1,0 +1,79 @@
+---
+id: guide.methodology
+title: Methodology and known answers
+summary: Understand executable answers, the split, and deterministic grading.
+slug: /methodology
+type: explanation
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+## What this evaluation tests
+
+**The cases ask what source code does with specific inputs. They do not ask models to read or search Shoalrun’s documentation.** Copies of eight Shoalrun functions are frozen in this repository’s dataset files. Models receive the code, focused code, or written rules directly in each request, alongside the question and inputs. They do not browse the repository or documentation site.
+
+For example: given a configuration object, does this validation function return normally or throw? Executing the frozen function supplies the answer. The evaluation measures how accurately models apply those supplied rules; it does not establish documentation-retrieval quality or general decision-making ability.
+
+## Known answers
+
+An executable oracle is code that calculates the correct answer. These datasets freeze Shoalrun functions and derive each answer by executing the exact inputs and choices shown to models. The runner replays those calls before inference and rejects inconsistent evidence. Answers describe the frozen code’s behavior, including quirks, rather than a broader claim about intended product policy.
+
+Models receive a reference, question, inputs, and answer choices. Requests are built from an explicit field allowlist; answer keys, recorded outcomes, review notes, and prior responses stay out. No agent or LLM judge participates in a run.
+
+## Question types
+
+`noul` is a yes/no question: the endpoint returns a probability of “yes”, and this runner uses a 0.5 cutoff. `choice` selects one of four named options, with a probability for each option.
+
+The 96 retrieval cases contain 48 `noul` and 48 `choice` questions. The 400 synonym/reader cases contain 240 `noul` and 160 `choice` questions. Each split contains half of each type. The three-format comparison preserves every case’s type. Catalogs group questions by type within each dataset or task.
+
+## Development and held-out cases
+
+Development cases check the evaluation’s prompts, request format, and runner settings. Held-out test cases measure performance after those choices are fixed. Neither set trains or updates the models. Related variations stay within one split, and no exact oracle calls cross splits. Both splits share source rules: the benchmark holds out input families, rather than unseen source code.
+
+The [retrieval catalog](doc:reference.questions-dev) and its [test cases](doc:reference.questions-test) contain 96 cases across three functions. The [synonym and reader-filter catalog](doc:reference.expanded-cases) contains 400 cases across five functions. Each dataset is divided equally between development and test. Case counts include repeated question templates with different arguments and choices.
+
+Published or already inspected cases are useful regression checks. Once they inform prompt changes or case selection, they no longer provide a fresh blind test; reserve new cases before tuning.
+
+## Deterministic execution
+
+The runner makes fresh, stateless requests in a reproducible order that mixes requests across models and formats, with fixed model identifiers and settings recorded in each run. It does not adapt prompts, generate cases, retry errors, or fall back to another model. Reports identify the dataset, model versions, settings, and number of calls used.
+
+Reproducible request construction does not imply identical provider outputs or network latency across runs. Provider behavior and availability can change.
+
+## Uniform-probability baseline
+
+A baseline is a simple reference point for judging whether a model adds useful information. The offline `uniform` baseline gives every possible answer equal probability, regardless of the question or supplied reference:
+
+- **`noul`:** 50% “yes” and 50% “no”.
+- **Four-option `choice`:** 25% to each option.
+
+It runs locally and makes no provider calls. It provides an equal-probability reference for the probability-error scores as well as a simple decision to grade.
+
+The runner resolves ties deterministically: `noul` selects “yes” at exactly 50%, and `choice` selects the first option in request order. It does not randomly sample an answer. Its measured accuracy therefore depends on the answer labels and option order and need not equal 50% or 25%. Those percentages are the expected accuracy of uniform random guessing, which is a different comparison.
+
+## Scoring and measurements
+
+Accuracy is the share of decisions matching the known answers; malformed responses and request errors count as wrong. Uniform random guessing has expected accuracy of 50% for a binary question and 25% for a four-choice question; the deterministic offline baseline can score differently, as explained above. Class balance also matters: always choosing the same binary answer can appear successful in an unbalanced bucket without distinguishing inputs.
+
+Latency is the elapsed time from sending a request through receiving and parsing its response, including network overhead. Latency summaries use valid responses only; failures remain in the accuracy denominator. The median is the middle latency; p95 is the time within which approximately 95% of requests finish. Brier score sums the squared errors in the predicted label probabilities; its range is 0–2, including for yes/no questions, and lower is better. Probability metrics use valid responses, with their denominator reported separately from overall accuracy. A confidence threshold keeps decisions whose selected-label probability reaches a chosen cutoff; coverage is the fraction of all attempted cases retained. This uses the label probabilities, not the provider’s separate confidence field.
+
+Usage costs come from API-reported figures. They are not reconciled billing or guaranteed volume prices. Per-1,000-call figures scale the measured workload; they do not assume a different purchasing tier.
+
+## Complexity and presentation comparisons
+
+Complexity buckets are authored estimates of the reasoning a case requires: local checks, transformations, or interactions between rules. They are registered against a frozen fixture before inspecting the scored outputs. These labels are descriptive, not executable ground truth. Task, reference length, and bucket membership can overlap, so bucket differences do not establish a causal effect of complexity.
+
+A presentation comparison repeats the same underlying cases with different reference formats. Compare the formats on matched cases; repeated views are not additional independent questions. Focused code removes unrelated declarations and TypeScript annotations, while English contracts state behavior in prose. These formats also differ in length and explicitness. Executable replay can verify code equivalence; prose fidelity requires review.
+
+## Verify the answers
+
+The pinned runtime is Node v22.23.3. Source revisions and hashes are recorded in each fixture.
+
+```sh
+python3 -m decision_bench validate --dataset data/shoalrun-known-v1.json
+python3 -m decision_bench validate --dataset data/shoalrun-expanded-v1.json
+python3 -m decision_bench validate --dataset data/shoalrun-presentations-v1.json
+```
+
+Verification checks source integrity and re-executes model-visible calls. Changing an input while retaining an old oracle result fails verification. The [run guide](doc:guide.run) explains offline baselines and provider setup.

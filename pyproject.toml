@@ -1,0 +1,16 @@
+[project]
+name = "shoalrun-decision-bench"
+version = "0.1.0"
+description = "Compare decision models against executable known answers"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+decision-bench = "decision_bench.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["decision_bench"]

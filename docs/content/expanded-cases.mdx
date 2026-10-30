@@ -1,0 +1,57 @@
+---
+id: reference.expanded-cases
+title: Search and reader-filter questions
+summary: Inspect 400 cases, their exact questions, and structural complexity buckets.
+slug: /questions/expanded
+type: reference
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+These questions ask models to predict the behavior of five frozen source-code functions: search-term validation, phrase matching, splitting queries into units with synonym alternatives, and validating or resolving page reader filters. Despite the search-related names, these are code-behavior questions, not searches over documentation. The relevant code or rules are supplied directly to the model.
+
+This dataset contains 400 cases across five functions, split into 200 development and 200 test cases. Development cases check the evaluation’s prompts and runner settings; test cases measure performance after those choices are fixed. Neither set trains the models. Each function has 80 cases across ten input families.
+
+A reader filter is a page attribute, such as audience or product, used to narrow the documentation shown to a reader.
+
+- **Synonym validation:** Checking that configured groups of equivalent search terms have the required structure, allowed text, and no duplicates after spacing and case are normalized.
+- **Phrase matching:** Checking whether text contains a specified word or phrase under the source’s boundary, whitespace, case, and plural rules.
+- **Query decomposition:** Splitting search text into word or phrase units and attaching the alternative terms from configured synonym groups.
+- **Reader selection:** Checking whether a page’s requested filter names and choices are accepted by the configured validation rules.
+- **Reader defaults:** Resolving a page’s final filter values by combining defaults for its page type with explicit page settings and removing empty selections.
+
+`noul` is a yes/no question: the endpoint returns a probability of “yes”, and this runner uses a 0.5 cutoff. `choice` selects one of four named options, with a probability for each option.
+
+## noul — yes/no (240 cases)
+
+120 development and 120 test cases.
+
+| Function | Exact question | Cases |
+|---|---|---:|
+| [Synonym validation](doc:reference.expanded-synonym-validation) | Does validateSearchSynonyms return normally without throwing for this input? | 80 |
+| [Phrase matching](doc:reference.expanded-phrase-matching) | Does phraseMatches return true for these arguments? | 80 |
+| [Reader selection](doc:reference.expanded-reader-selection) | Does validateReaderSelection return normally without throwing for this input? | 80 |
+
+## choice — four options (160 cases)
+
+80 development and 80 test cases. Each option specifies an exact returned result or error.
+
+| Function | Exact question | Cases |
+|---|---|---:|
+| [Query decomposition](doc:reference.expanded-query-decomposition) | Which exact result or exception does queryUnits produce for these arguments? | 80 |
+| [Reader defaults](doc:reference.expanded-reader-defaults) | Which exact result or exception does pageReaderFilters produce for these arguments? | 80 |
+
+The pages list every concrete argument set, choice where applicable, and known answer. The fixture is `data/shoalrun-expanded-v1.json`; its answers can be replayed with `node scripts/expanded_cases.mjs verify data/shoalrun-expanded-v1.json`.
+
+## Structural buckets
+
+Complexity labels estimate the structure of a decision, rather than how a model scored. They were assigned before the model results were inspected and are recorded separately from the answer key.
+
+- **Low:** a local shape, type, membership, literal-match, or early-guard check.
+- **Medium:** normalization, boundaries, uniqueness, lookups, or transformations.
+- **High:** interacting fields, precedence/defaults, structured sequences, or specialized runtime lookup semantics.
+
+There are 80 low-, 200 medium-, and 120 high-complexity cases across both sets. Source length, function, and complexity are correlated. Compare within functions and task types before attributing a difference to complexity. Edge-condition tags overlap and are not independent samples.
+
+The same source modules appear in both sets; this is not unseen-code testing. Synthetic variants share rules and templates. Source-level outcomes, including unexpected JavaScript behavior, remain the answer key. Read the [evaluation report](doc:report.2026-10-30) for results and [methodology](doc:guide.methodology) for scoring.

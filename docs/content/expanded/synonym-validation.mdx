@@ -1,0 +1,1437 @@
+---
+id: reference.expanded-synonym-validation
+title: Synonym validation questions
+summary: Inspect 80 executable cases for validateSearchSynonyms.
+slug: /questions/expanded/synonym-validation
+type: reference
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+Synonym validation means checking that configured groups of equivalent search terms have the required structure, allowed text, and no duplicates after spacing and case are normalized.
+
+These 80 cases test `validateSearchSynonyms`: 40 development cases used to check the evaluation’s prompts and runner settings, and 40 test cases reserved until those choices were fixed. Neither set trains the models. The supplied source code is the rule; expected answers come from executing it.
+
+**Question type: `noul` (yes/no).** The model returns a probability of “yes”; the runner uses a 0.5 cutoff.
+
+**Exact question:** Does validateSearchSynonyms return normally without throwing for this input?
+
+[Source at the recorded revision](https://github.com/shoalrun/shoalrun/blob/1f2ed786f11d3510182c10184693c23f04a2ae35/framework/src/search-synonyms.ts). See [methodology](doc:guide.methodology), [the case-set overview](doc:reference.expanded-cases), and [results](doc:report.2026-10-30).
+
+## Development — noul (40 cases)
+
+### validateSearchSynonyms dev spacing 1
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      " term06b316 ",
+      "other06b316\t"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev spacing 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "TERM993094",
+      "other993094\t"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev spacing 3
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      " term2db443 ",
+      "other2db443\t"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev spacing 4
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "TERM71A81F",
+      "other71a81f\t"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev spacing 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      " term8cb3f9 ",
+      "other8cb3f9\t"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev spacing 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "TERM378530",
+      "other378530\t"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev spacing 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      " term757673 ",
+      "other757673\t"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev spacing 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "TERME63DA1",
+      "othere63da1\t"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev root shape 1
+
+**Arguments:**
+
+```json
+[
+  null
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev root shape 2
+
+**Arguments:**
+
+```json
+[
+  false
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev root shape 3
+
+**Arguments:**
+
+```json
+[
+  {}
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev root shape 4
+
+**Arguments:**
+
+```json
+[
+  "terms"
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev root shape 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "root1875b3",
+      "alias1875b3"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev root shape 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "root6b2813",
+      "alias6b2813"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev root shape 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "rootcb3d13",
+      "aliascb3d13"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev root shape 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "root4c394e",
+      "alias4c394e"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev duplicates 1
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term7daadd",
+      "TERM7DAADD"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev duplicates 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term724a3a",
+      "other724a3a"
+    ],
+    [
+      " TERM724A3A ",
+      "third724a3a"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev duplicates 3
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termd12de7",
+      "TERMD12DE7"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev duplicates 4
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "terma18ea1",
+      "othera18ea1"
+    ],
+    [
+      " TERMA18EA1 ",
+      "thirda18ea1"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev duplicates 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termec0307",
+      "TERMEC0307"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev duplicates 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term4ebdcf",
+      "other4ebdcf"
+    ],
+    [
+      " TERM4EBDCF ",
+      "third4ebdcf"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev duplicates 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termd3ba28",
+      "TERMD3BA28"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev duplicates 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term94503e",
+      "other94503e"
+    ],
+    [
+      " TERM94503E ",
+      "third94503e"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev phrases 1
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termbe2bc0 step",
+      "otherbe2bc0 route"
+    ],
+    [
+      "nextbe2bc0",
+      "afterbe2bc0"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev phrases 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term849f10 step",
+      "other849f10 route"
+    ],
+    [
+      "next849f10",
+      "after849f10"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev phrases 3
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term8b2974 step",
+      "other8b2974 route"
+    ],
+    [
+      "next8b2974",
+      "after8b2974"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev phrases 4
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term68b295 step",
+      "other68b295 route"
+    ],
+    [
+      "next68b295",
+      "after68b295"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev phrases 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term0faff2 step",
+      "other0faff2 route"
+    ],
+    [
+      "next0faff2",
+      "after0faff2"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev phrases 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term9f1068 step",
+      "other9f1068 route"
+    ],
+    [
+      "next9f1068",
+      "after9f1068"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev phrases 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term2bff51 step",
+      "other2bff51 route"
+    ],
+    [
+      "next2bff51",
+      "after2bff51"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev phrases 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "terme54a34 step",
+      "othere54a34 route"
+    ],
+    [
+      "nexte54a34",
+      "aftere54a34"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms dev term types 1
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termc84efc",
+      42
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev term types 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term70f37e",
+      null
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev term types 3
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termbcae91",
+      true
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev term types 4
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term0df882",
+      {}
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev term types 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term5c99aa",
+      []
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev term types 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termdfeae7",
+      ""
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev term types 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termfda7a7",
+      "  "
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms dev term types 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term136a91",
+      {
+        "term": "x"
+      }
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+## Test — noul (40 cases)
+
+### validateSearchSynonyms test punctuation 1
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term6b9668",
+      "a-b"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test punctuation 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term79098b",
+      "a_b"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test punctuation 3
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termf484eb",
+      "a.b"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test punctuation 4
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term88a3d2",
+      "a/b"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test punctuation 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termcb65dd",
+      "c++"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test punctuation 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termb0b4fd",
+      "one:two"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test punctuation 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term70027b",
+      "\"term\""
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test punctuation 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termc4a3f6",
+      "@term"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test unicode 1
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "café15db49",
+      "other15db49"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test unicode 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "文档94aded",
+      "other94aded"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test unicode 3
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "δοκιμήd7ad29",
+      "otherd7ad29"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test unicode 4
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "текстcb6b0c",
+      "othercb6b0c"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test unicode 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "日本語3d749a",
+      "other3d749a"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test unicode 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "mañanaca1f10",
+      "otherca1f10"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test unicode 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "naïvec72b9c",
+      "otherc72b9c"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test unicode 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "résumé5492ff",
+      "other5492ff"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test group shape 1
+
+**Arguments:**
+
+```json
+[
+  [
+    []
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test group shape 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "singlea97196"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test group shape 3
+
+**Arguments:**
+
+```json
+[
+  [
+    null
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test group shape 4
+
+**Arguments:**
+
+```json
+[
+  [
+    {}
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test group shape 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "group0f47be",
+      "alias0f47be"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test group shape 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "group7b6942",
+      "alias7b6942"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test group shape 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "group54979c",
+      "alias54979c"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test group shape 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "group2bda26",
+      "alias2bda26",
+      "third2bda26"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test empty multiple 1
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term211d11",
+      "other211d11"
+    ],
+    [
+      "more211d11",
+      "extra211d11"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test empty multiple 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term5eb1b2",
+      "other5eb1b2"
+    ],
+    [
+      "more5eb1b2",
+      "extra5eb1b2"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test empty multiple 3
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termd9f3a5",
+      "otherd9f3a5"
+    ],
+    [
+      "mored9f3a5",
+      "extrad9f3a5"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test empty multiple 4
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term699e63",
+      "other699e63"
+    ],
+    [
+      "more699e63",
+      "extra699e63"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test empty multiple 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termd51dd7",
+      "otherd51dd7"
+    ],
+    [
+      "otherd51dd7",
+      "lastd51dd7"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test empty multiple 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term848416",
+      "other848416"
+    ],
+    [
+      "other848416",
+      "last848416"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test empty multiple 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term1ba219",
+      "other1ba219"
+    ],
+    [
+      "other1ba219",
+      "last1ba219"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test empty multiple 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termd42ae3",
+      "otherd42ae3"
+    ],
+    [
+      "otherd42ae3",
+      "lastd42ae3"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test whitespace collisions 1
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term5491e1\t step",
+      "other5491e1\nroute"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test whitespace collisions 2
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term0b150d\t step",
+      "other0b150d\nroute"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test whitespace collisions 3
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "terma68cd1\t step",
+      "othera68cd1\nroute"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test whitespace collisions 4
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term40ce59\t step",
+      "other40ce59\nroute"
+    ]
+  ]
+]
+```
+
+**Known answer:** Yes — the function returns normally.
+
+### validateSearchSynonyms test whitespace collisions 5
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termd6b6fb step",
+      "termd6b6fb\tstep"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test whitespace collisions 6
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term0a37e8 step",
+      "term0a37e8\tstep"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test whitespace collisions 7
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "termf28b4b step",
+      "termf28b4b\tstep"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.
+
+### validateSearchSynonyms test whitespace collisions 8
+
+**Arguments:**
+
+```json
+[
+  [
+    [
+      "term2cdfd1 step",
+      "term2cdfd1\tstep"
+    ]
+  ]
+]
+```
+
+**Known answer:** No — the function throws.

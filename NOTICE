@@ -1,0 +1,33 @@
+Decision Bench
+
+The harness is licensed under the Apache License, Version 2.0 (see LICENSE).
+Copied Shoalrun source and documentation excerpts derive from:
+https://github.com/shoalrun/shoalrun
+Their authors retain their respective rights.
+
+The source implementation embedded in data/shoalrun-known-v1.json derives from:
+  framework/src/retrieval-config.ts
+  Revision: 6f59004f4e9323ef1de171caa233e59a01fb982d
+  License: Apache License, Version 2.0
+Executing this frozen source establishes its recorded known answers.
+
+The source implementations embedded in data/shoalrun-expanded-v1.json derive from:
+  framework/src/search-synonyms.ts
+  framework/src/reader-filters.ts
+  Revision: 1f2ed786f11d3510182c10184693c23f04a2ae35
+  License: Apache License, Version 2.0
+Executing these frozen sources establishes their recorded known answers.
+
+data/shoalrun-presentations-v1.json embeds the same source-backed cases and
+sources as data/shoalrun-expanded-v1.json. Its focused JavaScript removes types
+and unrelated declarations; its written rules describe the recorded source
+behavior. Both are derived from the Shoalrun sources and revision above.
+
+The documentation excerpts in tests/fixtures/schema-transport-v1.json derive from:
+  framework/agent-docs
+  Revision: 6f59004f4e9323ef1de171caa233e59a01fb982d
+  License: Apache License, Version 2.0
+Excerpts were selected from generated Markdown sections and stripped of
+surrounding page context. Each retains source path, section, revision, and hash.
+Authored cases based on them are schema/transport test data, not reported
+benchmark evidence.

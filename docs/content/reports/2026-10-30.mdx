@@ -1,0 +1,111 @@
+---
+id: report.2026-10-30
+title: Decision models on executable known-answer tasks
+summary: Compare four decision models across 496 cases and three reference formats.
+slug: /reports/2026-10-30
+type: explanation
+date: 2026-10-30
+updated: 2026-10-30
+access: { policy: public }
+---
+
+**30 October 2026**
+
+**This evaluation tests source-code behavior, not documentation search or question answering.** Models predict what eight supplied Shoalrun functions do with concrete inputs. We execute the frozen code to establish the correct answers. Models receive code or written rules directly; they have no repository or documentation-site access.
+
+Mammoth led overall on these code-grounded decisions. Cheaper models showed useful task-specific results, especially with explicit written rules: Elephant matched Mammoth when splitting search queries into searchable units and resolving a page’s filter values, at lower measured cost. Joey was cheapest, but its yes/no decisions were weak at the fixed cutoff: a “yes” probability of at least 50% means “yes”; anything lower means “no”.
+
+## Evaluation setup
+
+Four fixed model releases answered **496 unique cases across eight functions**: 96 retrieval-configuration cases and 400 synonym/reader-filter cases. Reader filters are page attributes, such as audience or product, used to narrow the documentation shown to a reader. Each dataset was divided equally into development and test sets. Development cases check the evaluation’s prompts and runner settings; test cases measure performance after those choices are fixed. Neither set trains the models.
+
+In the source-only comparison, models received source code as their rules; expected answers came from executing that code. Each model was called once per case through OpenRouter in a reproducible order that mixed requests for the different models. All **1,984 source-only model responses** passed format checks. A matched presentation comparison added **4,800 responses** on the same 400 synonym/reader cases, also with no errors. The shared [methodology](doc:guide.methodology) defines verification, scoring, and metrics.
+
+`noul` questions ask yes/no and return a probability of “yes”; this runner uses a 0.5 cutoff. `choice` questions select one of four named options. The 496 unique cases contain **288 `noul` and 208 `choice`** questions.
+
+## Source-only test results
+
+The datasets are shown separately because they exercise different behavior. The retrieval test set has 24 `noul` and 24 `choice` questions; the synonym/reader-filter test set has 120 `noul` and 80 `choice`. Overall scores mix these types. Timing and scaled usage cost below are for the 200-case synonym/reader-filter test set.
+
+| Model | Retrieval config | Search and reader filters | Median round trip | Reported cost per 1,000 calls |
+|---|---:|---:|---:|---:|
+| Mammoth 1 | 48/48 | 187/200 (93.5%) | 359 ms | $0.1518 |
+| Jev 1.14 | 45/48 | 168/200 (84.0%) | 225 ms | $0.0762 |
+| Elephant 1 | 45/48 | 152/200 (76.0%) | 271 ms | $0.0531 |
+| Joey 1 | 22/48 | 90/200 (45.0%) | 252 ms | $0.0152 |
+
+Reported costs are API usage figures, not reconciled billing or guaranteed volume pricing. The source-only development and test calls reported approximately **$0.15007**; the presentation comparison reported **$0.22232**, for **$0.37239** across the 6,784 scored API calls.
+
+## Task fit
+
+Each row below contains 40 test cases from the source-only comparison.
+
+### noul — yes/no
+
+| Task | What it tests | Mammoth | Jev | Elephant | Joey |
+|---|---|---:|---:|---:|---:|
+| Synonym validation | Whether groups of equivalent search terms are accepted after text normalization. | 40/40 | 32/40 | 26/40 | 20/40 |
+| Phrase matching | Whether text contains a phrase under the source’s word-boundary and plural rules. | 31/40 | 28/40 | 28/40 | 20/40 |
+| Reader selection | Whether requested page filter names and choices pass validation. | 36/40 | 36/40 | 32/40 | 20/40 |
+
+### choice — four options
+
+| Task | What it tests | Mammoth | Jev | Elephant | Joey |
+|---|---|---:|---:|---:|---:|
+| Query decomposition | How search text is split into word or phrase units with synonym alternatives. | 40/40 | 40/40 | 37/40 | 17/40 |
+| Reader defaults | Which page filter values remain after defaults and explicit settings are combined. | 40/40 | 32/40 | 29/40 | 13/40 |
+
+### Reading the task results
+
+**Jev is promising for query decomposition:** both it and Mammoth scored 40/40. Jev's median was 224 ms versus 321 ms, with reported costs of $0.0563 versus $0.1104 per 1,000 calls. These 40 cases come from five related input families: groups of cases that vary the same underlying rule.
+
+**Elephant is promising for simple checks:** it and Mammoth both scored 24/24 in that bucket. Elephant's median was 261 ms versus 354 ms, with costs of $0.0478 versus $0.1366 per 1,000 calls. This is a small sample from three families, rather than a deployment guarantee.
+
+**No reliable Joey niche is established here.** At the fixed 0.5 cutoff, it chose “no” on all 120 binary test cases, scoring 50% on each binary function. Its 66.7% result in the simple bucket equals an always-no baseline because that bucket has more negative labels. On the four-choice tasks asking for an exact returned result or error, it scored 30/80. This evaluates its default decisions; probability calibration—adjusting how reported probabilities map to decisions or observed correctness—could be studied separately. Isolated eight-case successes need fresh validation.
+
+## Complexity
+
+This table uses the source-only comparison. Labels were assigned from source and input structure before inspecting the model results. Low means a local check; medium adds text cleanup or data transformation; high combines rules, fields, or precedence (which setting takes priority).
+
+| Test bucket | noul / choice cases | Mammoth | Jev | Elephant | Joey |
+|---|---:|---:|---:|---:|---:|
+| Low | 24 / 0 | 100.0% | 95.8% | 100.0% | 66.7% |
+| Medium | 72 / 32 | 91.3% | 81.7% | 71.2% | 45.2% |
+| High | 24 / 48 | 94.4% | 83.3% | 75.0% | 37.5% |
+
+Complexity is not a universal difficulty ladder: several models scored higher on the high bucket than the medium bucket. Task type and source length also vary. Uniform random guessing has expected accuracy of 50% on binary questions and 25% on four-choice questions. The offline equal-probability baseline uses fixed tie-breaking, so its measured accuracy can differ; [methodology](doc:guide.methodology) explains that distinction. The [aggregate bucket results](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/summary.json) include scores adjusted for uniform guessing, but that adjustment does not remove these other associations.
+
+## Reference format changes the result
+
+A matched comparison supplied each of the 400 synonym/reader cases in three formats: **full** source module, **focused** JavaScript containing only the relevant function and helpers, with the same executed outcomes, and reviewed **written rules**. Questions, inputs, choices, and known answers stayed fixed. Requests using the three formats were mixed in a fixed order within each run. The table shows the same 200 test cases per format (120 `noul`, 80 `choice`); these are repeated views, not 600 independent questions.
+
+| Model | Full source | Focused code | Written rules | Rules median | Rules cost per 1,000 calls |
+|---|---:|---:|---:|---:|---:|
+| Mammoth | 185/200 | 188/200 | 192/200 (96.0%) | 319 ms | $0.0640 |
+| Jev | 164/200 | 160/200 | 180/200 (90.0%) | 221 ms | $0.0382 |
+| Elephant | 154/200 | 155/200 | 180/200 (90.0%) | 248 ms | $0.0224 |
+| Joey | 93/200 | 90/200 | 97/200 (48.5%) | 242 ms | $0.0064 |
+
+Relative to full source, written rules corrected 32 Elephant answers while breaking six; Jev improved 18 and regressed two; Mammoth improved seven with no regressions. The net gains were 13, eight, and 3.5 percentage points. Development results also favored rules for these three models. Joey improved 14 and regressed ten on test, but fell from 83/200 to 80/200 on development, so its small test gain is not a consistent improvement.
+
+**Elephant plus explicit rules is worth testing on tasks with fixed inputs, rules, and output choices.** It matched Mammoth at 40/40 on both query decomposition and reader defaults. Across the whole test set it used about 65% less reported cost than Mammoth with rules, but still made 20 errors versus Mammoth’s eight. Jev tied Elephant overall and had a lower median round trip, at higher reported cost. These are workload-specific tradeoffs, not a universal rule for choosing which model handles each task.
+
+Written rules also helped beyond the simple bucket: Elephant scored 68/72 on the high-complexity cases, compared with 55/72 using full source. Mammoth scored 72/72 with rules; Jev scored 64/72. Joey’s rules result still favored “no” on 105 of 120 binary questions, whose known answers are evenly balanced.
+
+Shortening source alone did not consistently improve accuracy: focused code reduced Jev’s test score and barely changed Elephant’s. For Mammoth, Elephant, and Joey, mean test input tokens (the provider’s units of text) fell from 1,513 with full source to about 640 with rules; Jev’s provider reported 1,803 to 909. Rules and focused code had similar average token counts here. Rules made runtime details explicit and were not always shorter than focused code, so these results do not isolate natural language or context length as the cause.
+
+## Questions and limits
+
+The [retrieval development](doc:reference.questions-dev), [retrieval test](doc:reference.questions-test), and [synonym/reader-filter catalog](doc:reference.expanded-cases) list every concrete question, input, choice, and known answer. They cover acceptance, phrase matching, provider selection, and exact returned outcomes.
+
+These are synthetic code-tracing tasks—predicting what supplied code does—with shared templates, not hundreds of independent observations or a general model ranking. Some cases depend on JavaScript quirks: in the source-only comparison, all four models rejected inherited option-property names (names available through JavaScript’s object prototype) that the actual validator accepts. Mammoth was nearly certain on four such wrong answers, so confidence alone is an unreliable guard.
+
+The presentation study reuses observed cases and is not fresh blind generalization. Focused-code equivalence was checked by execution on all 400 inputs; written-rule fidelity was reviewed against source, not proved by executing prose. Full-source repeats also varied slightly between runs, so small score differences need repeatability checks. Before adopting a routing policy (a rule for choosing which model handles each task), test it on fresh cases representative of the intended workload.
+
+## Reproduction
+
+All comparisons used request-order seed 42 and a 30-second timeout, with no retries. The [run guide](doc:guide.run) lists dataset sizes and request caps.
+
+The fixtures are `data/shoalrun-known-v1.json`, `data/shoalrun-expanded-v1.json`, and `data/shoalrun-presentations-v1.json`; the model configuration is `models/expanded-2026-10-30.json`. Resolved releases were `baseten/mammoth-1-20261021`, `typesafe/jev-1.14-20261014`, `baseten/elephant-1-20261021`, and `baseten/joey-1-20261029`.
+
+[Sanitized aggregate results](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/summary.json) retain dataset and code hashes, run settings, exact model IDs, and scores. The [matched presentation summary](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/presentations.json) includes per-format, task, complexity, and paired-change metrics. Raw provider responses and credentials remain outside the public source.

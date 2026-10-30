@@ -1,0 +1,28 @@
+{
+  "models": [
+    {
+      "name": "uniform",
+      "adapter": "uniform"
+    },
+    {
+      "name": "lexical",
+      "adapter": "lexical"
+    },
+    {
+      "name": "decision-model",
+      "adapter": "systemone",
+      "model": "YOUR_DECISION_MODEL_ID",
+      "url": "https://your-provider.example/v1/systemone",
+      "key_env": "DECISION_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "chat-model",
+      "adapter": "chat",
+      "model": "YOUR_CHAT_MODEL_ID",
+      "url": "https://your-provider.example/v1/chat/completions",
+      "key_env": "CHAT_API_KEY",
+      "auth_scheme": "Bearer"
+    }
+  ]
+}
