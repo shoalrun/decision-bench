@@ -11,7 +11,7 @@ access: { policy: public }
 
 **30 October 2026 · Updated 31 October 2026**
 
-Liquid d1.1 was added in separate measurement batches. The original four models’ measurements are retained; the addition uses the same frozen cases and matching requests.
+Liquid d1.1 was measured separately with the same Python client used for the original four models. All Liquid figures below use the complete matching-client run; its curl measurements are archived separately and excluded from this comparison.
 
 **This evaluation tests source-code behavior, not documentation search or question answering.** Models predict what eight supplied Shoalrun functions do with concrete inputs. We execute the frozen code to establish the correct answers. Models receive code or written rules (plain-English descriptions of the code’s behavior) directly; they have no repository or documentation-site access.
 
@@ -21,9 +21,9 @@ Mammoth had the highest test accuracy in both the source-only and written-rules 
 
 Five fixed model releases answered **496 unique cases across eight functions**: 96 retrieval-configuration cases and 400 synonym/reader-filter cases. Reader filters are page attributes, such as audience or product, used to narrow the documentation shown to a reader. Each dataset was divided equally into development and test sets. Development cases check the evaluation’s prompts and runner settings; test cases measure performance after those choices are fixed. Neither set trains the models.
 
-In the source-only comparison, models received source code as their rules; expected answers came from executing that code. All five releases were evaluated through OpenRouter. All **2,480 source-only responses** and **6,000 presentation-comparison responses** passed format checks. The 22 preliminary Liquid calls are excluded. The shared [methodology](doc:guide.methodology) defines verification, scoring, and metrics.
+In the source-only comparison, models received source code as their rules; expected answers came from executing that code. All five releases were evaluated through OpenRouter. All **2,480 source-only responses** and **6,000 presentation-comparison responses** passed format checks. The archived Liquid curl runs and 22 preliminary Liquid calls are excluded from these counts. The shared [methodology](doc:guide.methodology) defines verification, scoring, and metrics.
 
-The original four models ran in interleaved Python batches. Liquid used separate sequential curl batches on 30–31 October, with the same requests and a separately recorded order. **Liquid’s timings are curl transfer times, which can reuse connections and exclude Python response processing. They are not directly comparable with the other models’ round trips**, so these results do not establish a speed ranking.
+All five models used Python 3.9.6 on the same platform, request-order seed 42, and a 30-second timeout. The original four ran in interleaved batches; Liquid ran separately using byte-identical HTTP transport code and matching requests. Timings use the same client-side measurement, including response processing. Different run times and provider/network conditions still introduce variability; small latency gaps are not a stable speed ranking.
 
 `noul` questions ask yes/no and return a probability of “yes”; this runner uses a 0.5 cutoff. `choice` questions select one of four named options. The 496 unique cases contain **288 `noul` and 208 `choice`** questions.
 
@@ -34,12 +34,12 @@ The datasets are shown separately because they exercise different behavior. The 
 | Model | Retrieval config | Search and reader filters | Median round trip | Reported cost per 1,000 calls |
 |---|---:|---:|---:|---:|
 | Mammoth 1 | 48/48 | 187/200 (93.5%) | 359 ms | $0.1518 |
-| Liquid d1.1 | 47/48 | 180/200 (90.0%) | 169 ms (curl) | $0.0312 |
+| Liquid d1.1 | 48/48 | 180/200 (90.0%) | 238 ms | $0.0312 |
 | Jev 1.14 | 45/48 | 168/200 (84.0%) | 225 ms | $0.0762 |
 | Elephant 1 | 45/48 | 152/200 (76.0%) | 271 ms | $0.0531 |
 | Joey 1 | 22/48 | 90/200 (45.0%) | 252 ms | $0.0152 |
 
-Reported costs are API usage figures, not reconciled billing or guaranteed volume pricing. The source-only development and test calls reported approximately **$0.16583**; the presentation comparison reported **$0.24476**, for **$0.41059** across **8,480 scored API calls**. Liquid’s 1,696 added calls reported **$0.03820**.
+Reported costs are API usage figures, not reconciled billing or guaranteed volume pricing. The source-only development and test calls reported approximately **$0.16583**; the presentation comparison reported **$0.24476**, for **$0.41059** across **8,480 API calls in the current comparison**, excluding archived curl and preliminary runs. Liquid’s 1,696 matching-client calls reported **$0.03820**.
 
 ## Task fit
 
@@ -99,14 +99,14 @@ Questions, inputs, choices, and known answers stayed fixed. Requests using the t
 | Model | Full source | Focused code | Written rules | Rules median | Rules cost per 1,000 calls |
 |---|---:|---:|---:|---:|---:|
 | Mammoth | 185/200 | 188/200 | 192/200 (96.0%) | 319 ms | $0.0640 |
-| Liquid | 176/200 | 179/200 | 183/200 (91.5%) | 124 ms (curl) | $0.0125 |
+| Liquid | 179/200 | 180/200 | 181/200 (90.5%) | 226 ms | $0.0125 |
 | Jev | 164/200 | 160/200 | 180/200 (90.0%) | 221 ms | $0.0382 |
 | Elephant | 154/200 | 155/200 | 180/200 (90.0%) | 248 ms | $0.0224 |
 | Joey | 93/200 | 90/200 | 97/200 (48.5%) | 242 ms | $0.0064 |
 
-Relative to full source, written rules corrected 32 Elephant answers while breaking six; Jev improved 18 and regressed two; Mammoth improved seven with no regressions. The net gains were 13, eight, and 3.5 percentage points. Development results also favored rules for these three models. Liquid improved 13 and regressed six on test, for a net gain of seven cases (3.5 percentage points); its development full-source and written-rule scores were both 195/200. Joey improved 14 and regressed ten on test, but fell from 83/200 to 80/200 on development, so its small test gain is not a consistent improvement.
+Relative to full source, written rules corrected 32 Elephant answers while breaking six; Jev improved 18 and regressed two; Mammoth improved seven with no regressions. The net gains were 13, eight, and 3.5 percentage points. Development results also favored rules for these three models. Liquid improved 11 and regressed nine on test, for a net gain of two cases (one percentage point); on development, its score fell from 195/200 with full source to 190/200 with written rules. Joey improved 14 and regressed ten on test, but fell from 83/200 to 80/200 on development, so its small test gain is not a consistent improvement.
 
-**Liquid and Elephant plus explicit rules are worth testing on tasks with fixed inputs, rules, and output choices.** Both matched Mammoth at 40/40 on query decomposition and reader defaults. Across the whole test set Elephant used about 65% less reported cost than Mammoth with rules, but still made 20 errors versus Mammoth’s eight. Jev tied Elephant overall and had a lower median round trip, at higher reported cost. These are workload-specific tradeoffs, not a universal rule for choosing which model handles each task. Liquid’s rules condition scored 183/200 versus Mammoth’s 192/200, at about 80% lower reported usage cost. It was task-sensitive: rules raised reader defaults from 32/40 to 40/40 but reduced phrase matching from 30/40 to 25/40.
+**Liquid and Elephant plus explicit rules are worth testing on tasks with fixed inputs, rules, and output choices.** Both matched Mammoth at 40/40 on query decomposition and reader defaults. Across the whole test set Elephant used about 65% less reported cost than Mammoth with rules, but still made 20 errors versus Mammoth’s eight. Jev tied Elephant overall and had a lower median round trip, at higher reported cost. These are workload-specific tradeoffs, not a universal rule for choosing which model handles each task. Liquid’s rules condition scored 181/200 versus Mammoth’s 192/200, at about 80% lower reported usage cost. It was task-sensitive: rules raised reader defaults from 32/40 to 40/40 but reduced phrase matching from 33/40 to 25/40.
 
 Written rules also helped beyond the simple bucket: Elephant scored 68/72 on the high-complexity cases, compared with 55/72 using full source. Mammoth scored 72/72 with rules; Jev scored 64/72. Joey’s rules result still favored “no” on 105 of 120 binary questions, whose known answers are evenly balanced.
 
@@ -122,8 +122,8 @@ The presentation study reuses observed cases and is not fresh blind generalizati
 
 ## Reproduction
 
-All scored comparisons used request-order seed 42 and a 30-second timeout, with no inference retries. Curl’s user configuration was disabled for Liquid. The [run guide](doc:guide.run) lists dataset sizes and request caps.
+All scored comparisons used request-order seed 42 and a 30-second timeout, with no inference retries. Liquid used the same Python HTTP transport as the original four models. The [run guide](doc:guide.run) lists dataset sizes and request caps.
 
 The fixtures are `data/shoalrun-known-v1.json`, `data/shoalrun-expanded-v1.json`, and `data/shoalrun-presentations-v1.json`; the model configurations are `models/expanded-2026-10-30.json` for the original four and `models/liquid-2026-10-30.json` for Liquid. Resolved releases were `baseten/mammoth-1-20261021`, `typesafe/jev-1.14-20261014`, `baseten/elephant-1-20261021`, `baseten/joey-1-20261029`, and `liquid/d1.1-20261027`.
 
-[Sanitized aggregate results](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/summary.json) retain dataset and code hashes, run settings, exact model IDs, and scores. The [matched presentation summary](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/presentations.json) includes per-format, task, complexity, and paired-change metrics. [Liquid’s separate evidence](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/liquid.json) records its run timestamps, transport, per-task and format scores, errors, and matched-request verification. The original aggregate files remain unchanged. Raw provider responses and credentials remain outside the public source.
+[Sanitized aggregate results](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/summary.json) retain dataset and code hashes, run settings, exact model IDs, and scores. The [matched presentation summary](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/presentations.json) includes per-format, task, complexity, and paired-change metrics. [Liquid’s separate evidence](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/liquid.json) records its Python run timestamps, runtime, transport checksum, per-task and format scores, errors, and matched-request verification. The [archived curl evidence](https://github.com/shoalrun/decision-bench/blob/main/results/2026-10-30/liquid-curl.json) is retained for audit, not included in current report scores or costs. Differences between these separate runs do not establish that the transport caused timing or prediction changes. The original aggregate files remain unchanged. Raw provider responses and credentials remain outside the public source.
