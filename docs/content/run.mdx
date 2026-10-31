@@ -5,7 +5,7 @@ summary: Install the tools, verify answers, and compare selected models.
 slug: /run
 type: how-to
 date: 2026-10-30
-updated: 2026-10-30
+updated: 2026-10-31
 access: { policy: public }
 ---
 
@@ -92,7 +92,8 @@ The general runner does not require OpenRouter. Optional configs are provided se
 
 - `models/openrouter.example.json`: Joey, Mammoth, Elephant, and Jev latest through OpenRouter; uses `OPENROUTER_API_KEY`.
 - `models/baseten.example.json`: direct Baseten Joey example; uses `BASETEN_API_KEY`.
-- `models/expanded-2026-10-30.json`: the fixed OpenRouter releases used in the dated report.
+- `models/expanded-2026-10-30.json`: the original four fixed OpenRouter releases used in the dated report.
+- `models/liquid-2026-10-30.json`: the pinned Liquid d1.1 addition; select `uniform,liquid-openrouter`.
 
 For the four-model OpenRouter example:
 
@@ -103,7 +104,7 @@ python3 -m decision_bench run \
   --limit 8 --max-requests 32 --out runs/openrouter-smoke
 ```
 
-This makes up to 32 paid calls. The report tested these four models through OpenRouter. Direct Baseten and live chat-adapter inference were not part of that comparison.
+This makes up to 32 paid calls. The report tested the original four models plus Liquid d1.1 through OpenRouter. Direct Baseten and live chat-adapter inference were not part of that comparison.
 
 ## Read the results
 

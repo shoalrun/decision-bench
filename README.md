@@ -96,6 +96,7 @@ Provider examples are separate from the general template:
 | `models/openrouter.example.json` | Joey, Mammoth, Elephant, and Jev latest via OpenRouter; `OPENROUTER_API_KEY`. |
 | `models/baseten.example.json` | Direct Baseten Joey; `BASETEN_API_KEY`. |
 | `models/expanded-2026-10-30.json` | Fixed OpenRouter releases used in the dated report. |
+| `models/liquid-2026-10-30.json` | Fixed Liquid d1.1 release for the report’s model addition. |
 
 For the OpenRouter example:
 

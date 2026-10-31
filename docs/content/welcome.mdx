@@ -5,7 +5,7 @@ summary: A workbench for comparing decision models against known answers.
 slug: /
 type: explanation
 date: 2026-10-30
-updated: 2026-10-30
+updated: 2026-10-31
 access: { policy: public }
 ---
 
@@ -34,9 +34,12 @@ The matched reference-format comparison repeats the same 200 synonym and reader-
 | Model | Written-rules correct | Median round trip |
 |---|---:|---:|
 | Mammoth 1 | 192/200 | 319 ms |
+| Liquid d1.1 | 183/200 | 124 ms (curl) |
 | Jev 1.14 | 180/200 | 221 ms |
 | Elephant 1 | 180/200 | 248 ms |
 | Joey 1 | 97/200 | 242 ms |
+
+Liquid was measured in separate curl batches; its transfer times are not directly comparable with the other models’ Python round trips.
 
 Read the [30 October 2026 report](doc:report.2026-10-30) for the source-only results, task and complexity breakdowns, reported costs, and limits.
 

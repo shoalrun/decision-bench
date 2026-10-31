@@ -45,6 +45,8 @@ def prepare(args):
     private.mkdir(mode=0o700)
     metadata = {'dataset_schema': data['schema_version'], 'dataset_hash': digest(data), 'split': args.split,
                 'models': models, 'seed': args.seed, 'timeout': args.timeout, 'transport': 'external-curl',
+                'case_ids': [c['id'] for c in cases],
+                'request_hashes': {c['id']: digest(request_for(data, c)) for c in cases},
                 'planned_results': len(jobs), 'planned_remote_requests': remote,
                 'code_hash': digest({str(p.relative_to(ROOT)):p.read_text() for p in
                     [*sorted((ROOT/'decision_bench').glob('*.py')), ROOT/'scripts/curl_batch.py', ROOT/'scripts/known_answers.mjs',

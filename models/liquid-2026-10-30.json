@@ -1,0 +1,16 @@
+{
+  "models": [
+    {
+      "name": "uniform",
+      "adapter": "uniform"
+    },
+    {
+      "name": "liquid-openrouter",
+      "adapter": "systemone",
+      "model": "liquid/d1.1-20261027",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    }
+  ]
+}

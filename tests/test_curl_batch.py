@@ -30,6 +30,9 @@ class CurlBatchTests(unittest.TestCase):
             self.assertEqual(config.stat().st_mode & 0o777,0o600)
             pending=load_json(private/'pending.json')
             self.assertEqual(len(pending['entries']),4)
+            manifest=load_json(out/'manifest.json')
+            self.assertEqual(set(manifest['case_ids']),{r['row']['case_id'] for r in pending['entries']})
+            self.assertTrue(all(manifest['request_hashes'][r['row']['case_id']]==r['row']['request_hash'] for r in pending['entries']))
             lines=[]
             for entry in pending['entries']:
                 request_file=private/('request-{:03d}.json'.format(entry['index']))

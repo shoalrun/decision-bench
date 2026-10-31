@@ -239,4 +239,13 @@ python3 scripts/presentation_results.py \
   --out runs/presentation-analysis
 ```
 
-Use a new analysis directory if that name already exists. The analyzer checks completion, exact model/case coverage, request hashes, and matched base-case identity. It reports per-format, task, structural complexity, family, cost/token coverage, and paired improvements/regressions. Public aggregates live in `results/2026-10-30/`; raw rows remain ignored. Do not treat small changes between full-source repeats as established format effects. Binary decisions use a fixed 0.5 cutoff; poor decisions do not prove the underlying probabilities contain no useful signal. Any calibration or routing policy selected from these results needs fresh validation.
+Use a new analysis directory if that name already exists. The analyzer checks completion, exact model/case coverage, request hashes, and matched base-case identity. It reports per-format, task, structural complexity, family, cost/token coverage, and paired improvements/regressions. Public aggregates live in `results/2026-10-30/`; raw rows remain ignored. The schema3 source-only and schema4 full-source conditions use the same source text but different instructions and passage IDs; they are not identical-prompt repeatability runs. Compare formats within schema4. Binary decisions use a fixed 0.5 cutoff; poor decisions do not prove the underlying probabilities contain no useful signal. Any calibration or routing policy selected from these results needs fresh validation.
+
+
+## Liquid addition to the 30 October report
+
+At the user’s explicit request, Liquid d1.1 was added to the existing published report using the same frozen workloads. The original four models’ aggregate files remain unchanged. `models/liquid-2026-10-30.json` pins the added release; `results/2026-10-30/liquid.json` stores its separate model-scoped evidence and transport metadata. The addition covers 96 retrieval cases, 400 search/reader cases, and 1,200 presentations: 1,696 remote calls, excluding 22 preliminary calls.
+
+Liquid used sequential external curl transfers with user curl configuration disabled. Transfer timings can reuse connections and exclude Python normalization; they must not be used for a clean speed ranking against the original Python round trips. Verify the exact request hashes and answer labels against original runs before comparing accuracy. Preserve the original report’s Git history and clearly describe the addition’s separate measurement conditions.
+
+The external-curl manifest includes selected `case_ids` and `request_hashes`, so the presentation analyzer can verify complete model/case identity. Use a new output directory per dataset/split and analyze the new model’s dev/test runs separately from old runs before combining public report tables.
