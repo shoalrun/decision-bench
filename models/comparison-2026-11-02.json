@@ -1,0 +1,72 @@
+{
+  "models": [
+    {
+      "name": "uniform",
+      "adapter": "uniform"
+    },
+    {
+      "name": "liquid-ultra",
+      "adapter": "systemone",
+      "model": "liquid/d1-ultra-20261015",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "perplexity-decider",
+      "adapter": "systemone",
+      "model": "perplexity/pplx-decider-v1.2-20261016",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "perplexity-flash",
+      "adapter": "systemone",
+      "model": "perplexity/pplx-decider-flash-v1.2-20261016",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "respan-span-02",
+      "adapter": "systemone",
+      "model": "respan/span-02-20261015",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "mercury-decide",
+      "adapter": "systemone",
+      "model": "inception/mercury-decide-20260930",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "drex-max",
+      "adapter": "systemone",
+      "model": "nace-ai/drex-max-20261016",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "liquid-d1.1",
+      "adapter": "systemone",
+      "model": "liquid/d1.1-20261027",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    },
+    {
+      "name": "mammoth",
+      "adapter": "systemone",
+      "model": "baseten/mammoth-1-20261021",
+      "url": "https://openrouter.ai/api/alpha/decisions",
+      "key_env": "OPENROUTER_API_KEY",
+      "auth_scheme": "Bearer"
+    }
+  ]
+}

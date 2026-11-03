@@ -5,7 +5,7 @@ summary: A workbench for comparing decision models against known answers.
 slug: /
 type: explanation
 date: 2026-10-30
-updated: 2026-10-31
+updated: 2026-11-02
 access: { policy: public }
 ---
 
@@ -27,23 +27,15 @@ I wanted a decision-model benchmarking workbench that I could own, experiment wi
 
 The Questions navigation groups cases by the behavior they test. Development cases check the evaluation’s prompts and runner settings; test cases measure performance after those choices are fixed. Neither set trains the models. `noul` means a yes/no probability question; `choice` selects one of four options.
 
-## Results
+## Latest report: eight models
 
-The matched reference-format comparison repeats the same 200 synonym and reader-filter test cases with full source, focused code, and written rules. These cases were already observed; the comparison tests presentation choices.
+The [2 November comparison](doc:report.2026-11-02) tests eight pinned decision models on the same code-behavior cases, using a shared Python client. After separately recorded retries of HTTP failures, Perplexity Decider V1.2 and LiquidAI d1-ultra each scored **195/200 with written rules**. Nace.AI Drex Max led the source-only search/reader tests at **191/200**, one ahead of Perplexity Decider V1.2.
 
-| Model | Written-rules correct | Median round trip |
-|---|---:|---:|
-| Mammoth 1 | 192/200 | 319 ms |
-| Liquid d1.1 | 181/200 | 226 ms |
-| Jev 1.14 | 180/200 | 221 ms |
-| Elephant 1 | 180/200 | 248 ms |
-| Joey 1 | 97/200 | 242 ms |
+Across both reports, Perplexity Decider V1.2 is our strongest overall candidate for this workload when balancing accuracy, known usage cost, and observed delivery. Nace.AI Drex Max has the highest source-only score; Perplexity Decider V1.2 and LiquidAI d1-ultra tie with written rules. This is a task-specific shortlist, not a pooled leaderboard.
 
-All five models used the same Python client and timing method. Liquid ran in separate batches; provider and network variability still limit conclusions from small latency differences.
+The report separates retry-completed accuracy, first-attempt delivery failures, timing, and known usage cost. It also defines full source, focused code, and written rules and links every question.
 
-Read the [30 October 2026 report](doc:report.2026-10-30) for the source-only results, task and complexity breakdowns, reported costs, and limits.
-
-Browse all dated evaluations in [Reports](doc:reference.reports).
+Browse both dated evaluations in [Reports](doc:reference.reports).
 
 ## Use the benchmark
 

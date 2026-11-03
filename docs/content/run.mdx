@@ -5,7 +5,7 @@ summary: Install the tools, verify answers, and compare selected models.
 slug: /run
 type: how-to
 date: 2026-10-30
-updated: 2026-10-31
+updated: 2026-11-02
 access: { policy: public }
 ---
 
@@ -90,10 +90,10 @@ After the connection check, remove `--limit 8`, choose a dataset, and raise the 
 
 The general runner does not require OpenRouter. Optional configs are provided separately:
 
-- `models/openrouter.example.json`: Joey, Mammoth, Elephant, and Jev latest through OpenRouter; uses `OPENROUTER_API_KEY`.
-- `models/baseten.example.json`: direct Baseten Joey example; uses `BASETEN_API_KEY`.
+- `models/openrouter.example.json`: Baseten Joey 1, Baseten Mammoth 1, Baseten Elephant 1, and TypeSafe Jev latest through OpenRouter; uses `OPENROUTER_API_KEY`.
+- `models/baseten.example.json`: direct Baseten Joey 1 example; uses `BASETEN_API_KEY`.
 - `models/expanded-2026-10-30.json`: the original four fixed OpenRouter releases used in the dated report.
-- `models/liquid-2026-10-30.json`: the pinned Liquid d1.1 addition; select `uniform,liquid-openrouter`.
+- `models/liquid-2026-10-30.json`: the pinned LiquidAI d1.1 addition; select `uniform,liquid-openrouter`.
 
 For the four-model OpenRouter example:
 
@@ -104,13 +104,13 @@ python3 -m decision_bench run \
   --limit 8 --max-requests 32 --out runs/openrouter-smoke
 ```
 
-This makes up to 32 paid calls. The report tested the original four models plus Liquid d1.1 through OpenRouter. Direct Baseten and live chat-adapter inference were not part of that comparison.
+This makes up to 32 paid calls. The report tested the original four models plus LiquidAI d1.1 through OpenRouter. Direct Baseten and live chat-adapter inference were not part of that comparison.
 
 ## Read the results
 
 `report.md` compares exact accuracy, probability error, confidence thresholds, and client round-trip latency. A confidence threshold retains decisions whose selected-label probability reaches the cutoff; coverage reports how many cases remain. `summary.json` contains task scores and paired outcomes. `results.jsonl` retains per-case responses locally. Run manifests record requested model IDs, dataset and code hashes, request order, and settings.
 
-Responses record the model ID returned by the provider; use a pinned release for comparisons over time. In the OpenRouter example, Jev latest follows a moving alias. To use the fixed releases in the dated report, add `--config models/expanded-2026-10-30.json`. Keep dataset, split, and model selections consistent with the comparison you intend to reproduce. The report used the default request-order seed of 42 and 30-second timeout. Repeat measurements can quantify variability, but do not count them as independent new cases.
+Responses record the model ID returned by the provider; use a pinned release for comparisons over time. In the OpenRouter example, TypeSafe Jev latest follows a moving alias. To use the fixed releases in the dated report, add `--config models/expanded-2026-10-30.json`. Keep dataset, split, and model selections consistent with the comparison you intend to reproduce. The report used the default request-order seed of 42 and 30-second timeout. Repeat measurements can quantify variability, but do not count them as independent new cases.
 
 Repeat the identical command with `--resume` after an interruption. Completed rows, including errors, are retained; retry errors in a new output directory.
 
