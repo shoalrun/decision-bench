@@ -1,0 +1,105 @@
+{
+  "report_date": "2026-11-02",
+  "scope": "New eight-model comparison on existing frozen code-behavior cases and reference formats; observed/public cases, not fresh blind generalization.",
+  "remote_call_cap": 13568,
+  "seed": 42,
+  "timeout_seconds": 30,
+  "config": "models/comparison-2026-11-02.json",
+  "config_sha256": "8d0a722c84a8c0aa35f166bd1f3adb62615df8d24c610f772ea7c54fd6e478aa",
+  "transport_sha256": "52fbc7dc2bca0aee1986c0aa0398907f25501ef131b05b7847c6258062304b21",
+  "python": "3.9.6",
+  "models": [
+    {
+      "name": "liquid-ultra",
+      "catalog_id": "liquid/d1-ultra",
+      "pinned_model": "liquid/d1-ultra-20261015",
+      "catalog_input_usd_per_million": 0.041999999999999996
+    },
+    {
+      "name": "perplexity-decider",
+      "catalog_id": "perplexity/pplx-decider-v1.2",
+      "pinned_model": "perplexity/pplx-decider-v1.2-20261016",
+      "catalog_input_usd_per_million": 0.02
+    },
+    {
+      "name": "perplexity-flash",
+      "catalog_id": "perplexity/pplx-decider-flash-v1.2",
+      "pinned_model": "perplexity/pplx-decider-flash-v1.2-20261016",
+      "catalog_input_usd_per_million": 0.01
+    },
+    {
+      "name": "respan-span-02",
+      "catalog_id": "respan/span-02",
+      "pinned_model": "respan/span-02-20261015",
+      "catalog_input_usd_per_million": 0.01
+    },
+    {
+      "name": "mercury-decide",
+      "catalog_id": "inception/mercury-decide",
+      "pinned_model": "inception/mercury-decide-20260930",
+      "catalog_input_usd_per_million": 0.02
+    },
+    {
+      "name": "drex-max",
+      "catalog_id": "nace-ai/drex-max",
+      "pinned_model": "nace-ai/drex-max-20261016",
+      "catalog_input_usd_per_million": 0.06
+    },
+    {
+      "name": "liquid-d1.1",
+      "catalog_id": "liquid/d1.1",
+      "pinned_model": "liquid/d1.1-20261027",
+      "catalog_input_usd_per_million": 0.02
+    },
+    {
+      "name": "mammoth",
+      "catalog_id": "baseten/mammoth-1",
+      "pinned_model": "baseten/mammoth-1-20261021",
+      "catalog_input_usd_per_million": 0.09999999999999999
+    }
+  ],
+  "runs": [
+    {
+      "dataset": "data/shoalrun-known-v1.json",
+      "split": "dev",
+      "out": "runs/comparison-2026-11-02-retrieval-dev",
+      "remote_calls": 384,
+      "unique_underlying_cases": 48
+    },
+    {
+      "dataset": "data/shoalrun-known-v1.json",
+      "split": "test",
+      "out": "runs/comparison-2026-11-02-retrieval-test",
+      "remote_calls": 384,
+      "unique_underlying_cases": 48
+    },
+    {
+      "dataset": "data/shoalrun-expanded-v1.json",
+      "split": "dev",
+      "out": "runs/comparison-2026-11-02-expanded-dev",
+      "remote_calls": 1600,
+      "unique_underlying_cases": 200
+    },
+    {
+      "dataset": "data/shoalrun-expanded-v1.json",
+      "split": "test",
+      "out": "runs/comparison-2026-11-02-expanded-test",
+      "remote_calls": 1600,
+      "unique_underlying_cases": 200
+    },
+    {
+      "dataset": "data/shoalrun-presentations-v1.json",
+      "split": "dev",
+      "out": "runs/comparison-2026-11-02-presentations-dev",
+      "remote_calls": 4800,
+      "unique_underlying_cases": 200
+    },
+    {
+      "dataset": "data/shoalrun-presentations-v1.json",
+      "split": "test",
+      "out": "runs/comparison-2026-11-02-presentations-test",
+      "remote_calls": 4800,
+      "unique_underlying_cases": 200
+    }
+  ]
+}

@@ -5,7 +5,7 @@ summary: Understand executable answers, the split, and deterministic grading.
 slug: /methodology
 type: explanation
 date: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-02
 access: { policy: public }
 ---
 
@@ -37,7 +37,7 @@ Published or already inspected cases are useful regression checks. Once they inf
 
 ## Deterministic execution
 
-The runner makes fresh, stateless requests in a reproducible order that mixes requests across models and formats, with fixed model identifiers and settings recorded in each run. It does not adapt prompts, generate cases, retry errors, or fall back to another model. Reports identify the dataset, model versions, settings, and number of calls used.
+The runner makes fresh, stateless requests in a reproducible order that mixes requests across models and formats, with fixed model identifiers and settings recorded in each run. It does not adapt prompts, generate cases, retry errors automatically, or fall back to another model. A report may include separately authorized retry passes for HTTP failures. Those attempts remain separate evidence: valid responses are never replaced, and retry-completed accuracy must be labeled alongside first-attempt failures. Retry pacing and timing are reported separately. Reports identify the dataset, model versions, settings, and number of calls used.
 
 Reproducible request construction does not imply identical provider outputs or network latency across runs. Provider behavior and availability can change.
 

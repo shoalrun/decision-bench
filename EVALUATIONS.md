@@ -249,3 +249,19 @@ At the user’s explicit request, Liquid d1.1 was added to the existing publishe
 The report uses Liquid’s complete Python rerun from `runs/liquid-python-{retrieval,expanded,presentations}-{dev,test}`. It matches the original four models’ Python 3.9.6/Darwin runtime, seed42, timeout30, and HTTP transport source. The prior Liquid curl evidence is preserved as `results/2026-10-30/liquid-curl.json`, excluded from current report tables/counts/costs. Never select the better response per case or pool the two runs. The current comparison has 8,480 calls/$0.410591359; archived curl adds 1,696 calls/$0.03820394, with preliminary checks excluded from both. Different execution times and provider/network load still affect latency; do not infer that the client caused differences between the two Liquid runs.
 
 The external-curl manifest includes selected `case_ids` and `request_hashes`, so the presentation analyzer can verify complete model/case identity. Use a new output directory per dataset/split and analyze the new model’s dev/test runs separately from old runs before combining public report tables.
+
+
+## November 2 comparison with recorded retry passes
+
+The eight-model configuration is `models/comparison-2026-11-02.json`; `analysis/comparison-2026-11-02.json` registers the datasets, caps, and execution settings. The new report retains October 30 unchanged. First passes contain 13,568 remote requests. The comparison includes a separate pass over 318 HTTP failures with a three-second pause between requests, followed by one final retry. No valid response was retried. All attempt evidence remains immutable under ignored `runs/` directories.
+
+Regenerate the sanitized evidence to a new output file:
+
+```sh
+python3 scripts/comparison_results.py \
+  --plan analysis/comparison-2026-11-02.json \
+  --retry-runs runs/comparison-2026-11-02-retry-1 runs/comparison-2026-11-02-retry-2 \
+  --out runs/november2-verified-summary.json
+```
+
+The analyzer checks exact original coverage, frozen request/answer/metadata identity, selected and returned model versions, ordered retry identity, source evidence hashes, runtime/settings, and bucket registration. It rejects replacing a valid response, skipping attempt numbers, or changing format metadata. Accuracy after retries and first-attempt delivery/latency are separate. All 13,568 decision slots ultimately have valid responses, but there were 13,887 attempts and 319 failed attempts whose billing is unknown. Known usage totals $0.530232194. Never infer a complete invoice or replace missing failed-attempt charges with zero. The fixed retry pause is outside each request’s measured latency; retry timings are excluded from the report’s first-pass latency column.

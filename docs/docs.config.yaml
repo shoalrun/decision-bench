@@ -34,6 +34,7 @@ navigation:
     label: Reports
     items:
       - { id: report-index, label: All reports, doc: reference.reports }
+      - { id: report-2026-11-02, label: 2 November 2026, doc: report.2026-11-02 }
       - { id: report-2026-10-30, label: 30 October 2026, doc: report.2026-10-30 }
       - { id: add-report, doc: guide.add-report }
   - id: questions

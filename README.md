@@ -93,10 +93,10 @@ Provider examples are separate from the general template:
 
 | Config | Purpose |
 |---|---|
-| `models/openrouter.example.json` | Joey, Mammoth, Elephant, and Jev latest via OpenRouter; `OPENROUTER_API_KEY`. |
-| `models/baseten.example.json` | Direct Baseten Joey; `BASETEN_API_KEY`. |
+| `models/openrouter.example.json` | Baseten Joey 1, Baseten Mammoth 1, Baseten Elephant 1, and TypeSafe Jev latest via OpenRouter; `OPENROUTER_API_KEY`. |
+| `models/baseten.example.json` | Direct Baseten Joey 1; `BASETEN_API_KEY`. |
 | `models/expanded-2026-10-30.json` | Fixed OpenRouter releases used in the dated report. |
-| `models/liquid-2026-10-30.json` | Fixed Liquid d1.1 release for the report’s model addition. |
+| `models/liquid-2026-10-30.json` | Fixed LiquidAI d1.1 release for the report’s model addition. |
 
 For the OpenRouter example:
 
@@ -111,7 +111,7 @@ This makes at most 32 remote calls. For all 48 default development cases, remove
 
 The example’s `jev-latest` entry follows OpenRouter’s `~typesafe/jev-latest` alias. Requested IDs and returned model IDs are recorded. Use a fixed release for comparisons over time; a deterministic runner cannot freeze a changing service.
 
-The reported live comparison used the System One adapter with Joey, Mammoth, Elephant, and Jev through OpenRouter. Direct Baseten and live chat inference were not part of it.
+The reported live comparison used the System One adapter with Baseten Joey 1, Baseten Mammoth 1, Baseten Elephant 1, and TypeSafe Jev 1.14 through OpenRouter. Direct Baseten and live chat inference were not part of it.
 
 ## Optional OpenRouter model discovery
 
@@ -174,7 +174,7 @@ Capture reads the exact TypeScript source and executes it using Node's built-in 
 
 Harness code and copied Shoalrun source/excerpts are Apache-2.0; see `LICENSE` and `NOTICE`.
 
-- [Baseten Joey API example](https://www.baseten.co/library/joey-1/)
+- [Baseten Joey 1 API example](https://www.baseten.co/library/joey-1/)
 - [OpenRouter model catalog contract](https://github.com/OpenRouterTeam/skills/blob/main/skills/openrouter-decisions/references/models.md)
 - [OpenRouter Decisions HTTP contract](https://github.com/OpenRouterTeam/skills/blob/main/skills/openrouter-decisions/scripts/lib.ts)
 

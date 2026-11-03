@@ -1,0 +1,134 @@
+---
+id: report.2026-11-02
+title: Eight decision models on executable rules
+summary: Compare accuracy, cost, reference formats, and delivery reliability across eight models.
+slug: /reports/2026-11-02
+type: explanation
+date: 2026-11-02
+updated: 2026-11-02
+access: { policy: draft }
+---
+
+**2 November 2026**
+
+**These tests predict source-code behavior, not documentation search or question answering.** Models receive frozen code or written rules and predict what the functions accept or return. Executing the code supplies the known answers.
+
+Perplexity Decider V1.2 was the strongest overall candidate in this workload when balancing accuracy, known usage cost, and observed delivery reliability. After recorded HTTP retries, it tied LiquidAI d1-ultra at **195/200 with written rules**. Nace.AI Drex Max had the highest source-only search/reader score at **191/200**, one answer ahead of Perplexity Decider V1.2. “Overall candidate” is our practical judgment, not a formal combined score or a general model ranking.
+
+## What we ran
+
+Eight pinned releases answered the same **496 unique cases**: 96 retrieval-configuration cases and 400 search/reader-filter cases. Each dataset has equal development and test splits. Development checks the evaluation setup; test measures results after settings are fixed. Neither trains the models. These are published, previously inspected cases, so the study compares models on a fixed workload rather than testing fresh blind generalization.
+
+`noul` means a yes/no question returning a probability; “yes” uses a 0.5 cutoff. `choice` selects one of four options. The retrieval test set contains 24 of each; search/reader tests contain 120 `noul` and 80 `choice`. The [question catalogs](doc:reference.expanded-cases), [retrieval development cases](doc:reference.questions-dev), and [retrieval test cases](doc:reference.questions-test) list exact inputs, options, and answers.
+
+All models used the same Python 3.9.6 client on Darwin, seed 42, and a 30-second timeout. Requests were sequential and interleaved across models in reproducible order. There were **13,568 first attempts**. HTTP failures received a separate 318-call retry pass with three-second spacing; one remaining HTTP 429 received one final attempt. **13,887 attempts produced 13,568 valid responses.** Original responses remain intact; valid answers, including wrong ones, were never retried or replaced.
+
+**Accuracy below uses the original valid response, otherwise its recorded retry.** Timings use only valid first-attempt responses, excluding failures and all retries. This avoids mixing requests executed under different pacing; the three-second pause itself is outside each measured request. Failures are shown separately below. The [methodology](doc:guide.methodology) defines the remaining metrics.
+
+## Source-only test results
+
+“Source-only” means the full frozen source module was supplied. The search/reader set contains 200 test cases; its timing and cost are shown here. Known usage cost is scaled to 1,000 completed cases and excludes unavailable charges for failed attempts.
+
+| Model | Retrieval correct | Search/readers correct | First-pass median | Known usage / 1,000 cases |
+|---|---:|---:|---:|---:|
+| Nace.AI Drex Max | 47/48 | 191/200 | 564 ms | $0.0903 |
+| Perplexity Decider V1.2 | 47/48 | 190/200 | 340 ms | $0.0300 |
+| Baseten Mammoth 1 | 48/48 | 187/200 | 462 ms | $0.1518 |
+| LiquidAI d1-ultra | 48/48 | 185/200 | 369 ms | $0.0655 |
+| LiquidAI d1.1 | 48/48 | 180/200 | 281 ms | $0.0312 |
+| Inception Mercury Decide | 47/48 | 174/200 | 471 ms | $0.0291 |
+| Respan Span-02 | 48/48 | 168/200 | 1185 ms | $0.0162 |
+| Perplexity Decider Flash V1.2 | 43/48 | 153/200 | 241 ms | $0.0150 |
+
+Nace.AI Drex Max’s one-answer advantage over Perplexity Decider V1.2 came from phrase matching: 35/40 versus 34/40. Perplexity Decider V1.2’s lower measured usage cost and first-pass median make it worth testing on representative workloads. Small timing differences can still reflect provider and network variation; these are observations from one run, not latency guarantees.
+
+### noul — yes/no tasks
+
+- **Synonym validation:** checking configured groups of equivalent search terms. Perplexity Decider V1.2, Nace.AI Drex Max, Baseten Mammoth 1, and LiquidAI d1.1 each scored 40/40.
+- **Phrase matching:** checking whether text contains a word or phrase under the source’s boundary and plural rules. Nace.AI Drex Max and LiquidAI d1-ultra led at 35/40; Perplexity Decider V1.2 scored 34/40.
+- **Reader selection:** checking page filter names and choices, such as audience or product. Seven models scored 36/40; Perplexity Decider Flash V1.2 scored 31/40. The shared misses show that this task still contains difficult source-level edge cases.
+
+### choice — four-option tasks
+
+- **Query decomposition:** splitting search text into word/phrase units with synonym alternatives. **All eight scored 40/40**, so these cases did not distinguish models. More varied cases would be needed before generalizing the cheapest models’ success.
+- **Reader defaults:** combining page-type defaults with explicit page filter settings. Nace.AI Drex Max, Perplexity Decider V1.2, Baseten Mammoth 1, and LiquidAI d1-ultra scored 40/40; LiquidAI d1.1 scored 32/40.
+
+## Complexity
+
+Buckets were registered from input and source structure before the model outputs were inspected. Low means local checks; medium adds cleanup or transformations; high combines rules or precedence. They are authored descriptions, not measured difficulty. Results here use the same 200 source-only tests.
+
+| Model | Low: 24 cases | Medium: 104 cases | High: 72 cases |
+|---|---:|---:|---:|
+| Nace.AI Drex Max | 24/24 | 99/104 | 68/72 |
+| Perplexity Decider V1.2 | 24/24 | 98/104 | 68/72 |
+| Baseten Mammoth 1 | 24/24 | 95/104 | 68/72 |
+| LiquidAI d1-ultra | 24/24 | 93/104 | 68/72 |
+| LiquidAI d1.1 | 24/24 | 96/104 | 60/72 |
+| Inception Mercury Decide | 24/24 | 83/104 | 67/72 |
+| Respan Span-02 | 24/24 | 85/104 | 59/72 |
+| Perplexity Decider Flash V1.2 | 21/24 | 72/104 | 60/72 |
+
+The low bucket contains only `noul` questions; medium contains 72 `noul` and 32 `choice`; high contains 24 `noul` and 48 `choice`. Task mix and source length vary with the buckets, so the table does not isolate complexity as the cause of a score difference.
+
+## Full source, focused code, and written rules
+
+The 400 search/reader cases were also repeated with three references:
+
+- **Full source:** the complete frozen TypeScript module, including unrelated declarations.
+- **Focused code:** only the relevant function and helpers, with type annotations removed. Execution matched full-source outcomes on all 400 cases.
+- **Written rules:** reviewed plain-English descriptions of function behavior, including relevant edge cases and errors. These were model inputs; correct answers still came from executing the source. The [exact rule contracts](https://github.com/shoalrun/decision-bench/blob/main/analysis/presentation-rules-v1.json) are available.
+
+Each column below uses the same 200 test cases: 120 `noul` and 80 `choice`. Only the reference text changes within this comparison. These are repeated views, not 600 independent questions per model.
+
+| Model | Full source | Focused code | Written rules |
+|---|---:|---:|---:|
+| Perplexity Decider V1.2 | 191/200 | 184/200 | 195/200 |
+| LiquidAI d1-ultra | 185/200 | 184/200 | 195/200 |
+| Nace.AI Drex Max | 191/200 | 178/200 | 194/200 |
+| Baseten Mammoth 1 | 185/200 | 188/200 | 192/200 |
+| Inception Mercury Decide | 177/200 | 179/200 | 189/200 |
+| LiquidAI d1.1 | 178/200 | 183/200 | 181/200 |
+| Respan Span-02 | 167/200 | 163/200 | 162/200 |
+| Perplexity Decider Flash V1.2 | 147/200 | 135/200 | 160/200 |
+
+**LiquidAI d1-ultra improved on LiquidAI d1.1 most clearly with written rules:** 195/200 versus 181/200, compared with 185/200 versus 180/200 on source-only questions. Its measured written-rule usage cost was about $0.0263 per 1,000 cases, versus $0.0125 for LiquidAI d1.1. Perplexity Decider V1.2 matched LiquidAI d1-ultra’s 195/200 at about $0.0125.
+
+Written rules helped selectively: Inception Mercury Decide rose from 177/200 with full source to 189/200 with rules, while Respan Span-02 fell from 167/200 to 162/200. Focused code also reduced several scores. Length and explicit runtime detail change together, so this does not prove English is inherently better than code. The separate source-only and presentation-study full-source conditions have different instructions and passage IDs; they are not identical-prompt repeats.
+
+## Delivery failures and retries
+
+Initial failures were **316 HTTP 429 rate-limit responses and two HTTP 503 service-unavailable responses**. HTTP status alone does not identify the underlying limit or its owner. The retry pass recovered 317 responses; the final explicitly requested call recovered the last one. No failures remain, but retries do not erase the original delivery record.
+
+| Model | First-attempt failures / 1,696 | Additional attempts |
+|---|---:|---:|
+| Perplexity Decider V1.2 | 0/1,696 | 0 |
+| LiquidAI d1-ultra | 7/1,696 | 7 |
+| Nace.AI Drex Max | 31/1,696 | 31 |
+| Baseten Mammoth 1 | 43/1,696 | 43 |
+| Inception Mercury Decide | 7/1,696 | 7 |
+| LiquidAI d1.1 | 0/1,696 | 0 |
+| Respan Span-02 | 0/1,696 | 0 |
+| Perplexity Decider Flash V1.2 | 230/1,696 | 231 |
+
+Perplexity Decider Flash V1.2 had 230 failures among its 600 first-attempt presentation-test requests. Its low delivered score before retries therefore mixed decision errors with unavailable responses. This report shows retry-completed accuracy and first-pass failures separately; it does not treat retries as ordinary single-request performance. First-pass latency uses different valid subsets where failures occurred, another reason to avoid overinterpreting small gaps.
+
+## What won across both reports?
+
+The [October 30 report](doc:report.2026-10-30) and this comparison cover **11 distinct model releases on the same 496 unique cases**. Repeated models and reference formats do not add new independent cases. October’s scores used valid first attempts; November’s figures below include the recorded HTTP retries. We keep the rounds separate rather than averaging them into one leaderboard.
+
+| Category | Candidate | What supports it |
+|---|---|---|
+| Overall starting point for this workload | **Perplexity Decider V1.2** | 190/200 source-only and 195/200 written rules; about 80% lower known usage cost than Baseten Mammoth 1 on those inputs, with no first-attempt HTTP failures in this run. |
+| Highest source-only score | **Nace.AI Drex Max** | 191/200, one answer ahead of Perplexity Decider V1.2, at roughly three times its known usage cost. That small margin needs more evidence. |
+| Highest written-rules score | **Perplexity Decider V1.2 and LiquidAI d1-ultra** | Both scored 195/200. Perplexity Decider V1.2’s known usage cost was roughly half LiquidAI d1-ultra’s. |
+| Consistent reference across rounds | **Baseten Mammoth 1** | 187/200 source-only and 192/200 written rules in both rounds. November’s delivery failures remain a separate consideration. |
+
+The practical shortlist starts with Perplexity Decider V1.2. LiquidAI d1-ultra and Baseten Mammoth 1 are useful accuracy references; Nace.AI Drex Max is worth exploring where its measured source-only advantage could justify the extra cost. Cheaper models still have narrow uses—every model in this round solved all 40 query-decomposition cases—but that saturated task does not establish a general budget winner. We have no controlled, repeated timing study that establishes an overall speed champion across dates.
+
+## Cost and reproduction
+
+Known provider-reported usage across successful responses totaled **$0.530232194**, covering 13,568 of 13,887 attempts. Costs for **319 failed attempts are unknown**; this is not a reconciled invoice or a complete billing total.
+
+The eight releases are pinned in `models/comparison-2026-11-02.json`. Workload settings are registered in `analysis/comparison-2026-11-02.json`; fixtures are the same three frozen datasets linked in [the run guide](doc:guide.run). [Sanitized evidence](https://github.com/shoalrun/decision-bench/blob/main/results/2026-11-02/summary.json) records both scoring views, first-pass timings, retry counts, model IDs, costs, structural buckets, and provenance hashes. Raw responses and credentials stay outside the public source.
+
+The main follow-up is fresh, representative cases and repeated measurements for the shortlisted models. This study supports task-specific exploration, not a general model leaderboard or a deployment routing policy.
